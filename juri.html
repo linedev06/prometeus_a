@@ -1,0 +1,909 @@
+<html lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Júri Simulado - The Verdict Lab
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Inter", sans-serif;
+      background-color: #000000;
+      color: #ffffff;
+      overscroll-behavior: none;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #111111;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #444444;
+      border-radius: 4px;
+      border: 2px solid #111111;
+    }
+    /* Smooth fade-in animation */
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    /* Pulse animation for active speaker */
+    .pulse {
+      animation: pulseGlow 2s infinite;
+      box-shadow: 0 0 8px 2px #0ea5e9;
+      border-color: #0ea5e9 !important;
+    }
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 8px 2px #0ea5e9;
+      }
+      50% {
+        box-shadow: 0 0 16px 4px #38bdf8;
+      }
+      100% {
+        box-shadow: 0 0 8px 2px #0ea5e9;
+      }
+    }
+    /* Video container */
+    .video-box {
+      background: #111111;
+      border: 2px solid #222222;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666666;
+      user-select: none;
+      background-color: black;
+    }
+    /* Video placeholder icon */
+    .video-box i {
+      font-size: 3rem;
+      color: #444444;
+    }
+    /* Tooltip */
+    [data-tooltip] {
+      position: relative;
+      cursor: default;
+    }
+    [data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0ea5e9;
+      color: #000;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+    [data-tooltip]:hover::after,
+    [data-tooltip]:focus::after {
+      opacity: 1;
+    }
+    /* Layout */
+    #app {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 100vw;
+      overflow: hidden;
+      height: 100%;
+    }
+    main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      overflow: hidden;
+      height: 100%;
+    }
+    /* Left panel: Vídeos dos Jurados */
+    #video-panel {
+      flex: 2;
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+      gap: 1rem;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+      border-right: 2px solid #222222;
+      height: 100%;
+    }
+    /* Right panel: Controle + Chat */
+    #control-chat-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      overflow: hidden;
+      height: 100%;
+      position: relative;
+    }
+    /* Controle */
+    #control-panel {
+      background: #111111;
+      border: 2px solid #222222;
+      border-radius: 1rem;
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-height: 220px;
+      color: #0ea5e9;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    #control-panel h2 {
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: #0ea5e9;
+    }
+    #control-panel button {
+      background: #0ea5e9;
+      color: black;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    #control-panel button:hover,
+    #control-panel button:focus {
+      background: #38bdf8;
+      outline: none;
+    }
+    #control-panel button:disabled {
+      background: #444444;
+      cursor: not-allowed;
+      color: #999999;
+    }
+    /* Chat */
+    #chat-panel {
+      background: #111111;
+      border: 2px solid #222222;
+      border-radius: 1rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+      color: #ccc;
+      position: relative;
+      transition: transform 0.3s ease;
+      z-index: 10;
+    }
+    #chat-panel.hidden {
+      transform: translateX(100%);
+      pointer-events: none;
+      opacity: 0;
+    }
+    #chat-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 2px solid #222222;
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: #0ea5e9;
+      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #chat-header button {
+      background: transparent;
+      border: none;
+      color: #0ea5e9;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+      transition: color 0.3s ease;
+    }
+    #chat-header button:hover,
+    #chat-header button:focus {
+      color: #38bdf8;
+      outline: none;
+    }
+    #chat-messages {
+      flex-grow: 1;
+      padding: 1rem 1.5rem;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
+    #chat-messages p {
+      margin-bottom: 0.75rem;
+      word-break: break-word;
+    }
+    #chat-messages p span {
+      font-weight: 600;
+      color: #0ea5e9;
+      margin-right: 0.3rem;
+    }
+    #chat-input-area {
+      border-top: 2px solid #222222;
+      padding: 0.75rem 1rem;
+      display: flex;
+      gap: 0.5rem;
+      background: #0a0a0a;
+    }
+    #chat-input {
+      flex-grow: 1;
+      background: #000000;
+      border: 1px solid #333333;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      color: white;
+      font-size: 1rem;
+      outline-offset: 2px;
+      resize: none;
+      height: 2.5rem;
+      font-family: "Inter", sans-serif;
+    }
+    #chat-input:focus {
+      border-color: #0ea5e9;
+      outline: none;
+    }
+    #chat-send-btn {
+      background: #0ea5e9;
+      border: none;
+      border-radius: 0.5rem;
+      color: black;
+      font-weight: 600;
+      padding: 0 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+    #chat-send-btn:hover,
+    #chat-send-btn:focus {
+      background: #38bdf8;
+      outline: none;
+    }
+    /* Juror video card */
+    .juror-card {
+      background: #111111;
+      border: 2px solid #222222;
+      border-radius: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.5rem;
+      user-select: none;
+      position: relative;
+      outline-offset: 2px;
+    }
+    .juror-card:focus-within,
+    .juror-card:focus {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 8px 2px #0ea5e9;
+      outline: none;
+    }
+    .juror-video {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: black;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #444444;
+    }
+    .juror-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: black;
+    }
+    .juror-video.no-video::before {
+      content: "\f03d";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-size: 3rem;
+      color: #444444;
+      user-select: none;
+    }
+    .juror-info {
+      margin-top: 0.5rem;
+      text-align: center;
+      color: #ccc;
+    }
+    .juror-info h3 {
+      font-weight: 600;
+      color: #0ea5e9;
+      margin-bottom: 0.15rem;
+    }
+    .juror-info p {
+      font-size: 0.8rem;
+      margin: 0;
+      color: #999999;
+    }
+    .status-icons {
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      color: #0ea5e9;
+    }
+    .status-icons i {
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+    .status-icons i.muted {
+      color: #777777;
+    }
+    /* Scrollbar for jurors panel */
+    #video-panel::-webkit-scrollbar {
+      width: 8px;
+    }
+    #video-panel::-webkit-scrollbar-track {
+      background: #111111;
+    }
+    #video-panel::-webkit-scrollbar-thumb {
+      background-color: #0ea5e9;
+      border-radius: 4px;
+      border: 2px solid #111111;
+    }
+    /* Scrollbar for chat messages */
+    #chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+    #chat-messages::-webkit-scrollbar-track {
+      background: #111111;
+    }
+    #chat-messages::-webkit-scrollbar-thumb {
+      background-color: #0ea5e9;
+      border-radius: 4px;
+      border: 1px solid #111111;
+    }
+    /* Botão para abrir/fechar chat no mobile */
+    #chat-toggle-btn {
+      display: none;
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #0ea5e9;
+      border: none;
+      border-radius: 50%;
+      width: 3.5rem;
+      height: 3.5rem;
+      color: black;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 20;
+      box-shadow: 0 0 10px #0ea5e9;
+      transition: background-color 0.3s ease;
+    }
+    #chat-toggle-btn:hover,
+    #chat-toggle-btn:focus {
+      background: #38bdf8;
+      outline: none;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      main {
+        flex-direction: column;
+      }
+      #video-panel {
+        grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
+        max-height: 40vh;
+        border-right: none;
+        border-bottom: 2px solid #222222;
+        padding-right: 0;
+        margin-bottom: 1rem;
+      }
+      #control-chat-panel {
+        flex-direction: column;
+        height: auto;
+        position: relative;
+      }
+      #control-panel {
+        max-height: none;
+      }
+      #chat-panel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 80vw;
+        max-width: 320px;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: -4px 0 12px rgba(14,165,233,0.7);
+        background: #111111;
+        transform: translateX(100%);
+        pointer-events: none;
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        z-index: 100;
+      }
+      #chat-panel.open {
+        transform: translateX(0);
+        pointer-events: auto;
+        opacity: 1;
+      }
+      #chat-toggle-btn {
+        display: block;
+      }
+    }
+  </style>
+ </head>
+ <body>
+  <header class="flex items-center justify-between bg-black border-b border-gray-800 px-6 py-0 select-none">
+   <div class="flex items-center space-x-3">
+    <img alt="" class="w-400 h-420 rounded-md" height="48" src="logo2.png" width="108"/>
+    <h1 class="text-3xl font-semibold tracking-wide text-0ea5e9 focus:outline-none" tabindex="0">
+
+    </h1>
+   </div>
+  </header>
+  <div id="app" role="main" aria-label="Aplicação de Júri Simulado">
+   <main>
+    <!-- Painel de vídeos dos jurados -->
+    <section id="video-panel" aria-label="Painel de vídeos dos jurados" tabindex="0">
+     <!-- Juror cards inseridos por JS -->
+    </section>
+    <!-- Painel de controle e chat -->
+    <section id="control-chat-panel" aria-label="Painel de controle e chat">
+     <section id="control-panel" aria-label="Painel de controle do moderador">
+      <h2>Controle do Moderador</h2>
+      <button aria-pressed="true" aria-label="Ativar ou desativar sua câmera" id="toggle-camera-btn" type="button">
+       <i class="fas fa-video"></i> Câmera Ligada
+      </button>
+      <button aria-pressed="true" aria-label="Ativar ou desativar seu microfone" id="toggle-mic-btn" type="button">
+       <i class="fas fa-microphone"></i> Microfone Ligado
+      </button>
+     </section>
+     <section id="chat-panel" aria-label="Chat de mensagens" class="hidden">
+      <header id="chat-header" tabindex="0">
+       Chat da Sala
+       <button aria-label="Fechar chat" id="chat-close-btn" type="button">
+        <i class="fas fa-times"></i>
+       </button>
+      </header>
+      <div id="chat-messages" role="log" aria-live="polite" aria-relevant="additions" tabindex="0"></div>
+      <form id="chat-form" aria-label="Enviar mensagem no chat" autocomplete="off" novalidate="">
+       <div id="chat-input-area">
+        <textarea aria-label="Mensagem do chat" id="chat-input" rows="1" placeholder="Digite sua mensagem..." required></textarea>
+        <button aria-label="Enviar mensagem" id="chat-send-btn" type="submit">
+         <i class="fas fa-paper-plane"></i>
+        </button>
+       </div>
+      </form>
+     </section>
+    </section>
+   </main>
+  </div>
+  <button aria-label="Abrir chat" id="chat-toggle-btn" type="button" title="Abrir chat">
+   <i class="fas fa-comments"></i>
+  </button>
+  <script>
+   (() => {
+    // Dados dos jurados
+    const jurados = [
+      {
+        id: "juror1",
+        nome: "Jurado 1",
+        idade: 34,
+        profissao: "Professor",
+        personalidade: "Analítico, detalhista, calmo sob pressão.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/adef74c9-0628-4894-eb0e-c4028e908fcb.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/d60b60c0-af93-4f4a-916b-f3dbb7b19727.jpg",
+        videoAtivo: true,
+        micAtivo: true,
+        ativo: true
+      },
+      {
+        id: "juror2",
+        nome: "Jurado 2",
+        idade: 45,
+        profissao: "Engenheiro",
+        personalidade: "Pragmático, lógico, valoriza evidências.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/9faabf45-8fce-4bd3-eada-f6d74c3c4c31.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/ff10612b-8cea-4eaf-8996-59feab5eb509.jpg",
+        videoAtivo: false,
+        micAtivo: false,
+        ativo: true
+      },
+      {
+        id: "juror3",
+        nome: "Jurado 3",
+        idade: 29,
+        profissao: "Artista",
+        personalidade: "Empático, intuitivo, sensível a emoções.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/f2787ffe-10fa-4baf-4a7c-dec5bbf482f6.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/10e603b0-965e-4836-3372-7685cbfa7607.jpg",
+        videoAtivo: true,
+        micAtivo: true,
+        ativo: true
+      },
+      {
+        id: "juror4",
+        nome: "Jurado 4",
+        idade: 52,
+        profissao: "Advogado",
+        personalidade: "Assertivo, confiante, habilidoso em argumentação.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/fa5ced9d-64f4-49c1-a0ad-4e1292261f10.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/88c3a12e-5ea1-4005-a5ac-63b95fadf044.jpg",
+        videoAtivo: false,
+        micAtivo: false,
+        ativo: true
+      },
+      {
+        id: "juror5",
+        nome: "Jurado 5",
+        idade: 38,
+        profissao: "Enfermeiro",
+        personalidade: "Compassivo, paciente, atento ao sofrimento.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/04167a99-2aa3-4c66-7972-7d09b697dece.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/a31bc47f-15a9-4d90-3c26-d7ddb626d1f7.jpg",
+        videoAtivo: true,
+        micAtivo: true,
+        ativo: true
+      },
+      {
+        id: "juror6",
+        nome: "Jurado 6",
+        idade: 41,
+        profissao: "Contador",
+        personalidade: "Metódico, preciso, valoriza ordem e clareza.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/e0429a87-f96f-4543-334c-ad0d50bf43f9.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/5aafa575-f7f1-449f-eec9-75b8abac37de.jpg",
+        videoAtivo: false,
+        micAtivo: false,
+        ativo: true
+      },
+      {
+        id: "juror7",
+        nome: "Jurado 7",
+        idade: 27,
+        profissao: "Jornalista",
+        personalidade: "Inquisitivo, cético, busca a verdade.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/ab5689a2-e70e-4671-cd6c-f4affcf1ecd6.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/02a4d636-4ac5-4ca7-f89d-46027be5558b.jpg",
+        videoAtivo: true,
+        micAtivo: true,
+        ativo: true
+      },
+      {
+        id: "juror8",
+        nome: "Jurado 8",
+        idade: 50,
+        profissao: "Militar Aposentado",
+        personalidade: "Disciplinado, estrategista, valoriza justiça.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/36a84104-1509-4390-f3e0-3703ffccb4a2.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/a4840a96-ac64-40a7-aded-c0aaed06b7da.jpg",
+        videoAtivo: false,
+        micAtivo: false,
+        ativo: true
+      },
+      {
+        id: "juror9",
+        nome: "Jurado 9",
+        idade: 33,
+        profissao: "Desenvolvedor de Software",
+        personalidade: "Analítico, lógico, gosta de resolver problemas.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/48291f24-b82a-4e68-e4c3-675e0b166f51.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/5fd309c8-6013-4780-926a-7d1aa3a0d57e.jpg",
+        videoAtivo: false,
+        micAtivo: false,
+        ativo: true
+      },
+      {
+        id: "juror10",
+        nome: "Jurado 10",
+        idade: 44,
+        profissao: "Chef",
+        personalidade: "Criativo, intuitivo, pensa fora da caixa.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/5c89e8ac-991c-4a2f-ab7d-a21718dbbe9d.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/8bdd8a2b-1ebc-4dc8-1f1e-cd62f618cfd9.jpg",
+        videoAtivo: true,
+        micAtivo: true,
+        ativo: true
+      },
+      {
+        id: "juror11",
+        nome: "Jurado 11",
+        idade: 36,
+        profissao: "Policial",
+        personalidade: "Observador, focado em detalhes, experiente.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/ef38d699-3ea3-494a-7a2f-e172a773f956.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/070a4fa8-523d-412e-2afd-1480af754920.jpg",
+        videoAtivo: false,
+        micAtivo: false,
+        ativo: true
+      },
+      {
+        id: "juror12",
+        nome: "Jurado 12",
+        idade: 31,
+        profissao: "Psicólogo",
+        personalidade: "Perspicaz, empático, analisa comportamento humano.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/8e60f8b2-2e1c-4435-7e8c-4b2db891c5a5.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/fa8418c3-8fac-46fb-aa0a-15804e96aa80.jpg",
+        videoAtivo: true,
+        micAtivo: true,
+        ativo: true
+      },
+      {
+        id: "juror13",
+        nome: "Jurado 13",
+        idade: 48,
+        profissao: "Arquiteto",
+        personalidade: "Visionário, criativo, estrategista.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/51a79032-c7f4-4802-e82e-09885e758782.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/0e8f2dec-83c4-43c4-0976-3fe298fbd55d.jpg",
+        videoAtivo: false,
+        micAtivo: false,
+        ativo: true
+      },
+      {
+        id: "juror14",
+        nome: "Jurado 14",
+        idade: 39,
+        profissao: "Economista",
+        personalidade: "Analítico, orientado a dados, lógico.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/7528c97d-ce13-4eb1-4fc5-c162df196379.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/a3c1c0e7-b325-479e-63e1-74360b56d8b9.jpg",
+        videoAtivo: false,
+        micAtivo: false,
+        ativo: true
+      },
+      {
+        id: "juror15",
+        nome: "Jurado 15",
+        idade: 42,
+        profissao: "Professor",
+        personalidade: "Paciente, calmo, cuidadoso.",
+        videoSrc: "https://storage.googleapis.com/a1aa/image/e41cef2d-c146-4502-98ee-5d162914a0d9.jpg",
+        foto: "https://storage.googleapis.com/a1aa/image/adf9fee7-34f5-4108-3662-b33da3384404.jpg",
+        videoAtivo: true,
+        micAtivo: true,
+        ativo: true
+      }
+    ];
+
+    // Estado do moderador
+    let moderadorCameraAtiva = true;
+    let moderadorMicrofoneAtivo = true;
+
+    // Referências DOM
+    const videoPanel = document.getElementById("video-panel");
+    const toggleCameraBtn = document.getElementById("toggle-camera-btn");
+    const toggleMicBtn = document.getElementById("toggle-mic-btn");
+    const chatMessages = document.getElementById("chat-messages");
+    const chatForm = document.getElementById("chat-form");
+    const chatInput = document.getElementById("chat-input");
+    const chatPanel = document.getElementById("chat-panel");
+    const chatToggleBtn = document.getElementById("chat-toggle-btn");
+    const chatCloseBtn = document.getElementById("chat-close-btn");
+
+    // Função para criar o card de jurado
+    function criarCardJuror(juror) {
+      const card = document.createElement("article");
+      card.className = "juror-card";
+      card.id = juror.id;
+      card.tabIndex = 0;
+      card.setAttribute("aria-label", `${juror.nome}, ${juror.idade} anos, ${juror.profissao}, personalidade: ${juror.personalidade}`);
+
+      // Container do vídeo
+      const videoContainer = document.createElement("div");
+      videoContainer.className = "juror-video";
+      if (!juror.videoAtivo) videoContainer.classList.add("no-video");
+
+      // Video element or placeholder
+      if (juror.videoAtivo) {
+        const video = document.createElement("img");
+        video.src = juror.videoSrc;
+        video.alt = `Vídeo ao vivo de ${juror.nome}, ${juror.idade} anos, ${juror.profissao}`;
+        video.loading = "lazy";
+        video.style.width = "100%";
+        video.style.height = "100%";
+        video.style.objectFit = "cover";
+        videoContainer.appendChild(video);
+      } else {
+        const icon = document.createElement("i");
+        icon.className = "fas fa-video-slash";
+        icon.setAttribute("aria-hidden", "true");
+        videoContainer.appendChild(icon);
+      }
+
+      card.appendChild(videoContainer);
+
+      // Info jurado
+      const info = document.createElement("div");
+      info.className = "juror-info";
+      info.innerHTML = `
+        <h3>${juror.nome}</h3>
+        <p>Idade: ${juror.idade}</p>
+        <p>Profissão: ${juror.profissao}</p>
+        <p><em>Personalidade: ${juror.personalidade}</em></p>
+      `;
+      card.appendChild(info);
+
+      // Status de vídeo e microfone
+      const status = document.createElement("div");
+      status.className = "status-icons";
+
+      // Ícone vídeo
+      const videoIcon = document.createElement("i");
+      videoIcon.className = juror.videoAtivo ? "fas fa-video" : "fas fa-video-slash muted";
+      videoIcon.setAttribute("data-tooltip", juror.videoAtivo ? "Vídeo ligado" : "Vídeo desligado");
+      videoIcon.setAttribute("tabindex", "0");
+      videoIcon.setAttribute("role", "img");
+      videoIcon.setAttribute("aria-label", juror.videoAtivo ? "Vídeo ligado" : "Vídeo desligado");
+      status.appendChild(videoIcon);
+
+      // Ícone microfone
+      const micIcon = document.createElement("i");
+      micIcon.className = juror.micAtivo ? "fas fa-microphone" : "fas fa-microphone-slash muted";
+      micIcon.setAttribute("data-tooltip", juror.micAtivo ? "Microfone ligado" : "Microfone desligado");
+      micIcon.setAttribute("tabindex", "0");
+      micIcon.setAttribute("role", "img");
+      micIcon.setAttribute("aria-label", juror.micAtivo ? "Microfone ligado" : "Microfone desligado");
+      status.appendChild(micIcon);
+
+      card.appendChild(status);
+
+      return card;
+    }
+
+    // Renderiza todos os jurados
+    function renderizarJurados() {
+      videoPanel.innerHTML = "";
+      jurados.forEach((juror) => {
+        if (juror.ativo) {
+          const card = criarCardJuror(juror);
+          videoPanel.appendChild(card);
+        }
+      });
+    }
+
+    // Atualiza botão do moderador
+    function atualizarBotoesModerador() {
+      toggleCameraBtn.setAttribute("aria-pressed", moderadorCameraAtiva);
+      toggleMicBtn.setAttribute("aria-pressed", moderadorMicrofoneAtivo);
+      toggleCameraBtn.innerHTML = moderadorCameraAtiva
+        ? '<i class="fas fa-video"></i> Câmera Ligada'
+        : '<i class="fas fa-video-slash"></i> Câmera Desligada';
+      toggleMicBtn.innerHTML = moderadorMicrofoneAtivo
+        ? '<i class="fas fa-microphone"></i> Microfone Ligado'
+        : '<i class="fas fa-microfone-slash"></i> Microfone Desligado';
+    }
+
+    // Função para alternar câmera do moderador
+    function alternarCameraModerador() {
+      moderadorCameraAtiva = !moderadorCameraAtiva;
+      atualizarBotoesModerador();
+      // Atualiza o card do moderador (assumindo juror1 é moderador)
+      const moderador = jurados.find((j) => j.id === "juror1");
+      if (moderador) {
+        moderador.videoAtivo = moderadorCameraAtiva;
+        renderizarJurados();
+      }
+    }
+
+    // Função para alternar microfone do moderador
+    function alternarMicrofoneModerador() {
+      moderadorMicrofoneAtivo = !moderadorMicrofoneAtivo;
+      atualizarBotoesModerador();
+      // Atualiza o card do moderador (assumindo juror1 é moderador)
+      const moderador = jurados.find((j) => j.id === "juror1");
+      if (moderador) {
+        moderador.micAtivo = moderadorMicrofoneAtivo;
+        renderizarJurados();
+      }
+    }
+
+    // Função para enviar mensagem no chat
+    function enviarMensagem(mensagem, remetente = "Moderador") {
+      if (!mensagem.trim()) return;
+      const p = document.createElement("p");
+      p.innerHTML = `<span>${remetente}:</span> ${mensagem.trim()}`;
+      chatMessages.appendChild(p);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Função para abrir/fechar chat no mobile
+    function toggleChat() {
+      const isOpen = chatPanel.classList.contains("open");
+      if (isOpen) {
+        chatPanel.classList.remove("open");
+        chatPanel.classList.add("hidden");
+        chatToggleBtn.setAttribute("aria-label", "Abrir chat");
+        chatToggleBtn.title = "Abrir chat";
+      } else {
+        chatPanel.classList.remove("hidden");
+        chatPanel.classList.add("open");
+        chatToggleBtn.setAttribute("aria-label", "Fechar chat");
+        chatToggleBtn.title = "Fechar chat";
+      }
+    }
+
+    // Inicialização
+    function init() {
+      renderizarJurados();
+      atualizarBotoesModerador();
+
+      toggleCameraBtn.addEventListener("click", () => {
+        alternarCameraModerador();
+      });
+      toggleMicBtn.addEventListener("click", () => {
+        alternarMicrofoneModerador();
+      });
+
+      chatForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const msg = chatInput.value;
+        if (msg.trim() === "") return;
+        enviarMensagem(msg, "Moderador");
+        chatInput.value = "";
+        chatInput.focus();
+      });
+
+      chatToggleBtn.addEventListener("click", () => {
+        toggleChat();
+      });
+
+      chatCloseBtn.addEventListener("click", () => {
+        toggleChat();
+      });
+
+      // On desktop, chat always visible
+      function ajustarVisibilidadeChat() {
+        if (window.innerWidth > 1024) {
+          chatPanel.classList.remove("hidden", "open");
+          chatToggleBtn.style.display = "none";
+        } else {
+          chatPanel.classList.add("hidden");
+          chatPanel.classList.remove("open");
+          chatToggleBtn.style.display = "block";
+          chatToggleBtn.setAttribute("aria-label", "Abrir chat");
+          chatToggleBtn.title = "Abrir chat";
+        }
+      }
+      ajustarVisibilidadeChat();
+      window.addEventListener("resize", ajustarVisibilidadeChat);
+    }
+
+    // Executa init após DOM carregado
+    document.addEventListener("DOMContentLoaded", init);
+  })();
+  </script>
+ </body>
+</html>

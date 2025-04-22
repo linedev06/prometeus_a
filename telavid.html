@@ -1,0 +1,1047 @@
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prometeus - Reprodução de Vídeo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Montserrat", sans-serif;
+      background-color: #000000;
+      color: #ffffff;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #111111;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #ffffff;
+      border-radius: 10px;
+      border: 2px solid #111111;
+    }
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation-fill-mode: forwards;
+      animation-name: fadeInUp;
+      animation-duration: 0.8s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .scale-up {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .scale-up:hover {
+      transform: scale(1.05);
+    }
+    .btn-animate {
+      transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-animate:hover {
+      background-color: #ffffff;
+      color: #000000;
+    }
+    /* Custom scrollbar for video description */
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: #111111;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background-color: #555555;
+      border-radius: 10px;
+    }
+    /* Video controls custom styling */
+    .video-container {
+      position: relative;
+      background: #000;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(255, 29, 72, 0.8);
+      animation: glowPulse 3s ease-in-out infinite alternate;
+    }
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 15px rgba(255, 29, 72, 0.6);
+      }
+      100% {
+        box-shadow: 0 0 30px rgba(255, 29, 72, 1);
+      }
+    }
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: black;
+      border-radius: 0.5rem;
+      filter: drop-shadow(0 0 5px rgba(255, 29, 72, 0.7));
+      transition: filter 0.3s ease;
+    }
+    video:focus {
+      outline: 2px solid #e11d48;
+      outline-offset: 4px;
+      filter: drop-shadow(0 0 10px rgba(255, 29, 72, 1));
+    }
+    /* Controls bar */
+    .controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      gap: 1rem;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(255, 29, 72, 0.5);
+    }
+    .video-container:hover .controls,
+    .controls.show {
+      opacity: 1;
+    }
+    .controls.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .progress-bar {
+      flex-grow: 1;
+      height: 6px;
+      background: #222;
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+      box-shadow: inset 0 0 5px rgba(255, 29, 72, 0.7);
+      transition: background-color 0.3s ease;
+    }
+    .progress-bar:hover {
+      background: #333;
+    }
+    .progress-filled {
+      background: #e11d48; /* red-600 */
+      height: 100%;
+      width: 0%;
+      border-radius: 3px;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px #e11d48;
+    }
+    .time {
+      font-size: 0.875rem;
+      min-width: 50px;
+      text-align: center;
+      user-select: none;
+      font-variant-numeric: tabular-nums;
+      color: #f87171;
+      text-shadow: 0 0 3px rgba(255, 29, 72, 0.8);
+    }
+    .control-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.2s ease;
+      filter: drop-shadow(0 0 3px rgba(255, 29, 72, 0.8));
+    }
+    .control-btn:hover,
+    .control-btn:focus {
+      color: #e11d48;
+      outline: none;
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 8px #e11d48);
+    }
+    /* Sidebar related videos */
+    .related-video {
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      background: #111;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      will-change: transform;
+    }
+    .related-video:hover,
+    .related-video:focus {
+      transform: scale(1.07) translateX(5px);
+      outline: none;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+      z-index: 10;
+    }
+    .related-video img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 2px solid #e11d48;
+      transition: transform 0.3s ease;
+    }
+    .related-video:hover img,
+    .related-video:focus img {
+      transform: scale(1.1);
+    }
+    .related-video-title {
+      padding: 0.5rem 0.75rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #eee;
+      line-height: 1.3;
+      height: 3.6rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      transition: color 0.3s ease;
+    }
+    /* Scrollbar for related videos */
+    .related-videos-scroll {
+      max-height: 80vh;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #555 #111;
+      padding-right: 0.5rem;
+    }
+    .related-videos-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .related-videos-scroll::-webkit-scrollbar-track {
+      background: #111;
+    }
+    .related-videos-scroll::-webkit-scrollbar-thumb {
+      background-color: #555;
+      border-radius: 10px;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      main {
+        grid-template-columns: 1fr !important;
+      }
+      .related-videos-scroll {
+        max-height: 300px;
+        margin-top: 2rem;
+      }
+      .related-video img {
+        height: 80px;
+      }
+    }
+    @media (max-width: 640px) {
+      .control-btn {
+        font-size: 1.2rem;
+      }
+      .time {
+        min-width: 40px;
+        font-size: 0.75rem;
+      }
+      .related-video-title {
+        font-size: 0.85rem;
+        height: 3rem;
+      }
+    }
+    /* Button ripple effect */
+    .btn-animate {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-animate::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 10.01%);
+      background-repeat: no-repeat;
+      background-position: 50%;
+      transform: scale(10);
+      opacity: 0;
+      transition: transform 0.5s, opacity 1s;
+    }
+    .btn-animate:active::after {
+      transform: scale(0);
+      opacity: 0.3;
+      transition: 0s;
+    }
+    /* Hamburger animation */
+    #menu-btn {
+      position: relative;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #menu-btn span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: 4px 2px;
+    }
+    #menu-btn.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    #menu-btn.open span:nth-child(2) {
+      opacity: 0;
+    }
+    #menu-btn.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+    /* Mobile menu slide down */
+    #mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #mobile-menu.open {
+      max-height: 500px; /* enough to show all menu items */
+    }
+    /* Smooth fade for mobile menu links */
+    #mobile-menu a {
+      opacity: 0;
+      transform: translateY(-10px);
+      animation-fill-mode: forwards;
+      animation-name: fadeInDown;
+      animation-duration: 0.5s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #mobile-menu.open a {
+      animation-play-state: running;
+    }
+    #mobile-menu a:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    #mobile-menu a:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    #mobile-menu a:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+    #mobile-menu a:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+    #mobile-menu a:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+    @keyframes fadeInDown {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Focus outlines for accessibility */
+    a:focus,
+    button:focus {
+      outline: 2px solid #f87171; /* red-400 */
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body class="bg-black text-white flex flex-col min-h-screen">
+  <!-- Navbar -->
+  <nav
+    class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-90 backdrop-blur-md border-b border-gray-700 shadow-lg"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        class="flex items-center justify-between h-16"
+        role="navigation"
+        aria-label="Menu principal"
+      >
+        <a
+          href="index.html"
+          class="text-white font-extrabold text-2xl select-none tracking-wide"
+          tabindex="0"
+          aria-label="Voltar para a página inicial Prometeus"
+          >Prometeus</a
+        >
+        <div class="hidden md:flex space-x-8 text-white font-semibold">
+          <a
+            href="youpro.html"
+            class="hover:text-red-600 transition-colors duration-300 flex items-center space-x-1"
+            tabindex="0"
+            ><i class="fas fa-home" aria-hidden="true"></i><span>Início</span></a
+          >
+          <a
+            href="index.html#videos"
+            class="hover:text-red-600 transition-colors duration-300 flex items-center space-x-1"
+            tabindex="0"
+            ><i class="fas fa-video" aria-hidden="true"></i><span>Vídeos</span></a
+          >
+          <a
+            href="index.html#categories"
+            class="hover:text-red-600 transition-colors duration-300 flex items-center space-x-1"
+            tabindex="0"
+            ><i class="fas fa-th-large" aria-hidden="true"></i><span>Categorias</span></a
+          >
+          <a
+            href="index.html#about"
+            class="hover:text-red-600 transition-colors duration-300 flex items-center space-x-1"
+            tabindex="0"
+            ><i class="fas fa-info-circle" aria-hidden="true"></i><span>Sobre</span></a
+          >
+          <a
+            href="index.html#contact"
+            class="hover:text-red-600 transition-colors duration-300 flex items-center space-x-1"
+            tabindex="0"
+            ><i class="fas fa-envelope" aria-hidden="true"></i><span>Contato</span></a
+          >
+        </div>
+        <div class="md:hidden">
+          <button
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            class="text-white focus:outline-none focus:ring-2 focus:ring-red-600"
+            id="menu-btn"
+            type="button"
+            tabindex="0"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="hidden md:hidden bg-black border-t border-gray-700 overflow-hidden max-h-0"
+      id="mobile-menu"
+      role="menu"
+      aria-hidden="true"
+    >
+      <a
+        href="index.html#home"
+        class="block px-4 py-3 text-white hover:bg-gray-900 transition-colors duration-300 flex items-center space-x-2"
+        role="menuitem"
+        tabindex="-1"
+        ><i class="fas fa-home" aria-hidden="true"></i><span>Início</span></a
+      >
+      <a
+        href="index.html#videos"
+        class="block px-4 py-3 text-white hover:bg-gray-900 transition-colors duration-300 flex items-center space-x-2"
+        role="menuitem"
+        tabindex="-1"
+        ><i class="fas fa-video" aria-hidden="true"></i><span>Vídeos</span></a
+      >
+      <a
+        href="index.html#categories"
+        class="block px-4 py-3 text-white hover:bg-gray-900 transition-colors duration-300 flex items-center space-x-2"
+        role="menuitem"
+        tabindex="-1"
+        ><i class="fas fa-th-large" aria-hidden="true"></i><span>Categorias</span></a
+      >
+      <a
+        href="index.html#about"
+        class="block px-4 py-3 text-white hover:bg-gray-900 transition-colors duration-300 flex items-center space-x-2"
+        role="menuitem"
+        tabindex="-1"
+        ><i class="fas fa-info-circle" aria-hidden="true"></i><span>Sobre</span></a
+      >
+      <a
+        href="index.html#contact"
+        class="block px-4 py-3 text-white hover:bg-gray-900 transition-colors duration-300 flex items-center space-x-2"
+        role="menuitem"
+        tabindex="-1"
+        ><i class="fas fa-envelope" aria-hidden="true"></i><span>Contato</span></a
+      >
+    </div>
+  </nav>
+
+  <main
+    class="flex-grow max-w-7xl mx-auto px-6 sm:px-12 pt-24 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-10"
+  >
+    <!-- Video Player Section -->
+    <section
+      class="lg:col-span-8 flex flex-col space-y-6 fade-in animate-fadeInUp"
+      style="animation-delay: 0.2s;"
+    >
+      <div
+        class="video-container relative rounded-xl shadow-2xl"
+        id="video-container"
+        tabindex="0"
+        aria-label="Player de vídeo do Prometeus"
+      >
+        <video
+          id="video-player"
+          src="https://storage.googleapis.com/a1aa/video/sample-legal-video.mp4"
+          poster="https://placehold.co/1280x720/000000/ffffff/png-clipart-legal-law-justice-icon.png"
+          preload="metadata"
+          tabindex="0"
+          controlslist="nodownload"
+          aria-describedby="video-title video-description"
+        >
+          Seu navegador não suporta o elemento de vídeo.
+        </video>
+        <div
+          class="controls hidden"
+          id="video-controls"
+          aria-label="Controles do vídeo"
+          role="region"
+        >
+          <button
+            id="play-pause"
+            class="control-btn"
+            aria-label="Reproduzir vídeo"
+            title="Reproduzir/Pausar"
+            tabindex="0"
+          >
+            <i class="fas fa-play"></i>
+          </button>
+          <div
+            class="progress-bar"
+            id="progress-bar"
+            aria-label="Barra de progresso do vídeo"
+            role="slider"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            tabindex="0"
+          >
+            <div class="progress-filled" id="progress-filled"></div>
+          </div>
+          <div
+            class="time"
+            id="current-time"
+            aria-live="off"
+            aria-atomic="true"
+            tabindex="0"
+          >
+            0:00
+          </div>
+          <div
+            class="time"
+            id="duration"
+            aria-live="off"
+            aria-atomic="true"
+            tabindex="0"
+          >
+            0:00
+          </div>
+          <button
+            id="mute-unmute"
+            class="control-btn"
+            aria-label="Ativar/desativar som"
+            title="Ativar/Desativar som"
+            tabindex="0"
+          >
+            <i class="fas fa-volume-up"></i>
+          </button>
+          <button
+            id="fullscreen-btn"
+            class="control-btn"
+            aria-label="Alternar tela cheia"
+            title="Tela cheia"
+            tabindex="0"
+          >
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+      </div>
+      <h1
+        class="text-2xl font-extrabold mt-4 tracking-wide"
+        id="video-title"
+        tabindex="0"
+      >
+        Direito Constitucional: Introdução
+      </h1>
+      <div
+        class="text-gray-400 text-sm max-h-48 overflow-y-auto scrollbar-thin leading-relaxed px-2 rounded-md border border-gray-700 bg-black/50 backdrop-blur-sm"
+        id="video-description"
+        tabindex="0"
+        aria-label="Descrição do vídeo"
+      >
+        <p>
+          Neste vídeo, você vai entender os fundamentos do Direito Constitucional,
+          com exemplos práticos e explicações claras para aprimorar seu
+          conhecimento jurídico.
+        </p>
+      </div>
+      <div class="flex items-center space-x-6 mt-4">
+        <button
+          id="like-btn"
+          class="flex items-center space-x-2 btn-animate bg-gray-900 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 shadow-lg shadow-red-700/50"
+          aria-pressed="false"
+          aria-label="Curtir vídeo"
+          tabindex="0"
+        >
+          <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+          <span id="like-count">123</span>
+        </button>
+        <button
+          id="dislike-btn"
+          class="flex items-center space-x-2 btn-animate bg-gray-900 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 shadow-lg shadow-red-700/50"
+          aria-pressed="false"
+          aria-label="Não curtir vídeo"
+          tabindex="0"
+        >
+          <i class="fas fa-thumbs-down" aria-hidden="true"></i>
+          <span id="dislike-count">4</span>
+        </button>
+        <button
+          id="share-btn"
+          class="flex items-center space-x-2 btn-animate bg-gray-900 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 shadow-lg shadow-red-700/50"
+          aria-label="Compartilhar vídeo"
+          tabindex="0"
+        >
+          <i class="fas fa-share-alt" aria-hidden="true"></i>
+          <span>Compartilhar</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Related Videos Sidebar -->
+    <aside
+      class="lg:col-span-4 fade-in related-videos-scroll animate-fadeInUp"
+      style="animation-delay: 0.3s;"
+      aria-label="Vídeos relacionados"
+      tabindex="0"
+    >
+      <h2 class="text-xl font-extrabold mb-6 tracking-wide">Vídeos Relacionados</h2>
+      <div class="space-y-4">
+        <article
+          class="related-video focus:outline-none"
+          tabindex="0"
+          role="link"
+          aria-label="Direito Penal: Crimes e Penas"
+          data-video-src="https://storage.googleapis.com/a1aa/video/sample-legal-video2.mp4"
+          data-video-title="Direito Penal: Crimes e Penas"
+          data-video-description="Conheça os principais crimes e suas respectivas penas no Brasil."
+        >
+          <img
+            src="https://storage.googleapis.com/a1aa/image/0d283a2e-6146-4c7f-a5f3-b1084d3f1ff1.jpg"
+            alt="Direito Penal com balança da justiça e martelo de juiz em fundo preto"
+            loading="lazy"
+          />
+          <div class="related-video-title">Direito Penal: Crimes e Penas</div>
+        </article>
+        <article
+          class="related-video focus:outline-none"
+          tabindex="0"
+          role="link"
+          aria-label="Direito Civil: Contratos e Obrigações"
+          data-video-src="https://storage.googleapis.com/a1aa/video/sample-legal-video3.mp4"
+          data-video-title="Direito Civil: Contratos e Obrigações"
+          data-video-description="Aprenda sobre contratos, obrigações e direitos civis essenciais."
+        >
+          <img
+            src="https://storage.googleapis.com/a1aa/image/0f6b3621-3e3c-4989-2b34-d105310806f5.jpg"
+            alt="Direito Civil com documentos e caneta em fundo preto"
+            loading="lazy"
+          />
+          <div class="related-video-title">Direito Civil: Contratos e Obrigações</div>
+        </article>
+        <article
+          class="related-video focus:outline-none"
+          tabindex="0"
+          role="link"
+          aria-label="Direito Trabalhista: Direitos do Trabalhador"
+          data-video-src="https://storage.googleapis.com/a1aa/video/sample-legal-video4.mp4"
+          data-video-title="Direito Trabalhista: Direitos do Trabalhador"
+          data-video-description="Saiba mais sobre os direitos trabalhistas e como aplicá-los."
+        >
+          <img
+            src="https://storage.googleapis.com/a1aa/image/0a8e12e6-ffb4-4778-65d0-5b6336ed5c9d.jpg"
+            alt="Direito Trabalhista com capacete e documentos em fundo preto"
+            loading="lazy"
+          />
+          <div class="related-video-title">Direito Trabalhista: Direitos do Trabalhador</div>
+        </article>
+        <article
+          class="related-video focus:outline-none"
+          tabindex="0"
+          role="link"
+          aria-label="Direito Empresarial: Sociedades e Contratos"
+          data-video-src="https://storage.googleapis.com/a1aa/video/sample-legal-video5.mp4"
+          data-video-title="Direito Empresarial: Sociedades e Contratos"
+          data-video-description="Explore os aspectos legais das sociedades empresariais e contratos."
+        >
+          <img
+            src="https://storage.googleapis.com/a1aa/image/d1e86c2a-a6a7-4fd9-3e18-c5440d1c9f43.jpg"
+            alt="Direito Empresarial com edifícios e contratos em fundo preto"
+            loading="lazy"
+          />
+          <div class="related-video-title">Direito Empresarial: Sociedades e Contratos</div>
+        </article>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="bg-black border-t border-gray-800 py-8 mt-auto">
+    <div
+      class="max-w-7xl mx-auto px-6 sm:px-12 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm"
+    >
+      <p>© 2024 Prometeus. Todos os direitos reservados.</p>
+      <div class="flex space-x-6 mt-4 md:mt-0">
+        <a
+          aria-label="Facebook"
+          class="hover:text-red-600 transition-colors duration-300"
+          href="https://facebook.com"
+          rel="noopener"
+          target="_blank"
+          tabindex="0"
+          ><i class="fab fa-facebook-f fa-lg" aria-hidden="true"></i
+        ></a>
+        <a
+          aria-label="Twitter"
+          class="hover:text-red-600 transition-colors duration-300"
+          href="https://twitter.com"
+          rel="noopener"
+          target="_blank"
+          tabindex="0"
+          ><i class="fab fa-twitter fa-lg" aria-hidden="true"></i
+        ></a>
+        <a
+          aria-label="LinkedIn"
+          class="hover:text-red-600 transition-colors duration-300"
+          href="https://linkedin.com"
+          rel="noopener"
+          target="_blank"
+          tabindex="0"
+          ><i class="fab fa-linkedin-in fa-lg" aria-hidden="true"></i
+        ></a>
+        <a
+          aria-label="Instagram"
+          class="hover:text-red-600 transition-colors duration-300"
+          href="https://instagram.com"
+          rel="noopener"
+          target="_blank"
+          tabindex="0"
+          ><i class="fab fa-instagram fa-lg" aria-hidden="true"></i
+        ></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle with hamburger animation
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    menuBtn.addEventListener("click", () => {
+      const expanded = menuBtn.getAttribute("aria-expanded") === "true";
+      menuBtn.setAttribute("aria-expanded", !expanded);
+      mobileMenu.classList.toggle("hidden");
+      mobileMenu.setAttribute("aria-hidden", expanded);
+      menuBtn.classList.toggle("open");
+      if (mobileMenu.classList.contains("hidden")) {
+        mobileMenu.classList.remove("open");
+      } else {
+        mobileMenu.classList.add("open");
+      }
+    });
+
+    // Video player controls
+    const video = document.getElementById("video-player");
+    const playPauseBtn = document.getElementById("play-pause");
+    const muteUnmuteBtn = document.getElementById("mute-unmute");
+    const fullscreenBtn = document.getElementById("fullscreen-btn");
+    const progressBar = document.getElementById("progress-bar");
+    const progressFilled = document.getElementById("progress-filled");
+    const currentTimeElem = document.getElementById("current-time");
+    const durationElem = document.getElementById("duration");
+    const controls = document.getElementById("video-controls");
+    const videoContainer = document.getElementById("video-container");
+
+    // Show controls on hover or focus with smooth fade
+    let controlsTimeout;
+    function showControls() {
+      controls.classList.remove("hidden");
+      clearTimeout(controlsTimeout);
+      controlsTimeout = setTimeout(() => {
+        if (!video.paused) {
+          controls.classList.add("hidden");
+        }
+      }, 3500);
+    }
+    videoContainer.addEventListener("mousemove", showControls);
+    videoContainer.addEventListener("focusin", showControls);
+    video.addEventListener("play", () => {
+      playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      showControls();
+    });
+    video.addEventListener("pause", () => {
+      playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+      controls.classList.remove("hidden");
+      clearTimeout(controlsTimeout);
+    });
+
+    // Play/pause toggle
+    playPauseBtn.addEventListener("click", () => {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+
+    // Mute/unmute toggle
+    muteUnmuteBtn.addEventListener("click", () => {
+      video.muted = !video.muted;
+      muteUnmuteBtn.innerHTML = video.muted
+        ? '<i class="fas fa-volume-mute"></i>'
+        : '<i class="fas fa-volume-up"></i>';
+    });
+
+    // Fullscreen toggle with smooth transition
+    fullscreenBtn.addEventListener("click", () => {
+      if (
+        !document.fullscreenElement &&
+        !document.webkitFullscreenElement &&
+        !document.mozFullScreenElement &&
+        !document.msFullscreenElement
+      ) {
+        if (videoContainer.requestFullscreen) {
+          videoContainer.requestFullscreen();
+        } else if (videoContainer.webkitRequestFullscreen) {
+          videoContainer.webkitRequestFullscreen();
+        } else if (videoContainer.mozRequestFullScreen) {
+          videoContainer.mozRequestFullScreen();
+        } else if (videoContainer.msRequestFullscreen) {
+          videoContainer.msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+    });
+
+    // Update progress bar and time
+    video.addEventListener("timeupdate", () => {
+      const percent = (video.currentTime / video.duration) * 100;
+      progressFilled.style.width = percent + "%";
+      currentTimeElem.textContent = formatTime(video.currentTime);
+      durationElem.textContent = formatTime(video.duration);
+      progressBar.setAttribute("aria-valuenow", Math.floor(percent));
+    });
+
+    // Format time in mm:ss
+    function formatTime(time) {
+      if (isNaN(time)) return "0:00";
+      const minutes = Math.floor(time / 60);
+      const seconds = Math.floor(time % 60);
+     
+    }
+
+    // Seek video on progress bar click
+    progressBar.addEventListener("click", (e) => {
+      const rect = progressBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
+      const percent = clickX / width;
+      video.currentTime = percent * video.duration;
+    });
+
+    // Keyboard accessibility for progress bar
+    progressBar.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
+        e.preventDefault();
+        video.currentTime = Math.max(0, video.currentTime - 5);
+      } else if (e.key === "ArrowRight" || e.key === "ArrowUp") {
+        e.preventDefault();
+        video.currentTime = Math.min(video.duration, video.currentTime + 5);
+      }
+    });
+
+    // Show controls initially
+    controls.classList.remove("hidden");
+
+    // Related videos click handler with smooth fade transition
+    const relatedVideos = document.querySelectorAll(".related-video");
+    const videoTitle = document.getElementById("video-title");
+    const videoDescription = document.getElementById("video-description");
+    const likeBtn = document.getElementById("like-btn");
+    const dislikeBtn = document.getElementById("dislike-btn");
+    const likeCount = document.getElementById("like-count");
+    const dislikeCount = document.getElementById("dislike-count");
+
+    let liked = false;
+    let disliked = false;
+    let likes = parseInt(likeCount.textContent);
+    let dislikes = parseInt(dislikeCount.textContent);
+
+    function resetLikes() {
+      liked = false;
+      disliked = false;
+      likes = 0;
+      dislikes = 0;
+      likeBtn.setAttribute("aria-pressed", "false");
+      dislikeBtn.setAttribute("aria-pressed", "false");
+      likeCount.textContent = likes;
+      dislikeCount.textContent = dislikes;
+    }
+
+    relatedVideos.forEach((videoCard) => {
+      function loadVideo() {
+        const src = videoCard.getAttribute("data-video-src");
+        const title = videoCard.getAttribute("data-video-title");
+        const description = videoCard.getAttribute("data-video-description");
+        if (src && title && description) {
+          // Fade out video container and info
+          videoContainer.style.opacity = "0";
+          videoTitle.style.opacity = "0";
+          videoDescription.style.opacity = "0";
+          setTimeout(() => {
+            video.pause();
+            video.setAttribute("src", src);
+            video.load();
+            video.play();
+            videoTitle.textContent = title;
+            videoDescription.innerHTML = <p>${description}</p>;
+            resetLikes();
+            // Fade in
+            videoContainer.style.opacity = "1";
+            videoTitle.style.opacity = "1";
+            videoDescription.style.opacity = "1";
+          }, 400);
+        }
+      }
+      videoCard.addEventListener("click", loadVideo);
+      videoCard.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          loadVideo();
+        }
+      });
+    });
+
+    // Like/Dislike buttons logic
+    likeBtn.addEventListener("click", () => {
+      if (liked) {
+        liked = false;
+        likes--;
+        likeBtn.setAttribute("aria-pressed", "false");
+      } else {
+        liked = true;
+        likes++;
+        likeBtn.setAttribute("aria-pressed", "true");
+        if (disliked) {
+          disliked = false;
+          dislikes--;
+          dislikeBtn.setAttribute("aria-pressed", "false");
+        }
+      }
+      updateCounts();
+      animateButton(likeBtn);
+    });
+
+    dislikeBtn.addEventListener("click", () => {
+      if (disliked) {
+        disliked = false;
+        dislikes--;
+        dislikeBtn.setAttribute("aria-pressed", "false");
+      } else {
+        disliked = true;
+        dislikes++;
+        dislikeBtn.setAttribute("aria-pressed", "true");
+        if (liked) {
+          liked = false;
+          likes--;
+          likeBtn.setAttribute("aria-pressed", "false");
+        }
+      }
+      updateCounts();
+      animateButton(dislikeBtn);
+    });
+
+    function updateCounts() {
+      likeCount.textContent = likes;
+      dislikeCount.textContent = dislikes;
+    }
+
+    // Animate button on click (scale pulse)
+    function animateButton(button) {
+      button.style.transform = "scale(1.2)";
+      button.style.transition = "transform 0.15s ease";
+      setTimeout(() => {
+        button.style.transform = "scale(1)";
+      }, 150);
+    }
+
+    // Share button logic with smooth tooltip
+    const shareBtn = document.getElementById("share-btn");
+    shareBtn.addEventListener("click", () => {
+      const url = window.location.href;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => {
+          showTooltip(shareBtn, "Link copiado!");
+        });
+      } else {
+        prompt("Copie o link abaixo:", url);
+      }
+    });
+
+    // Tooltip function
+    function showTooltip(element, message) {
+      let tooltip = document.createElement("div");
+      tooltip.textContent = message;
+      tooltip.style.position = "absolute";
+      tooltip.style.background = "#e11d48";
+      tooltip.style.color = "#fff";
+      tooltip.style.padding = "6px 12px";
+      tooltip.style.borderRadius = "6px";
+      tooltip.style.fontSize = "0.875rem";
+      tooltip.style.fontWeight = "600";
+      tooltip.style.top = element.getBoundingClientRect().top - 40 + "px";
+      tooltip.style.left =
+        element.getBoundingClientRect().left +
+        element.offsetWidth / 2 -
+        50 +
+        "px";
+      tooltip.style.width = "100px";
+      tooltip.style.textAlign = "center";
+      tooltip.style.zIndex = "9999";
+      tooltip.style.opacity = "0";
+      tooltip.style.transition = "opacity 0.3s ease";
+      document.body.appendChild(tooltip);
+      requestAnimationFrame(() => {
+        tooltip.style.opacity = "1";
+      });
+      setTimeout(() => {
+        tooltip.style.opacity = "0";
+        tooltip.addEventListener("transitionend", () => {
+          tooltip.remove();
+        });
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

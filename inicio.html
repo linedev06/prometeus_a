@@ -1,0 +1,1063 @@
+<html class="scroll-smooth" lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>
+    PROMETEUS - Plataforma Avançada de Tecnologia Jurídica
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&amp;display=swap" rel="stylesheet" />
+  <style>
+    html,
+    body {
+      background-color: #000000;
+      color: #ffffff;
+      font-family: "Montserrat", sans-serif;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    .logo-underline {
+      border-bottom: 1px solid #ffffff;
+      padding-bottom: 2px;
+    }
+
+    .fade-in {
+      animation: fadeIn ease 1s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* Custom scrollbar for dark theme */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #111111;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #444444;
+      border-radius: 10px;
+      border: 2px solid #111111;
+    }
+
+    /* Button gradient and hover */
+    .btn-gradient {
+      background: linear-gradient(90deg, #ffffff 0%, #bbbbbb 100%);
+      color: #000000;
+      font-weight: 600;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-gradient:hover,
+    .btn-gradient:focus {
+      background: #000000;
+      color: #ffffff;
+      outline: none;
+      box-shadow: 0 0 8px #ffffff88;
+    }
+
+    /* Section heading underline */
+    .section-title {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 6px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      width: 50%;
+      height: 2px;
+      background: #ffffff;
+      bottom: 0;
+      left: 25%;
+      border-radius: 2px;
+      opacity: 0.3;
+    }
+
+    /* Card shadow and border */
+    .card {
+      background: #111111;
+      border: 1px solid #222222;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgb(255 255 255 / 0.05);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card:hover,
+    .card:focus-within {
+      box-shadow: 0 8px 24px rgb(255 255 255 / 0.15);
+      border-color: #444444;
+    }
+
+    /* Accordion */
+    [data-accordion]>div>button:focus {
+      outline: none;
+    }
+
+    /* Smooth rotate for accordion icon */
+    .rotate-180 {
+      transform: rotate(180deg);
+      transition: transform 0.3s ease;
+    }
+
+    /* Hero gradient text */
+    .gradient-text {
+      background: linear-gradient(90deg, #ffffff, #bbbbbb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Subtle fade in delay for stagger */
+    .fade-delay-1 {
+      animation-delay: 0.2s;
+    }
+
+    .fade-delay-2 {
+      animation-delay: 0.4s;
+    }
+
+    .fade-delay-3 {
+      animation-delay: 0.6s;
+    }
+
+    /* Input and textarea styling */
+    input,
+    textarea {
+      background: #111111;
+      border: 1px solid #333333;
+      color: #eee;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      font-size: 1.125rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      resize: none;
+      box-shadow: inset 0 0 8px rgb(255 255 255 / 0.05);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #888888;
+      font-weight: 300;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #ffffff;
+      outline: none;
+      box-shadow: 0 0 12px #ffffffaa;
+      background: #1a1a1a;
+    }
+
+    /* Footer social icons hover */
+    footer a:hover {
+      color: #bbbbbb;
+    }
+
+    /* Justify text */
+    .text-justify {
+      text-align: justify;
+    }
+
+    /* Icon container */
+    .icon-container {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      background-color: #222222;
+      box-shadow: 0 0 10px rgb(255 255 255 / 0.1);
+      transition: background-color 0.3s ease;
+      margin-bottom: 1rem;
+    }
+
+    .icon-container svg {
+      width: 40px;
+      height: 40px;
+      color: #ffffff;
+    }
+
+    .card:hover .icon-container,
+    .card:focus-within .icon-container {
+      background-color: #444444;
+      box-shadow: 0 0 15px rgb(255 255 255 / 0.3);
+    }
+
+    /* Submit form enhancements */
+    form {
+      background: #121212;
+      border-radius: 20px;
+      padding: 3rem 3.5rem;
+      box-shadow: 0 0 30px rgb(255 255 255 / 0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    form label {
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      display: block;
+      color: #ddd;
+    }
+
+    form button {
+      background: linear-gradient(90deg, #ffffff 0%, #bbbbbb 100%);
+      color: #000000;
+      font-weight: 700;
+      font-size: 1.25rem;
+      padding: 1rem 0;
+      border-radius: 14px;
+      width: 100%;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      letter-spacing: 0.05em;
+      box-shadow: 0 0 10px rgb(255 255 255 / 0.1);
+    }
+
+    form button:hover,
+    form button:focus {
+      background: #000000;
+      color: #ffffff;
+      box-shadow: 0 0 15px #ffffffcc;
+      outline: none;
+    }
+
+    /* Smooth scroll offset fix for sticky header */
+    :target::before {
+      content: "";
+      display: block;
+      height: 80px;
+      margin-top: -80px;
+      visibility: hidden;
+    }
+
+    /* Fixed navbar */
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+    }
+
+    /* Accordion hidden content default */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      color: #ccc;
+      font-size: 1rem;
+      padding-left: 1.25rem;
+      text-align: justify;
+    }
+
+    .accordion-content.show {
+      max-height: 200px;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Accordion button style */
+    [data-accordion]>div>button {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: white;
+      font-weight: 300;
+      font-size: 1.125rem;
+      padding: 1.25rem 0;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 0.02em;
+      border-bottom: 1px solid #444;
+      transition: color 0.3s ease;
+    }
+
+    [data-accordion]>div>button:hover,
+    [data-accordion]>div>button:focus {
+      color: #bbb;
+      outline: none;
+    }
+
+    [data-accordion]>div>button i {
+      transition: transform 0.3s ease;
+    }
+
+    [data-accordion]>div>button[aria-expanded="true"] i {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <nav aria-label="Navegação Principal"
+      class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex items-center justify-between h-16 bg-black bg-opacity-95 backdrop-blur-md border-b border-gray-800">
+      <a aria-label="Logo Prometeus"
+        class="text-white text-3xl font-thin logo-underline tracking-widest select-none cursor-pointer" href="#hero"
+        data-scroll>
+        PROMETEUS
+      </a>
+      <ul class="hidden md:flex space-x-12 text-white font-light text-base tracking-wide" role="menubar">
+        <li role="none">
+          <a class="hover:text-gray-300 transition-colors duration-300 focus:outline-none focus:text-gray-300 cursor-pointer"
+            href="#about" data-scroll role="menuitem">
+            Sobre
+          </a>
+        </li>
+        <li role="none">
+          <a class="hover:text-gray-300 transition-colors duration-300 focus:outline-none focus:text-gray-300 cursor-pointer"
+            href="#features" data-scroll role="menuitem">
+            Serviços
+          </a>
+        </li>
+        <li role="none">
+          <a class="hover:text-gray-300 transition-colors duration-300 focus:outline-none focus:text-gray-300 cursor-pointer"
+            href="#blog" data-scroll role="menuitem">
+            Blog
+          </a>
+        </li>
+        <li role="none">
+          <a class="hover:text-gray-300 transition-colors duration-300 focus:outline-none focus:text-gray-300 cursor-pointer"
+            href="#contact" data-scroll role="menuitem">
+            Contato
+          </a>
+        </li>
+      </ul>
+      <a class="hidden md:inline-block btn-gradient px-6 py-2 rounded-md select-none cursor-pointer"
+        href="#submit-contract" data-scroll>
+        Começar
+      </a>
+      <button aria-expanded="false" aria-label="Alternar menu" class="md:hidden text-white focus:outline-none"
+        id="mobile-menu-button">
+        <i class="fas fa-bars fa-lg"></i>
+      </button>
+    </nav>
+    <!-- Mobile menu -->
+    <div aria-label="Navegação Mobile" class="hidden md:hidden bg-black border-t border-gray-800" id="mobile-menu"
+      role="menu">
+      <ul class="flex flex-col px-6 py-4 space-y-4 text-white font-light tracking-wide">
+        <li>
+          <a class="block hover:text-gray-300 transition-colors duration-300 focus:outline-none focus:text-gray-300 cursor-pointer"
+            href="#about" data-scroll>
+            Sobre
+          </a>
+        </li>
+        <li>
+          <a class="block hover:text-gray-300 transition-colors duration-300 focus:outline-none focus:text-gray-300 cursor-pointer"
+            href="#features" data-scroll>
+            Serviços
+          </a>
+        </li>
+        <li>
+          <a class="block hover:text-gray-300 transition-colors duration-300 focus:outline-none focus:text-gray-300 cursor-pointer"
+            href="#blog" data-scroll>
+            Blog
+          </a>
+        </li>
+        <li>
+          <a class="block hover:text-gray-300 transition-colors duration-300 focus:outline-none focus:text-gray-300 cursor-pointer"
+            href="#contact" data-scroll>
+            Contato
+          </a>
+        </li>
+        <li>
+          <a class="block bg-white text-black font-semibold text-center rounded-md py-2 hover:bg-gray-200 transition-colors duration-300 select-none focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
+            href="#submit-contract" data-scroll>
+            Começar
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+  <!-- Hero Section -->
+
+  <section
+    class="flex flex-col justify-center items-center text-center min-h-[calc(100vh-64px)] px-6 sm:px-12 max-w-4xl mx-auto fade-in visible"
+    id="hero" tabindex="-1">
+    <h1 class="gradient-text text-5xl sm:text-6xl font-extralight leading-tight tracking-wide max-w-3xl mb-6">
+      Revisão de Contratos Cripto para Investidores
+      <br />
+      R$97. Simples. Preciso. Seguro.
+    </h1>
+    <p class="text-gray-300 text-lg max-w-xl mb-12 leading-relaxed text-justify">
+      Obtenha uma revisão jurídica profissional do seu contrato em até 48 horas.
+      <br />
+      Avaliação de riscos, sugestões de melhorias e insights acionáveis.
+    </p>
+    <a class="btn-gradient text-xl px-10 py-4 rounded-md select-none" href="#submit-contract" data-scroll>
+      Enviar Meu Contrato Agora
+    </a>
+  </section>
+  <!-- About Section -->
+  <section class="max-w-7xl mx-auto px-6 sm:px-12 py-20" id="about" tabindex="-1">
+    <h2 class="section-title text-white text-4xl font-light mb-12 tracking-wide text-center">
+      Sobre a Prometeus
+    </h2>
+    <p class="text-gray-300 max-w-3xl mx-auto text-justify leading-relaxed text-lg">
+      A Prometeus é uma plataforma jurídica de ponta especializada em revisão de contratos cripto e proteção legal para
+      investidores. Combinamos IA, blockchain e análise jurídica especializada para fornecer serviços rápidos, precisos
+      e seguros, personalizados para suas necessidades.
+    </p>
+  </section>
+  <!-- Features Section -->
+  <section class="max-w-7xl mx-auto px-6 sm:px-12 py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12"
+    id="features" tabindex="-1">
+    <h2 class="section-title text-white text-4xl font-light col-span-full text-center mb-16">
+      Nossas Funcionalidades Avançadas
+    </h2>
+    <!-- Feature Card Template -->
+    <article
+      class="card p-8 flex flex-col items-center text-center space-y-6 hover:scale-[1.03] focus:scale-[1.03] transition-transform duration-300"
+      tabindex="0">
+      <div aria-hidden="true" class="icon-container" title="Dashboard de Proteção do Cliente">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M12 1v4"></path>
+          <path d="M4.22 4.22l2.83 2.83"></path>
+          <path d="M1 12h4"></path>
+          <path d="M4.22 19.78l2.83-2.83"></path>
+          <path d="M12 19v4"></path>
+          <path d="M19.78 19.78l-2.83-2.83"></path>
+          <path d="M19 12h4"></path>
+          <path d="M19.78 4.22l-2.83 2.83"></path>
+          <circle cx="12" cy="12" r="5"></circle>
+        </svg>
+      </div>
+      <h3 class="text-white text-2xl font-light tracking-wide">
+        Dashboard de Proteção do Cliente
+      </h3>
+      <ul class="list-disc list-inside text-gray-300 space-y-2 text-base text-justify max-w-md">
+        <li>
+          Visualize seus ativos (cripto, contratos, registros jurídicos).
+        </li>
+        <li>
+          Identifique riscos legais ou áreas de exposição.
+        </li>
+        <li>
+          Botão de ação rápida:
+          <span class="font-semibold">
+            Proteja Agora
+          </span>
+          .
+        </li>
+      </ul>
+      <p class="text-gray-400 max-w-md text-justify">
+        Com um clique, gera contratos inteligentes, notificações ou ações legais — seu centro de controle jurídico em
+        tempo real.
+      </p>
+    </article>
+    <article
+      class="card p-8 flex flex-col items-center text-center space-y-6 hover:scale-[1.03] focus:scale-[1.03] transition-transform duration-300"
+      tabindex="0">
+      <div aria-hidden="true" class="icon-container" title="Contratos Autoexecutáveis">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M12 2l9 4.5v11l-9 4.5-9-4.5v-11z"></path>
+          <path d="M12 22V12"></path>
+          <path d="M21 6l-9 6-9-6"></path>
+        </svg>
+      </div>
+      <h3 class="text-white text-2xl font-light tracking-wide">
+        Contratos Autoexecutáveis
+      </h3>
+      <ul class="list-disc list-inside text-gray-300 space-y-2 text-base text-justify max-w-md">
+        <li>
+          Exemplo: João empresta dinheiro para Pedro.
+        </li>
+        <li>
+          O contrato detecta automaticamente o pagamento e se encerra.
+        </li>
+      </ul>
+      <p class="text-gray-400 max-w-md text-justify">
+        Totalmente baseado em blockchain, sem interferência manual.
+      </p>
+    </article>
+    <article
+      class="card p-8 flex flex-col items-center text-center space-y-6 hover:scale-[1.03] focus:scale-[1.03] transition-transform duration-300"
+      tabindex="0">
+      <div aria-hidden="true" class="icon-container" title="Token Prometeus">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 6v6l4 2"></path>
+        </svg>
+      </div>
+      <h3 class="text-white text-2xl font-light tracking-wide">
+        Token Prometeus
+      </h3>
+      <ul class="list-disc list-inside text-gray-300 space-y-2 text-base text-justify max-w-md">
+        <li>
+          Compre e use como crédito para serviços jurídicos.
+        </li>
+        <li>
+          Guarde, negocie ou presenteie tokens.
+        </li>
+        <li>
+          10 tokens = 10 consultas jurídicas.
+        </li>
+      </ul>
+      <p class="text-gray-400 max-w-md text-justify">
+        Modelo pré-pago moderno que aumenta engajamento e fidelidade.
+      </p>
+    </article>
+    <article
+      class="card p-8 flex flex-col items-center text-center space-y-6 hover:scale-[1.03] focus:scale-[1.03] transition-transform duration-300"
+      tabindex="0">
+      <div aria-hidden="true" class="icon-container" title="Analisador de Documentos com IA">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <rect height="14" rx="2" ry="2" width="18" x="3" y="5"></rect>
+          <path d="M3 10h18"></path>
+          <path d="M7 15v2"></path>
+          <path d="M17 15v2"></path>
+        </svg>
+      </div>
+      <h3 class="text-white text-2xl font-light tracking-wide">
+        Analisador de Documentos com IA
+      </h3>
+      <ul class="list-disc list-inside text-gray-300 space-y-2 text-base text-justify max-w-md">
+        <li>
+          IA escaneia contratos e documentos em busca de riscos legais.
+        </li>
+        <li>
+          Sugere melhorias e dicas de conformidade.
+        </li>
+      </ul>
+      <p class="text-gray-400 max-w-md text-justify">
+        Rápido, preciso e sem atritos — economizando tempo e entregando valor instantâneo.
+      </p>
+    </article>
+    <article
+      class="card p-8 flex flex-col items-center text-center space-y-6 hover:scale-[1.03] focus:scale-[1.03] transition-transform duration-300"
+      tabindex="0">
+      <div aria-hidden="true" class="icon-container" title="Comunidade VIP com Direitos de Voto">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M17 20h5v-5"></path>
+          <path d="M2 12l5 5 7-7 5 5"></path>
+          <path d="M12 2v7"></path>
+        </svg>
+      </div>
+      <h3 class="text-white text-2xl font-light tracking-wide">
+        Comunidade VIP com Direitos de Voto
+      </h3>
+      <ul class="list-disc list-inside text-gray-300 space-y-2 text-base text-justify max-w-md">
+        <li>
+          Acesso concedido via NFT exclusivo (chave digital).
+        </li>
+        <li>
+          Membros votam em recursos e melhorias da plataforma.
+        </li>
+      </ul>
+      <p class="text-gray-400 max-w-md text-justify">
+        Constrói fidelidade, engajamento e atrai investidores potenciais.
+      </p>
+    </article>
+    <article
+      class="card p-8 flex flex-col items-center text-center space-y-6 hover:scale-[1.03] focus:scale-[1.03] transition-transform duration-300"
+      tabindex="0">
+      <div aria-hidden="true" class="icon-container" title="Dashboard Jurídico Inteligente e Educacional">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <rect height="14" rx="2" ry="2" width="18" x="3" y="5"></rect>
+          <path d="M3 10h18"></path>
+          <path d="M12 15v2"></path>
+          <path d="M16 15v2"></path>
+          <path d="M8 15v2"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      </div>
+      <h3 class="text-white text-2xl font-light tracking-wide">
+        Dashboard Jurídico Inteligente e Educacional
+      </h3>
+      <ul class="list-disc list-inside text-gray-300 space-y-2 text-base text-justify max-w-md">
+        <li>
+          Acompanhe contratos, status de casos e ações jurídicas.
+        </li>
+        <li>
+          Vídeos curtos explicam cada etapa da jornada.
+        </li>
+      </ul>
+      <p class="text-gray-400 max-w-md text-justify">
+        Transparência que constrói confiança e relacionamentos duradouros.
+      </p>
+    </article>
+    <article
+      class="card p-8 flex flex-col items-center text-center space-y-6 hover:scale-[1.03] focus:scale-[1.03] transition-transform duration-300"
+      tabindex="0">
+      <div aria-hidden="true" class="icon-container" title="Chatbot Jurídico com IA">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+          <path d="M12 6v4"></path>
+        </svg>
+      </div>
+      <h3 class="text-white text-2xl font-light tracking-wide">
+        Chatbot Jurídico com IA
+      </h3>
+      <ul class="list-disc list-inside text-gray-300 space-y-2 text-base text-justify max-w-md">
+        <li>
+          Responde perguntas como “Como declarar criptoativos?” ou “Como fazer um contrato simples?”
+        </li>
+        <li>
+          Pode ser incorporado ao seu site ou integrado ao WhatsApp.
+        </li>
+      </ul>
+      <p class="text-gray-400 max-w-md text-justify">
+        Suporte jurídico 24/7 — escalável, pessoal e inteligente.
+      </p>
+    </article>
+    <article
+      class="card p-8 flex flex-col items-center text-center space-y-6 hover:scale-[1.03] focus:scale-[1.03] transition-transform duration-300"
+      tabindex="0">
+      <div aria-hidden="true" class="icon-container" title="Botão de Parceria com Exchange Cripto">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M12 20h9"></path>
+          <path d="M12 4h9"></path>
+          <path d="M4 9h16"></path>
+          <path d="M4 15h16"></path>
+          <path d="M4 4v16"></path>
+        </svg>
+      </div>
+      <h3 class="text-white text-2xl font-light tracking-wide">
+        Botão de Parceria com Exchange Cripto
+      </h3>
+      <p class="text-gray-300 max-w-md text-justify">
+        Dentro das exchanges parceiras, os usuários veem:
+        <br />
+        <em>
+          “Precisa de proteção legal para seu cripto? Fale com a Prometeus.”
+        </em>
+      </p>
+      <p class="text-gray-400 max-w-md text-justify">
+        Feche parcerias B2B2C e obtenha leads qualificados diretamente da fonte.
+      </p>
+    </article>
+    <article
+      class="card p-8 flex flex-col items-center text-center space-y-6 hover:scale-[1.03] focus:scale-[1.03] transition-transform duration-300"
+      tabindex="0">
+      <div aria-hidden="true" class="icon-container" title="Cartão NFT de Serviço Jurídico">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <rect height="14" rx="2" ry="2" width="18" x="3" y="5"></rect>
+          <path d="M3 10h18"></path>
+          <path d="M7 15v2"></path>
+          <path d="M17 15v2"></path>
+          <path d="M12 12v3"></path>
+        </svg>
+      </div>
+      <h3 class="text-white text-2xl font-light tracking-wide">
+        Cartão NFT de Serviço Jurídico
+      </h3>
+      <ul class="list-disc list-inside text-gray-300 space-y-2 text-base text-justify max-w-md">
+        <li>
+          2 consultas jurídicas.
+        </li>
+        <li>
+          1 revisão de contrato.
+        </li>
+        <li>
+          1 linha direta de emergência jurídica.
+        </li>
+      </ul>
+      <p class="text-gray-400 max-w-md text-justify">
+        Usável ou transferível. Um passe de proteção jurídica para a era digital.
+      </p>
+    </article>
+    <article
+      class="card p-8 flex flex-col items-center text-center space-y-6 hover:scale-[1.03] focus:scale-[1.03] transition-transform duration-300"
+      tabindex="0">
+      <div aria-hidden="true" class="icon-container" title="Evidência Digital Legalmente Válida">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M3 12h18"></path>
+          <path d="M12 3v18"></path>
+          <circle cx="12" cy="12" r="7"></circle>
+          <path d="M12 5v14"></path>
+        </svg>
+      </div>
+      <h3 class="text-white text-2xl font-light tracking-wide">
+        Evidência Digital Legalmente Válida
+      </h3>
+      <ul class="list-disc list-inside text-gray-300 space-y-2 text-base text-justify max-w-md">
+        <li>
+          Armazena tudo de forma imutável na blockchain.
+        </li>
+        <li>
+          Garante admissibilidade legal.
+        </li>
+      </ul>
+      <p class="text-gray-400 max-w-md text-justify">
+        Evidência digital segura, à prova de adulteração e pronta para o tribunal.
+      </p>
+    </article>
+  </section>
+  <!-- Blog Section Placeholder -->
+  <section class="max-w-7xl mx-auto px-6 sm:px-12 py-20" id="blog" tabindex="-1">
+    <h2 class="section-title text-white text-4xl font-light mb-12 tracking-wide text-center">
+      Blog
+    </h2>
+    <p class="text-gray-400 max-w-3xl mx-auto text-justify leading-relaxed text-lg">
+      Em breve, artigos e notícias sobre direito cripto, tecnologia blockchain e proteção jurídica para investidores.
+    </p>
+  </section>
+  <!-- Contact Section Placeholder -->
+  <section class="max-w-7xl mx-auto px-6 sm:px-12 py-20" id="contact" tabindex="-1">
+    <h2 class="section-title text-white text-4xl font-light mb-12 tracking-wide text-center">
+      Contato
+    </h2>
+    <p class="text-gray-400 max-w-3xl mx-auto text-justify leading-relaxed text-lg">
+      Para dúvidas, parcerias ou suporte, entre em contato conosco pelo email contato@prometeus.com.br ou pelo telefone
+      +55 11 99999-9999.
+    </p>
+  </section>
+  <!-- FAQ Section -->
+  <section aria-label="Perguntas Frequentes" class="max-w-4xl mx-auto px-6 sm:px-12 py-20" id="faq" tabindex="-1">
+    <h2 class="section-title text-white text-4xl font-light mb-12 tracking-wide text-center">
+      Perguntas Frequentes
+    </h2>
+    <div data-accordion="" class="space-y-4 border-t border-b border-gray-700 divide-y divide-gray-700">
+      <div>
+        <button aria-expanded="false" class="accordion-button" type="button" aria-controls="faq1" id="faq1-btn">
+          Quanto tempo leva?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="accordion-content" id="faq1" role="region" aria-labelledby="faq1-btn">
+          Até 48 horas úteis.
+        </div>
+      </div>
+      <div>
+        <button aria-expanded="false" class="accordion-button" type="button" aria-controls="faq2" id="faq2-btn">
+          Vocês atendem contratos internacionais?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="accordion-content" id="faq2" role="region" aria-labelledby="faq2-btn">
+          Sim, com foco na legislação brasileira.
+        </div>
+      </div>
+      <div>
+        <button aria-expanded="false" class="accordion-button" type="button" aria-controls="faq3" id="faq3-btn">
+          Vocês reescrevem o contrato?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="accordion-content" id="faq3" role="region" aria-labelledby="faq3-btn">
+          Sugerimos edições. Reescrita completa é um serviço separado.
+        </div>
+      </div>
+      <div>
+        <button aria-expanded="false" class="accordion-button" type="button" aria-controls="faq4" id="faq4-btn">
+          Quão seguro é o meu dado?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="accordion-content" id="faq4" role="region" aria-labelledby="faq4-btn">
+          Usamos tecnologia blockchain e armazenamento criptografado para garantir que seus dados sejam invioláveis e
+          confidenciais.
+        </div>
+      </div>
+      <div>
+        <button aria-expanded="false" class="accordion-button" type="button" aria-controls="faq5" id="faq5-btn">
+          Posso obter suporte jurídico após a entrega?
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="accordion-content" id="faq5" role="region" aria-labelledby="faq5-btn">
+          Sim, oferecemos suporte jurídico via chat por 5 dias após a entrega para todos os clientes.
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Final Call to Action -->
+  <section class="bg-black px-6 sm:px-12 py-24 text-center max-w-4xl mx-auto" id="final-cta" tabindex="-1">
+    <h2 class="text-white text-5xl font-light mb-10 tracking-wide leading-tight max-w-3xl mx-auto">
+      Seu contrato pode ser sua proteção. Ou sua ruína.
+      <br />
+      Por R$97, escolha proteção.
+    </h2>
+    <a class="btn-gradient inline-block text-2xl px-12 py-5 rounded-md select-none" href="#submit-contract" data-scroll>
+      Quero Minha Revisão Agora
+    </a>
+  </section>
+  <!-- Contact / Submit Contract Section -->
+  <section aria-label="Formulário de Envio de Contrato" class="max-w-3xl mx-auto px-6 sm:px-12 py-20"
+    id="submit-contract" tabindex="-1">
+    <h2 class="section-title text-white text-4xl font-light mb-12 tracking-wide text-center">
+      Envie Seu Contrato
+    </h2>
+    <form action="#" class="space-y-10" method="POST" novalidate="" id="contract-form" aria-describedby="form-desc">
+      <p id="form-desc" class="text-gray-400 text-center max-w-xl mx-auto mb-8 text-lg leading-relaxed text-justify">
+        Preencha o formulário abaixo para enviar seu contrato com segurança. Aceitamos arquivos PDF, DOC e DOCX. Nossa
+        equipe revisará seu contrato e fornecerá um feedback detalhado em até 48 horas.
+      </p>
+      <div>
+        <label class="block mb-3 text-white font-light text-lg tracking-wide" for="fullName">
+          Nome Completo
+        </label>
+        <input autocomplete="name" class="w-full" id="fullName" name="fullName" placeholder="Seu nome completo"
+          required="" type="text" aria-required="true" aria-describedby="fullName-error" />
+        <p class="text-red-500 mt-1 text-sm hidden" id="fullName-error">Por favor, insira seu nome completo.</p>
+      </div>
+      <div>
+        <label class="block mb-3 text-white font-light text-lg tracking-wide" for="email">
+          Endereço de Email
+        </label>
+        <input autocomplete="email" class="w-full" id="email" name="email" placeholder="voce@exemplo.com" required=""
+          type="email" aria-required="true" aria-describedby="email-error" />
+        <p class="text-red-500 mt-1 text-sm hidden" id="email-error">Por favor, insira um endereço de email válido.</p>
+      </div>
+      <div>
+        <label class="block mb-3 text-white font-light text-lg tracking-wide" for="contractFile">
+          Enviar Contrato
+        </label>
+        <input accept=".pdf,.doc,.docx" class="w-full" id="contractFile" name="contractFile" required="" type="file"
+          aria-required="true" aria-describedby="contractFile-error" />
+        <p class="text-red-500 mt-1 text-sm hidden" id="contractFile-error">Por favor, envie um arquivo de contrato
+          (PDF, DOC, DOCX).</p>
+      </div>
+      <div>
+        <label class="block mb-3 text-white font-light text-lg tracking-wide" for="additionalInfo">
+          Informações Adicionais
+        </label>
+        <textarea class="w-full" id="additionalInfo" name="additionalInfo"
+          placeholder="Quaisquer preocupações ou observações específicas" rows="5"
+          aria-describedby="additionalInfo-desc"></textarea>
+        <p class="text-gray-500 mt-1 text-sm" id="additionalInfo-desc">Opcional</p>
+      </div>
+      <button class="btn-gradient w-full py-5 text-xl rounded-xl font-semibold select-none" type="submit"
+        aria-live="polite" aria-busy="false" id="submit-button">
+        Enviar Meu Contrato Agora
+      </button>
+      <p class="text-green-400 mt-4 text-center text-lg font-medium hidden" id="form-success" role="alert" tabindex="0">
+        Obrigado! Seu contrato foi enviado com sucesso.
+      </p>
+      <p class="text-red-500 mt-4 text-center text-lg font-medium hidden" id="form-error" role="alert" tabindex="0">
+        Oops! Algo deu errado. Por favor, tente novamente mais tarde.
+      </p>
+    </form>
+  </section>
+  <!-- Footer -->
+  <footer
+    class="bg-black border-t border-gray-800 py-12 px-6 sm:px-12 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between space-y-6 sm:space-y-0">
+    <div class="flex items-center space-x-4 select-none">
+      <span class="text-white text-3xl font-thin logo-underline tracking-widest">
+        PROMETEUS
+      </span>
+    </div>
+    <nav aria-label="Navegação do Rodapé" class="flex space-x-8 text-white font-light text-sm tracking-wide">
+      <a class="hover:text-gray-400 transition-colors duration-300 focus:outline-none focus:text-gray-400 cursor-pointer"
+        href="#terms" data-scroll>
+        Termos
+      </a>
+      <a class="hover:text-gray-400 transition-colors duration-300 focus:outline-none focus:text-gray-400 cursor-pointer"
+        href="#privacy" data-scroll>
+        Privacidade
+      </a>
+      <a class="hover:text-gray-400 transition-colors duration-300 focus:outline-none focus:text-gray-400 cursor-pointer"
+        href="#contact" data-scroll>
+        Contato
+      </a>
+    </nav>
+    <div class="flex space-x-8 text-white text-xl">
+      <a aria-label="Facebook"
+        class="hover:text-gray-400 transition-colors duration-300 focus:outline-none focus:text-gray-400"
+        href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a aria-label="Twitter"
+        class="hover:text-gray-400 transition-colors duration-300 focus:outline-none focus:text-gray-400"
+        href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a aria-label="LinkedIn"
+        class="hover:text-gray-400 transition-colors duration-300 focus:outline-none focus:text-gray-400"
+        href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </div>
+    <p class="text-gray-500 text-sm font-light select-none mt-6 sm:mt-0 text-center sm:text-left w-full sm:w-auto">
+      Prometeus Association — Seu Escudo Digital.
+    </p>
+  </footer>
+  <script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    mobileMenuButton.addEventListener("click", () => {
+      const expanded =
+        mobileMenuButton.getAttribute("aria-expanded") === "true" || false;
+      mobileMenuButton.setAttribute("aria-expanded", !expanded);
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    // Accordion toggle with hidden content
+    const accordionButtons = document.querySelectorAll("[data-accordion] > div > button");
+    accordionButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const expanded = button.getAttribute("aria-expanded") === "true";
+        // Close all
+        accordionButtons.forEach(btn => {
+          btn.setAttribute("aria-expanded", "false");
+          const content = btn.nextElementSibling;
+          content.classList.remove("show");
+        });
+        if (!expanded) {
+          button.setAttribute("aria-expanded", "true");
+          const content = button.nextElementSibling;
+          content.classList.add("show");
+          content.focus();
+        }
+      });
+    });
+
+    // Smooth scroll for nav links with data-scroll attribute
+    document.querySelectorAll('a[data-scroll]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetID = this.getAttribute('href').substring(1);
+        const target = document.getElementById(targetID);
+        if (target) {
+          const yOffset = -64; // header height offset
+          const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({top: y, behavior: 'smooth'});
+          // Close mobile menu if open
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+          }
+          // Focus target for accessibility
+          setTimeout(() => {
+            target.focus();
+          }, 600);
+        }
+      });
+    });
+
+    // Fade-in on scroll for elements with fade-in class
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+    const appearOnScroll = new IntersectionObserver(function (entries, appearOnScroll) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) {
+          return;
+        } else {
+          entry.target.classList.add('visible');
+          appearOnScroll.unobserve(entry.target);
+        }
+      });
+    }, appearOptions);
+    faders.forEach(fader => {
+      appearOnScroll.observe(fader);
+    });
+
+    // Form validation and submission simulation
+    const form = document.getElementById('contract-form');
+    const fullNameInput = form.fullName;
+    const emailInput = form.email;
+    const contractFileInput = form.contractFile;
+    const fullNameError = document.getElementById('fullName-error');
+    const emailError = document.getElementById('email-error');
+    const contractFileError = document.getElementById('contractFile-error');
+    const formSuccess = document.getElementById('form-success');
+    const formError = document.getElementById('form-error');
+    const submitButton = document.getElementById('submit-button');
+
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(String(email).toLowerCase());
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let valid = true;
+
+      // Reset errors
+      fullNameError.classList.add('hidden');
+      emailError.classList.add('hidden');
+      contractFileError.classList.add('hidden');
+      formSuccess.classList.add('hidden');
+      formError.classList.add('hidden');
+
+      if (!fullNameInput.value.trim()) {
+        fullNameError.classList.remove('hidden');
+        valid = false;
+      }
+      if (!validateEmail(emailInput.value.trim())) {
+        emailError.classList.remove('hidden');
+        valid = false;
+      }
+      if (!contractFileInput.files.length) {
+        contractFileError.textContent = 'Por favor, envie um arquivo de contrato (PDF, DOC, DOCX).';
+        contractFileError.classList.remove('hidden');
+        valid = false;
+      } else {
+        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        if (!allowedTypes.includes(contractFileInput.files[0].type)) {
+          contractFileError.textContent = 'Tipo de arquivo não suportado. Por favor, envie PDF, DOC ou DOCX.';
+          contractFileError.classList.remove('hidden');
+          valid = false;
+        }
+      }
+
+      if (!valid) {
+        return;
+      }
+
+      // Simulate submission
+      submitButton.disabled = true;
+      submitButton.setAttribute('aria-busy', 'true');
+      submitButton.textContent = 'Enviando...';
+
+      setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.setAttribute('aria-busy', 'false');
+        submitButton.textContent = 'Enviar Meu Contrato Agora';
+        formSuccess.classList.remove('hidden');
+        formSuccess.focus();
+        form.reset();
+      }, 2000);
+    });
+  </script>
+</body>
+
+</html>

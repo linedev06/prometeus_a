@@ -1,0 +1,511 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Prometeus - Advocacia Digital
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #000000;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+    }
+    /* Header link letter spacing */
+    .header-link {
+      letter-spacing: 0.3em;
+    }
+    /* Ghost button style */
+    .ghost-btn {
+      border: 2px solid white;
+      color: white;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    .ghost-btn:hover,
+    .ghost-btn:focus {
+      background-color: white;
+      color: #000000;
+      outline: none;
+    }
+    /* Scroll shadow for header */
+    .header-scrolled {
+      background-color: rgba(0, 0, 0, 0.85);
+      box-shadow: 0 2px 8px rgba(255 255 255 / 0.1);
+      backdrop-filter: saturate(180%) blur(10px);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    /* Hamburger button styling */
+    .hamburger {
+      width: 28px;
+      height: 22px;
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    .hamburger span {
+      background: white;
+      position: absolute;
+      height: 2.5px;
+      width: 100%;
+      border-radius: 1.5px;
+      opacity: 1;
+      left: 0;
+      transition: all 0.3s ease;
+    }
+    .hamburger span:nth-child(1) {
+      top: 0;
+    }
+    .hamburger span:nth-child(2) {
+      top: 9px;
+    }
+    .hamburger span:nth-child(3) {
+      top: 18px;
+    }
+    .hamburger.active span:nth-child(1) {
+      top: 9px;
+      transform: rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      left: -60px;
+    }
+    .hamburger.active span:nth-child(3) {
+      top: 9px;
+      transform: rotate(-45deg);
+    }
+    /* Mobile menu slide */
+    #mobile-menu {
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+    }
+    #mobile-menu.open {
+      max-height: 500px;
+      opacity: 1;
+    }
+    /* Scrollbar styling for horizontal scroll */
+    .scrollbar-thin::-webkit-scrollbar {
+      height: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background-color: #4b5563;
+      border-radius: 3px;
+    }
+    /* Logo styling with underline */
+    .logo-container {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+    }
+    .logo-text {
+      font-weight: 300;
+      font-size: 1.5rem; /* 24px smaller than before */
+      letter-spacing: 0.3em;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .logo-underline {
+      margin-top: 4px;
+      width: 9.5ch; /* approx length of "PROMETEUS" with letter spacing */
+      border-bottom: 1.5px solid #FFFFFF;
+      border-radius: 1px;
+    }
+    /* Hero smaller PROMETEUS */
+    .hero-logo-text {
+      font-weight: 300;
+      font-size: 2.25rem; /* 36px smaller than before */
+      letter-spacing: 0.3em;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1;
+      white-space: nowrap;
+      margin-bottom: 1rem;
+    }
+    /* Justify text */
+    .text-justify {
+      text-align: justify;
+    }
+    /* Adjust paragraphs spacing in cards */
+    .card-text {
+      margin-top: 0.25rem;
+      margin-bottom: 0;
+    }
+    /* Scroll hint container */
+    .scroll-hint-container {
+      position: relative;
+    }
+    /* Scroll hint arrow */
+    .scroll-hint-arrow {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      font-size: 1.5rem;
+      pointer-events: none;
+      user-select: none;
+      animation: bounce 1.5s infinite;
+      opacity: 0.7;
+      z-index: 10;
+    }
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(-50%) translateX(0);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translateY(-50%) translateX(6px);
+        opacity: 1;
+      }
+    }
+  </style>
+ </head>
+ <body class="relative">
+  <!-- Fixed Header -->
+  <header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-12 py-4 bg-black" id="header" role="banner">
+   <a aria-label="Logo Prometeus" class="logo-container" href="/" tabindex="0">
+    <span class="logo-text" aria-hidden="true">
+     PROMETEUS
+    </span>
+    <span class="logo-underline" aria-hidden="true"></span>
+   </a>
+   <!-- Desktop Nav -->
+   <nav aria-label="Menu principal" class="hidden md:block" role="navigation">
+    <ul class="flex space-x-10 text-white text-sm font-light header-link tracking-widest lowercase">
+     <li>
+      <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/" tabindex="0">
+       início
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/solutions.html" tabindex="0">
+       soluções
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/simula.html" tabindex="0">
+       simulador
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="#contact" tabindex="0">
+       contato
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <!-- Mobile Hamburger -->
+   <button aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu" class="md:hidden focus:outline-none" id="hamburger-btn" type="button">
+    <div aria-hidden="true" class="hamburger" id="hamburger-icon">
+     <span>
+     </span>
+     <span>
+     </span>
+     <span>
+     </span>
+    </div>
+   </button>
+  </header>
+  <!-- Mobile Menu -->
+  <nav aria-label="Menu principal mobile" class="md:hidden bg-black fixed top-16 left-0 w-full z-40 border-t border-gray-800" id="mobile-menu" role="menu">
+   <ul class="flex flex-col space-y-4 py-6 px-6 text-white text-lg font-light lowercase tracking-widest" role="none">
+    <li role="none">
+     <a class="block w-full hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/" role="menuitem" tabindex="-1">
+      início
+     </a>
+    </li>
+    <li role="none">
+     <a class="block w-full hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/solutions.html" role="menuitem" tabindex="-1">
+      soluções
+     </a>
+    </li>
+    <li role="none">
+     <a class="block w-full hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/simula.html" role="menuitem" tabindex="-1">
+      simulador
+     </a>
+    </li>
+    <li role="none">
+     <a class="block w-full hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="#contact" role="menuitem" tabindex="-1">
+      contato
+     </a>
+    </li>
+   </ul>
+  </nav>
+  <main class="pt-24 md:pt-32 max-w-7xl mx-auto px-6 md:px-12">
+   <!-- Hero Section -->
+   <section aria-label="Seção principal de destaque" class="flex flex-col items-center text-center text-white mb-20 px-4 md:px-0 max-w-4xl mx-auto">
+    <h1 class="hero-logo-text" style="font-family: 'Montserrat', sans-serif;">
+     PROMETEUS
+    </h1>
+    <p class="text-xl md:text-2xl font-normal mb-3 text-gray-300 max-w-full text-justify">
+     A nova era da advocacia digital.
+    </p>
+    <p class="text-gray-400 mb-8 leading-relaxed max-w-full text-justify">
+     Direito, tecnologia e inovação em um só lugar.
+     <br/>
+     Inteligência artificial, blockchain e automação para proteger o que é
+        seu.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4">
+     <a class="ghost-btn px-8 py-3 rounded-md text-lg font-medium inline-block text-center" href="/solutions.html" role="button" tabindex="0">
+      Conheça nossas soluções
+     </a>
+     <a class="ghost-btn px-8 py-3 rounded-md text-lg font-medium inline-block text-center" href="/simula.html" role="button" tabindex="0">
+      Teste o simulador jurídico
+     </a>
+    </div>
+   </section>
+   <!-- Areas of Law Section -->
+   <section aria-labelledby="areas-title" class="mb-20 max-w-7xl mx-auto px-4 md:px-0">
+    <h2 class="text-gray-400 uppercase tracking-widest text-sm mb-2 text-center">
+     Áreas tradicionais com inovação real
+    </h2>
+    <p class="text-center text-gray-300 mb-10 max-w-3xl mx-auto text-justify">
+     Atuamos com excelência jurídica em áreas clássicas – com um toque do
+        futuro.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-white max-w-6xl mx-auto">
+     <!-- Civil Law -->
+     <article aria-label="Direito Civil" class="flex flex-col items-center text-center p-6 bg-black bg-opacity-30 rounded-lg shadow-lg">
+      <div class="mb-4 text-white text-5xl">
+       <i class="fas fa-balance-scale" aria-hidden="true" title="Ícone de balança da justiça"></i>
+      </div>
+      <h3 class="text-xl font-normal mb-2">
+       Direito Civil
+      </h3>
+      <p class="text-gray-300 text-sm leading-relaxed text-justify card-text">
+       Contratos, responsabilidade civil, indenizações e relações privadas.
+      </p>
+     </article>
+     <!-- Business Law -->
+     <article aria-label="Direito Empresarial" class="flex flex-col items-center text-center p-6 bg-black bg-opacity-30 rounded-lg shadow-lg">
+      <div class="mb-4 text-white text-5xl">
+       <i class="fas fa-building" aria-hidden="true" title="Ícone de prédio comercial"></i>
+      </div>
+      <h3 class="text-xl font-normal mb-2">
+       Direito Empresarial
+      </h3>
+      <p class="text-gray-300 text-sm leading-tight text-justify card-text">
+       Estruturação societária, compliance, proteção corporativa e proteção de marcas.
+      </p>
+     </article>
+     <!-- Digital Law -->
+     <article aria-label="Direito Digital" class="flex flex-col items-center text-center p-6 bg-black bg-opacity-30 rounded-lg shadow-lg">
+      <div class="mb-4 text-white text-5xl">
+       <i class="fas fa-laptop-code" aria-hidden="true" title="Ícone de laptop representando direito digital"></i>
+      </div>
+      <h3 class="text-xl font-normal mb-2">
+       Direito Digital
+      </h3>
+      <p class="text-gray-300 text-sm leading-tight text-justify card-text">
+       Privacidade, proteção de dados, crimes cibernéticos e inteligência artificial.
+      </p>
+     </article>
+     <!-- Consumer Law -->
+     <article aria-label="Direito do Consumidor" class="flex flex-col items-center text-center p-6 bg-black bg-opacity-30 rounded-lg shadow-lg">
+      <div class="mb-4 text-white text-5xl">
+       <i class="fas fa-shield-alt" aria-hidden="true" title="Ícone de escudo representando direito do consumidor"></i>
+      </div>
+      <h3 class="text-xl font-normal mb-2">
+       Direito do Consumidor
+      </h3>
+      <p class="text-gray-300 text-sm leading-tight text-justify card-text">
+       Defesa em ações consumeristas, fraudes digitais e relações comerciais.
+      </p>
+     </article>
+    </div>
+   </section>
+   <!-- Prometeus Differentials Section -->
+   <section aria-labelledby="differentials-title" class="mb-20 max-w-7xl mx-auto px-4 md:px-0">
+    <h2 class="text-gray-400 uppercase tracking-widest text-sm mb-6 text-center">
+     O que você não encontra em outros escritórios
+    </h2>
+    <div aria-label="Diferenciais do Prometeus" class="flex space-x-6 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 px-2 md:px-0 scroll-hint-container relative" role="list" tabindex="0" aria-describedby="scrollHintText">
+     <!-- Scroll hint arrow -->
+     <div class="scroll-hint-arrow" aria-hidden="true" title="Arraste para o lado para ver mais opções">
+      <i class="fas fa-chevron-right"></i>
+     </div>
+     <!-- Card 1 -->
+     <article class="flex-shrink-0 w-64 bg-black bg-opacity-30 rounded-lg p-6 text-center shadow-lg" role="listitem">
+      <div class="flex justify-center mb-4 text-white text-4xl">
+       <i aria-hidden="true" class="fas fa-robot" title="Ícone de robô representando inteligência artificial"></i>
+      </div>
+      <h3 class="text-lg font-normal mb-2 text-justify">
+       IA Jurídica para análise de contratos
+      </h3>
+     </article>
+     <!-- Card 2 -->
+     <article class="flex-shrink-0 w-64 bg-black bg-opacity-30 rounded-lg p-6 text-center shadow-lg" role="listitem">
+      <div class="flex justify-center mb-4 text-white text-4xl">
+       <i aria-hidden="true" class="fas fa-link" title="Ícone de elo de corrente representando blockchain"></i>
+      </div>
+      <h3 class="text-lg font-normal mb-2 text-justify">
+       Contratos inteligentes com blockchain
+      </h3>
+     </article>
+     <!-- Card 3 -->
+     <article class="flex-shrink-0 w-64 bg-black bg-opacity-30 rounded-lg p-6 text-center shadow-lg" role="listitem">
+      <div class="flex justify-center mb-4 text-white text-4xl">
+       <i aria-hidden="true" class="fas fa-tachometer-alt" title="Ícone de velocímetro representando dashboard"></i>
+      </div>
+      <h3 class="text-lg font-normal mb-2 text-justify">
+       Dashboard jurídico personalizável
+      </h3>
+     </article>
+     <!-- Card 4 -->
+     <article class="flex-shrink-0 w-64 bg-black bg-opacity-30 rounded-lg p-6 text-center shadow-lg" role="listitem">
+      <div class="flex justify-center mb-4 text-white text-4xl">
+       <i aria-hidden="true" class="fas fa-user-shield" title="Ícone de escudo com usuário representando consultoria segura"></i>
+      </div>
+      <h3 class="text-lg font-normal mb-2 text-justify">
+       Consultoria com token de acesso
+      </h3>
+     </article>
+     <!-- Card 5 -->
+     <article class="flex-shrink-0 w-64 bg-black bg-opacity-30 rounded-lg p-6 text-center shadow-lg" role="listitem">
+      <div class="flex justify-center mb-4 text-white text-4xl">
+       <i aria-hidden="true" class="fas fa-vote-yea" title="Ícone de votação representando comunidade NFT"></i>
+      </div>
+      <h3 class="text-lg font-normal mb-2 text-justify">
+       Comunidade com votação via NFT
+      </h3>
+     </article>
+    </div>
+    <p id="scrollHintText" class="sr-only">Arraste para o lado para ver mais opções</p>
+   </section>
+   <!-- Call to Action Section -->
+   <section aria-label="Chamada para ação" class="mb-20 bg-black relative rounded-lg py-16 px-6 md:px-12 max-w-5xl mx-auto text-center">
+    <div aria-hidden="true" class="absolute inset-0 rounded-lg blur-[40px] bg-gradient-to-r from-blue-400 via-blue-300 to-blue-500 opacity-40 -z-10">
+    </div>
+    <h2 class="text-white text-3xl md:text-4xl font-light mb-4" style="letter-spacing: 0.1em;">
+     Quer experimentar o futuro do Direito?
+    </h2>
+    <p class="text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed text-justify">
+     Agende uma demonstração ou fale com a Prometeus agora.
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-6 max-w-md mx-auto">
+     <a class="ghost-btn px-8 py-3 rounded-md text-lg font-medium inline-block text-center" href="#contact" role="button" tabindex="0">
+      Contato
+     </a>
+     <a class="ghost-btn px-8 py-3 rounded-md text-lg font-medium inline-block text-center" href="/solutions.html" role="button" tabindex="0">
+      Ver soluções
+     </a>
+     <a class="ghost-btn px-8 py-3 rounded-md text-lg font-medium inline-block text-center" href="/simula.html" role="button" tabindex="0">
+      Acessar simulador
+     </a>
+    </div>
+   </section>
+  </main>
+  <!-- Footer -->
+  <footer aria-label="Rodapé do site" class="bg-black border-t border-gray-800 py-10 px-6 md:px-12 text-gray-400 text-sm">
+   <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <div class="flex items-center space-x-3">
+     <div class="text-white text-2xl select-none font-light" aria-label="Logo minimalista Prometeus">
+      <i class="fas fa-gem" aria-hidden="true" title="Ícone de gema minimalista"></i>
+     </div>
+     <span class="font-light text-white text-lg select-none" style="letter-spacing: 0.3em; text-transform: uppercase;">
+      PROMETEUS
+     </span>
+    </div>
+    <nav aria-label="Links rápidos">
+     <ul class="flex space-x-6 lowercase tracking-widest font-light text-white text-sm">
+      <li>
+       <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/" tabindex="0">
+        início
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/solutions.html" tabindex="0">
+        soluções
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/simula.html" tabindex="0">
+        simulador
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="#contact" tabindex="0">
+        contato
+       </a>
+      </li>
+     </ul>
+    </nav>
+    <div aria-label="Redes sociais" class="flex space-x-6 text-white text-xl">
+     <a aria-label="Facebook" class="hover:text-blue-600 focus:text-blue-600 focus:outline-none transition-colors duration-200" href="https://facebook.com/prometeus" rel="noopener noreferrer" target="_blank" tabindex="0">
+      <i class="fab fa-facebook-f">
+      </i>
+     </a>
+     <a aria-label="Twitter" class="hover:text-sky-400 focus:text-sky-400 focus:outline-none transition-colors duration-200" href="https://twitter.com/prometeus" rel="noopener noreferrer" target="_blank" tabindex="0">
+      <i class="fab fa-twitter">
+      </i>
+     </a>
+     <a aria-label="LinkedIn" class="hover:text-blue-500 focus:text-blue-500 focus:outline-none transition-colors duration-200" href="https://linkedin.com/company/prometeus" rel="noopener noreferrer" target="_blank" tabindex="0">
+      <i class="fab fa-linkedin-in">
+      </i>
+     </a>
+     <a aria-label="Instagram" class="hover:text-pink-500 focus:text-pink-500 focus:outline-none transition-colors duration-200" href="https://instagram.com/prometeus" rel="noopener noreferrer" target="_blank" tabindex="0">
+      <i class="fab fa-instagram">
+      </i>
+     </a>
+    </div>
+   </div>
+   <div class="mt-8 text-center text-gray-500 select-none">
+    © Prometeus Association.
+   </div>
+   <div class="mt-2 text-center text-gray-400 italic max-w-3xl mx-auto leading-relaxed">
+    Prometeus é mais que advocacia. É o futuro em suas mãos.
+   </div>
+  </footer>
+  <script>
+   // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+    });
+
+    // Hamburger toggle
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    hamburgerBtn.addEventListener('click', () => {
+      const expanded = hamburgerBtn.getAttribute('aria-expanded') === 'true' || false;
+      hamburgerBtn.setAttribute('aria-expanded', !expanded);
+      hamburgerIcon.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Close mobile menu on link click for better UX
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.setAttribute('aria-expanded', false);
+        hamburgerIcon.classList.remove('active');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  </script>
+ </body>
+</html>

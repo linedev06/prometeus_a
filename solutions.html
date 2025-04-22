@@ -1,0 +1,985 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Casos de Uso | Soluções Reais com a Prometeus
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&amp;family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #0D0D0D;
+      color: #e0e0e0;
+    }
+    .header-link {
+      letter-spacing: 0.3em;
+    }
+    /* Ghost button style */
+    .ghost-btn {
+      border: 2px solid white;
+      color: white;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    .ghost-btn:hover,
+    .ghost-btn:focus {
+      background-color: white;
+      color: #000000;
+      outline: none;
+    }
+    /* Scroll shadow for header */
+    .header-scrolled {
+      background-color: rgba(0, 0, 0, 0.85);
+      box-shadow: 0 2px 8px rgba(255 255 255 / 0.1);
+      backdrop-filter: saturate(180%) blur(10px);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    /* Hamburger button styling */
+    .hamburger {
+      width: 28px;
+      height: 22px;
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+    .hamburger span {
+      background: white;
+      position: absolute;
+      height: 2.5px;
+      width: 100%;
+      border-radius: 1.5px;
+      opacity: 1;
+      left: 0;
+      transition: all 0.3s ease;
+    }
+    .hamburger span:nth-child(1) {
+      top: 0;
+    }
+    .hamburger span:nth-child(2) {
+      top: 9px;
+    }
+    .hamburger span:nth-child(3) {
+      top: 18px;
+    }
+    .hamburger.active span:nth-child(1) {
+      top: 9px;
+      transform: rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      left: -60px;
+    }
+    .hamburger.active span:nth-child(3) {
+      top: 9px;
+      transform: rotate(-45deg);
+    }
+    /* Mobile menu slide */
+    #mobile-menu {
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+    }
+    #mobile-menu.open {
+      max-height: 500px;
+      opacity: 1;
+    }
+    .logo-underline {
+      margin-top: 4px;
+      width: 9.5ch; /* approx length of "PROMETEUS" with letter spacing */
+      border-bottom: 1.5px solid #FFFFFF;
+      border-radius: 1px;
+    }
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+      color: #FFFFFF;
+    }
+    /* Scroll reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Neon button changed to white */
+    .btn-neon {
+      background-color: transparent;
+      border: 2px solid #FFFFFF;
+      color: #FFFFFF;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 8px #FFFFFF;
+      cursor: pointer;
+      user-select: none;
+    }
+    .btn-neon:hover, .btn-neon:focus {
+      background-color: #FFFFFF;
+      color: #0D0D0D;
+      box-shadow: 0 0 20px #FFFFFF;
+      outline: none;
+    }
+    /* Card hover effect changed to white */
+    .card-hover:hover {
+      box-shadow: 0 0 20px #FFFFFF;
+      transform: translateY(-8px);
+      transition: all 0.4s ease;
+      border-color: #FFFFFF;
+    }
+    /* Scrollbar for horizontal carousel */
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Animated background lines for CTA changed to white */
+    @keyframes moveLines {
+      0% {
+        background-position: 0 0, 0 0;
+      }
+      100% {
+        background-position: 1000px 0, 0 1000px;
+      }
+    }
+    .animated-bg {
+      background-image:
+        linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: moveLines 60s linear infinite;
+    }
+    /* Modal full screen with translucent border and dark gradient background */
+    #modalDemo {
+      background: linear-gradient(135deg, rgba(13,13,13,0.95) 0%, rgba(30,30,30,0.95) 100%);
+      border: 2px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 0 30px rgba(255,255,255,0.1);
+    }
+    /* Scrollbar for modal content */
+    #modalDemoContent::-webkit-scrollbar {
+      width: 8px;
+    }
+    #modalDemoContent::-webkit-scrollbar-thumb {
+      background-color: rgba(255,255,255,0.2);
+      border-radius: 4px;
+    }
+    #modalDemoContent::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    /* Scrollbar for chat messages */
+    #chatMessages::-webkit-scrollbar {
+      width: 6px;
+    }
+    #chatMessages::-webkit-scrollbar-thumb {
+      background-color: rgba(255,255,255,0.3);
+      border-radius: 3px;
+    }
+    #chatMessages::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    /* Scrollbar for contract preview */
+    #contractPreview::-webkit-scrollbar {
+      width: 8px;
+    }
+    #contractPreview::-webkit-scrollbar-thumb {
+      background-color: rgba(255,255,255,0.2);
+      border-radius: 4px;
+    }
+    #contractPreview::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    /* Buttons inside modal */
+    .modal-tab-btn {
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .modal-tab-btn.active {
+      border-color: #FFFFFF;
+      background-color: rgba(255,255,255,0.1);
+    }
+    /* Form inputs */
+    input[type="text"], select, textarea {
+      background-color: #1e1e1e;
+      border: 1.5px solid #444;
+      color: #eee;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.375rem;
+      transition: border-color 0.3s ease;
+      font-size: 1rem;
+      font-family: 'Roboto', sans-serif;
+    }
+    input[type="text"]:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #FFFFFF;
+      box-shadow: 0 0 8px #FFFFFF;
+      background-color: #222;
+    }
+    /* Scrollable areas */
+    .scrollable {
+      overflow-y: auto;
+      max-height: 300px;
+    }
+    /* Chat bubbles */
+    .chat-bubble {
+      max-width: 75%;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      line-height: 1.3;
+      user-select: text;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .chat-user {
+      background-color: #FFFFFF;
+      color: #0D0D0D;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+    }
+    .chat-bot {
+      background-color: #444;
+      color: #eee;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+    }
+    /* Scroll container for chat */
+    #chatMessages {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      gap: 0.25rem;
+    }
+    /* Buttons for chat quick questions */
+    .chat-quick-btn {
+      background-color: transparent;
+      border: 1.5px solid #eee;
+      color: #eee;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      margin: 0.25rem 0.25rem 0 0;
+    }
+    .chat-quick-btn:hover, .chat-quick-btn:focus {
+      background-color: #fff;
+      color: #0D0D0D;
+      outline: none;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      #modalDemoContent {
+        max-height: 70vh;
+      }
+      .scrollable {
+        max-height: 200px;
+      }
+    }
+  </style>
+ </head>
+  <header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-12 py-4 bg-black" id="header" role="banner">
+   <a aria-label="Logo Prometeus" class="logo-container" href="/" tabindex="0">
+    <span class="logo-text" aria-hidden="true">
+     PROMETEUS
+    </span>
+    <span class="logo-underline" aria-hidden="true"></span>
+   </a>
+   <!-- Desktop Nav -->
+   <nav aria-label="Menu principal" class="hidden md:block" role="navigation">
+    <ul class="flex space-x-10 text-white text-sm font-light header-link tracking-widest lowercase">
+     <li>
+      <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/" tabindex="0">
+       início
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/solutions.html" tabindex="0">
+       soluções
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/simula.html" tabindex="0">
+       simulador
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="#contact" tabindex="0">
+       contato
+      </a>
+     </li>
+    </ul>
+   </nav>
+   <!-- Mobile Hamburger -->
+   <button aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu" class="md:hidden focus:outline-none" id="hamburger-btn" type="button">
+    <div aria-hidden="true" class="hamburger" id="hamburger-icon">
+     <span>
+     </span>
+     <span>
+     </span>
+     <span>
+     </span>
+    </div>
+   </button>
+  </header>
+  <!-- Mobile Menu -->
+  <nav aria-label="Menu principal mobile" class="md:hidden bg-black fixed top-16 left-0 w-full z-40 border-t border-gray-800" id="mobile-menu" role="menu">
+   <ul class="flex flex-col space-y-4 py-6 px-6 text-white text-lg font-light lowercase tracking-widest" role="none">
+    <li role="none">
+     <a class="block w-full hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/" role="menuitem" tabindex="-1">
+      início
+     </a>
+    </li>
+    <li role="none">
+     <a class="block w-full hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/solutions.html" role="menuitem" tabindex="-1">
+      soluções
+     </a>
+    </li>
+    <li role="none">
+     <a class="block w-full hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="/simula.html" role="menuitem" tabindex="-1">
+      simulador
+     </a>
+    </li>
+    <li role="none">
+     <a class="block w-full hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-200" href="#contact" role="menuitem" tabindex="-1">
+      contato
+     </a>
+    </li>
+   </ul>
+  </nav>
+  <main class="pt-24 md:pt-32 max-w-7xl mx-auto px-6 md:px-12">
+   <!-- Hero Section -->
+
+ <body class="relative">
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col justify-center items-center px-6 text-center py-20" id="hero">
+   <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight max-w-4xl reveal">
+    Do Conceito à Ação.
+    <br/>
+    A Prometeus transforma o Direito com soluções práticas, reais e automatizadas.
+   </h1>
+   <p class="mt-6 text-white text-lg sm:text-xl max-w-3xl reveal delay-200">
+    Veja como estamos redefinindo a advocacia digital com IA, blockchain e automação.
+   </p>
+   <button aria-label="Solicite uma Demonstração" class="btn-neon mt-12 px-8 py-4 rounded-full flex items-center justify-center gap-3 text-lg font-semibold reveal delay-400 hover:scale-105 focus:scale-105 focus:outline-none" id="btnSoliciteDemo">
+    <i class="fas fa-rocket fa-lg">
+    </i>
+    Solicite uma Demonstração
+   </button>
+  </section>
+  <!-- Casos de Uso Section -->
+  <section class="px-6 py-20 max-w-7xl mx-auto" id="casos-de-uso">
+   <h2 class="text-3xl sm:text-4xl font-extrabold mb-12 text-center reveal">
+    Casos de Uso
+   </h2>
+   <!-- Grid for desktop, horizontal scroll for mobile -->
+   <div aria-label="Casos de Uso" class="grid grid-cols-1 sm:grid-cols-2 gap-8 overflow-x-auto scrollbar-hide snap-x snap-mandatory sm:snap-none" role="list">
+    <!-- Card 1 -->
+    <article class="card-hover snap-start bg-[#121212] border border-gray-700 rounded-xl p-8 flex flex-col gap-6 reveal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer" tabindex="0" data-title="Automatização de Contratos Inteligentes" data-desc="Geração automática de contratos com cláusulas ajustadas por IA, e validação em blockchain para integridade e imutabilidade. Exemplo: Startup X reduziu 80% do tempo de negociação com contratos inteligentes gerados pela Prometeus.">
+     <div class="flex items-center gap-4">
+      <img alt="Ícone estilizado de corrente de blockchain branca com uma caneta digital sobreposta, representando contratos inteligentes" aria-hidden="true" class="w-12 h-12" height="48" src="https://storage.googleapis.com/a1aa/image/12cbffc4-477e-49cc-1411-05624e2c0573.jpg" width="48"/>
+      <h3 class="text-xl font-semibold text-white">
+       Automatização de Contratos Inteligentes
+      </h3>
+     </div>
+     <p class="text-gray-300 flex-grow">
+      Geração automática de contratos com cláusulas ajustadas por IA, e validação em blockchain para integridade e imutabilidade.
+     </p>
+     <blockquote class="italic text-white border-l-4 border-white pl-4">
+      “Startup X reduziu 80% do tempo de negociação com contratos inteligentes gerados pela Prometeus.”
+     </blockquote>
+    </article>
+    <!-- Card 2 -->
+    <article class="card-hover snap-start bg-[#121212] border border-gray-700 rounded-xl p-8 flex flex-col gap-6 reveal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer" tabindex="0" data-title="IA em Compliance e Due Diligence" data-desc="Análise preventiva de documentos, sinalização de riscos legais e sugestões de melhoria em tempo real. Exemplo: Departamento jurídico da Empresa Y recebeu alertas sobre cláusulas de risco antes de fechar contrato internacional.">
+     <div class="flex items-center gap-4">
+      <img alt="Ícone estilizado de escudo branco com chip digital, simbolizando IA em compliance e due diligence" aria-hidden="true" class="w-12 h-12" height="48" src="https://storage.googleapis.com/a1aa/image/89a35d30-18c7-4c66-e5f4-dfb5d3454bfd.jpg" width="48"/>
+      <h3 class="text-xl font-semibold text-white">
+       IA em Compliance e Due Diligence
+      </h3>
+     </div>
+     <p class="text-gray-300 flex-grow">
+      Análise preventiva de documentos, sinalização de riscos legais e sugestões de melhoria em tempo real.
+     </p>
+     <blockquote class="italic text-white border-l-4 border-white pl-4">
+      “Departamento jurídico da Empresa Y recebeu alertas sobre cláusulas de risco antes de fechar contrato internacional.”
+     </blockquote>
+    </article>
+    <!-- Card 3 -->
+    <article class="card-hover snap-start bg-[#121212] border border-gray-700 rounded-xl p-8 flex flex-col gap-6 reveal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer" tabindex="0" data-title="Blockchain para Registros Notariais" data-desc="Registro imutável de documentos e assinaturas digitais, com verificação pública via hash. Exemplo: O advogado Z utilizou nossa ferramenta para registrar atas e procurações em blockchain com validade jurídica.">
+     <div class="flex items-center gap-4">
+      <img alt="Ícone estilizado de selo de cartório branco com código QR, representando blockchain para registros notariais" aria-hidden="true" class="w-12 h-12" height="48" src="https://storage.googleapis.com/a1aa/image/3d6b545a-7476-43ed-3651-664a0d871b90.jpg" width="48"/>
+      <h3 class="text-xl font-semibold text-white">
+       Blockchain para Registros Notariais
+      </h3>
+     </div>
+     <p class="text-gray-300 flex-grow">
+      Registro imutável de documentos e assinaturas digitais, com verificação pública via hash.
+     </p>
+     <blockquote class="italic text-white border-l-4 border-white pl-4">
+      “O advogado Z utilizou nossa ferramenta para registrar atas e procurações em blockchain com validade jurídica.”
+     </blockquote>
+    </article>
+    <!-- Card 4 -->
+    <article class="card-hover snap-start bg-[#121212] border border-gray-700 rounded-xl p-8 flex flex-col gap-6 reveal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer" tabindex="0" data-title="Soluções sob Medida" data-desc="Automação modular para diferentes perfis: advogados autônomos, startups, escritórios, departamentos jurídicos. Exemplo: Advogada solo automatizou toda sua rotina de contratos, petições e cobrança com um sistema da Prometeus.">
+     <div class="flex items-center gap-4">
+      <img alt="Ícone estilizado de cubo branco se moldando, simbolizando soluções sob medida flexíveis" aria-hidden="true" class="w-12 h-12" height="48" src="https://storage.googleapis.com/a1aa/image/cee9cf7a-6aec-4dc2-ca3f-405ef112160a.jpg" width="48"/>
+      <h3 class="text-xl font-semibold text-white">
+       Soluções sob Medida
+      </h3>
+     </div>
+     <p class="text-gray-300 flex-grow">
+      Automação modular para diferentes perfis: advogados autônomos, startups, escritórios, departamentos jurídicos.
+     </p>
+     <blockquote class="italic text-white border-l-4 border-white pl-4">
+      “Advogada solo automatizou toda sua rotina de contratos, petições e cobrança com um sistema da Prometeus.”
+     </blockquote>
+    </article>
+   </div>
+  </section>
+  <!-- Quem Usa a Prometeus Section -->
+  <section class="px-6 py-20 max-w-6xl mx-auto" id="quem-usa">
+   <h2 class="text-3xl sm:text-4xl font-extrabold mb-12 text-center reveal">
+    Quem Usa a Prometeus?
+   </h2>
+   <div class="grid grid-cols-2 sm:grid-cols-5 gap-10 text-center reveal">
+    <!-- Persona 1 -->
+    <div class="flex flex-col items-center gap-4">
+     <img alt="Ícone branco representando startups jurídicas, foguete estilizado" aria-hidden="true" class="w-20 h-20 mx-auto" height="80" src="https://storage.googleapis.com/a1aa/image/9f1f3635-aaaa-4f32-6640-f42b81a975bc.jpg" width="80"/>
+     <h3 class="text-white font-semibold text-lg">
+      Startups jurídicas
+     </h3>
+     <p class="text-gray-400 text-sm max-w-xs">
+      Para quem precisa de velocidade, segurança e inovação.
+     </p>
+    </div>
+    <!-- Persona 2 -->
+    <div class="flex flex-col items-center gap-4">
+     <img alt="Ícone branco de balança da justiça representando escritórios de advocacia" aria-hidden="true" class="w-20 h-20 mx-auto" height="80" src="https://storage.googleapis.com/a1aa/image/0352aa31-d507-46bd-5b02-7056c69404f1.jpg" width="80"/>
+     <h3 class="text-white font-semibold text-lg">
+      Escritórios de advocacia
+     </h3>
+     <p class="text-gray-400 text-sm max-w-xs">
+      Para quem precisa de velocidade, segurança e inovação.
+     </p>
+    </div>
+    <!-- Persona 3 -->
+    <div class="flex flex-col items-center gap-4">
+     <img alt="Ícone branco de prédio corporativo representando departamentos de empresas" aria-hidden="true" class="w-20 h-20 mx-auto" height="80" src="https://storage.googleapis.com/a1aa/image/90a195e7-6e6d-4504-f48d-b179358c2888.jpg" width="80"/>
+     <h3 class="text-white font-semibold text-lg">
+      Departamentos de empresas
+     </h3>
+     <p class="text-gray-400 text-sm max-w-xs">
+      Para quem precisa de velocidade, segurança e inovação.
+     </p>
+    </div>
+    <!-- Persona 4 -->
+    <div class="flex flex-col items-center gap-4">
+     <img alt="Ícone branco de advogada autônoma com toga e laptop" aria-hidden="true" class="w-20 h-20 mx-auto" height="80" src="https://storage.googleapis.com/a1aa/image/5dd633ff-990d-41b8-7313-549efc9d12a6.jpg" width="80"/>
+     <h3 class="text-white font-semibold text-lg">
+      Advogados autônomos
+     </h3>
+     <p class="text-gray-400 text-sm max-w-xs">
+      Para quem precisa de velocidade, segurança e inovação.
+     </p>
+    </div>
+    <!-- Persona 5 -->
+    <div class="flex flex-col items-center gap-4">
+     <img alt="Ícone branco de laptop com código representando legaltechs" aria-hidden="true" class="w-20 h-20 mx-auto" height="80" src="https://storage.googleapis.com/a1aa/image/225bdad9-eb8e-434e-bfad-2b6f75815505.jpg" width="80"/>
+     <h3 class="text-white font-semibold text-lg">
+      Legaltechs
+     </h3>
+     <p class="text-gray-400 text-sm max-w-xs">
+      Para quem precisa de velocidade, segurança e inovação.
+     </p>
+    </div>
+   </div>
+  </section>
+  <!-- CTA Final Section -->
+  <section class="relative overflow-hidden px-6 py-24 text-center text-gray-100 animated-bg" id="cta-final">
+   <div class="relative z-10 max-w-4xl mx-auto">
+    <h2 class="text-4xl sm:text-5xl font-extrabold mb-6 leading-tight reveal">
+     Você ainda está fazendo tudo manualmente?
+    </h2>
+    <p class="text-white text-xl mb-12 reveal delay-200">
+     Descubra como a Prometeus pode automatizar sua rotina e potencializar seu trabalho.
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-6 reveal delay-400">
+     <button aria-label="Ver Demonstração" class="btn-neon px-8 py-4 rounded-full text-lg font-semibold flex items-center justify-center gap-3 hover:scale-105 focus:scale-105 focus:outline-none" id="btnVerDemo">
+      <i class="fas fa-play-circle fa-lg">
+      </i>
+      Ver Demonstração
+     </button>
+     <a aria-label="Agendar Reunião" class="btn-neon px-8 py-4 rounded-full text-lg font-semibold flex items-center justify-center gap-3 hover:scale-105 focus:scale-105 focus:outline-none" href="https://calendly.com/prometeus/reuniao" target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-calendar-alt fa-lg">
+      </i>
+      Agendar Reunião
+     </a>
+    </div>
+   </div>
+   <!-- Decorative lines images for subtle animation -->
+   <img alt="Linhas de código brancas em movimento sutil, representando tecnologia avançada, fundo animado" aria-hidden="true" class="pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-10" height="120" src="https://storage.googleapis.com/a1aa/image/fe24f875-bce9-47c1-8d3f-fde474167645.jpg" width="1200"/>
+  </section>
+
+  <!-- Modal Demo Fullscreen -->
+  <div aria-hidden="true" aria-modal="true" role="dialog" id="modalDemo" class="fixed inset-0 z-50 hidden flex flex-col max-h-screen w-full max-w-full p-6 md:p-12 overflow-hidden rounded-lg mx-auto" tabindex="-1" aria-labelledby="modalDemoTitle" aria-describedby="modalDemoDesc">
+   <div class="flex justify-between items-center mb-6">
+    <h2 id="modalDemoTitle" class="text-3xl font-extrabold text-white font-orbitron">
+     Ecossistema Prometeus - Demonstração Interativa
+    </h2>
+    <button aria-label="Fechar modal" id="modalDemoClose" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded">
+     <i class="fas fa-times fa-2x"></i>
+    </button>
+   </div>
+   <div id="modalDemoContent" class="flex flex-col md:flex-row gap-6 overflow-y-auto max-h-[80vh]">
+    <!-- Left panel: Tabs and content -->
+    <nav aria-label="Navegação das funcionalidades" class="flex md:flex-col gap-3 md:w-48">
+     <button class="modal-tab-btn active text-white font-semibold px-4 py-2 rounded-md" data-tab="tab1" type="button" id="tabBtn1" aria-controls="tab1" aria-selected="true" role="tab" tabindex="0">
+      Geração de Contrato
+     </button>
+     <button class="modal-tab-btn text-white font-semibold px-4 py-2 rounded-md" data-tab="tab2" type="button" id="tabBtn2" aria-controls="tab2" aria-selected="false" role="tab" tabindex="-1">
+      Registro Blockchain
+     </button>
+     <button class="modal-tab-btn text-white font-semibold px-4 py-2 rounded-md" data-tab="tab3" type="button" id="tabBtn3" aria-controls="tab3" aria-selected="false" role="tab" tabindex="-1">
+      Análise de Cláusula
+     </button>
+     <button class="modal-tab-btn text-white font-semibold px-4 py-2 rounded-md" data-tab="tab4" type="button" id="tabBtn4" aria-controls="tab4" aria-selected="false" role="tab" tabindex="-1">
+      Mini Chat IA
+     </button>
+    </nav>
+    <!-- Right panel: Tab contents -->
+    <section class="flex-grow bg-[#121212] rounded-lg p-6 flex flex-col" tabindex="0">
+     <!-- Tab 1: Geração de Contrato Automatizado -->
+     <div id="tab1" role="tabpanel" aria-labelledby="tabBtn1" class="tab-content flex flex-col h-full" >
+      <form id="contractForm" class="flex flex-col gap-6 flex-grow overflow-y-auto">
+       <div id="formStep1" class="form-step">
+        <label for="contractType" class="block text-white font-semibold mb-2">Qual o tipo de contrato?</label>
+        <select id="contractType" name="contractType" required class="w-full">
+         <option value="" disabled selected>Selecione o tipo de contrato</option>
+         <option value="Compra e Venda">Compra e Venda</option>
+         <option value="Prestação de Serviços">Prestação de Serviços</option>
+         <option value="Confidencialidade">Confidencialidade (NDA)</option>
+         <option value="Parceria">Parceria</option>
+         <option value="Outro">Outro</option>
+        </select>
+       </div>
+       <div id="formStep2" class="form-step hidden">
+        <label for="areaAtuacao" class="block text-white font-semibold mb-2">Qual a sua área de atuação?</label>
+        <select id="areaAtuacao" name="areaAtuacao" required class="w-full">
+         <option value="" disabled selected>Selecione a área de atuação</option>
+         <option value="Direito Empresarial">Direito Empresarial</option>
+         <option value="Direito Civil">Direito Civil</option>
+         <option value="Direito Trabalhista">Direito Trabalhista</option>
+         <option value="Direito Digital">Direito Digital</option>
+         <option value="Outro">Outro</option>
+        </select>
+       </div>
+       <div id="formStep3" class="form-step hidden">
+        <label for="clausulas" class="block text-white font-semibold mb-2">Quais cláusulas deseja incluir?</label>
+        <textarea id="clausulas" name="clausulas" rows="4" placeholder="Descreva as cláusulas desejadas..." class="w-full resize-none" required></textarea>
+       </div>
+       <div id="formStep4" class="form-step hidden flex flex-col flex-grow">
+        <label class="block text-white font-semibold mb-2">Contrato Gerado (em tempo real):</label>
+        <pre id="contractPreview" class="flex-grow bg-[#222] rounded p-4 overflow-y-auto whitespace-pre-wrap text-sm font-mono"></pre>
+        <div class="mt-4 flex gap-4 justify-end">
+         <button type="button" id="btnDownloadPDF" class="btn-neon px-4 py-2 rounded-md font-semibold flex items-center gap-2" disabled>
+          <i class="fas fa-file-pdf"></i> Download PDF
+         </button>
+         <button type="button" id="btnDownloadDOCX" class="btn-neon px-4 py-2 rounded-md font-semibold flex items-center gap-2" disabled>
+          <i class="fas fa-file-word"></i> Download DOCX
+         </button>
+        </div>
+       </div>
+       <div class="flex justify-between mt-auto pt-4">
+        <button type="button" id="prevStep" class="btn-neon px-4 py-2 rounded-md font-semibold" disabled>
+         Anterior
+        </button>
+        <button type="submit" id="nextStep" class="btn-neon px-4 py-2 rounded-md font-semibold">
+         Próximo
+        </button>
+       </div>
+      </form>
+     </div>
+     <!-- Tab 2: Simulação de Registro em Blockchain -->
+     <div id="tab2" role="tabpanel" aria-labelledby="tabBtn2" class="tab-content hidden flex flex-col h-full">
+      <form id="blockchainForm" class="flex flex-col gap-6 flex-grow overflow-y-auto">
+       <div>
+        <label for="uploadDoc" class="block text-white font-semibold mb-2">Upload de documento</label>
+        <input type="file" id="uploadDoc" name="uploadDoc" accept=".txt,.doc,.docx,.pdf" class="w-full text-white" required/>
+       </div>
+       <div id="hashSection" class="hidden flex flex-col gap-2">
+        <label class="block text-white font-semibold">Hash SHA-256 gerado:</label>
+        <code id="hashValue" class="break-words bg-[#222] p-2 rounded text-sm font-mono select-all"></code>
+       </div>
+       <div>
+        <label for="networkSelect" class="block text-white font-semibold mb-2">Rede escolhida</label>
+        <select id="networkSelect" name="networkSelect" class="w-full" required>
+         <option value="" disabled selected>Selecione a rede</option>
+         <option value="Ethereum">Ethereum</option>
+         <option value="Testnet">Testnet</option>
+        </select>
+       </div>
+       <div id="linkSection" class="hidden flex flex-col gap-2">
+        <label class="block text-white font-semibold">Link verificável (simulado) com timestamp:</label>
+        <a href="#" target="_blank" rel="noopener noreferrer" id="verificationLink" class="text-cyan-400 underline break-all"></a>
+       </div>
+       <div class="mt-auto flex justify-end pt-4">
+        <button type="submit" class="btn-neon px-6 py-2 rounded-md font-semibold">
+         Registrar
+        </button>
+       </div>
+      </form>
+     </div>
+     <!-- Tab 3: Análise Automática de Cláusula -->
+     <div id="tab3" role="tabpanel" aria-labelledby="tabBtn3" class="tab-content hidden flex flex-col h-full">
+      <form id="clauseForm" class="flex flex-col gap-4 flex-grow overflow-y-auto">
+       <label for="clauseInput" class="block text-white font-semibold">Cole uma cláusula para análise:</label>
+       <textarea id="clauseInput" rows="6" placeholder="Cole aqui a cláusula..." class="w-full resize-none bg-[#222] p-3 rounded text-white font-mono" required></textarea>
+       <button type="submit" class="btn-neon px-6 py-2 rounded-md font-semibold self-start">
+        Analisar
+       </button>
+       <div id="clauseResult" class="mt-4 bg-[#1a1a1a] rounded p-4 text-sm text-white overflow-y-auto flex-grow scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-900" style="min-height:120px; display:none;">
+        <p><strong>Risco jurídico:</strong> <span id="riskLevel"></span></p>
+        <p class="mt-2"><strong>Sugestão de reescrita:</strong></p>
+        <pre id="rewriteSuggestion" class="whitespace-pre-wrap font-mono bg-[#222] p-3 rounded mt-1"></pre>
+        <p class="mt-2"><strong>Jurisprudência relacionada:</strong></p>
+        <ul id="jurisprudenceList" class="list-disc list-inside"></ul>
+       </div>
+      </form>
+     </div>
+     <!-- Tab 4: Mini Chat IA -->
+     <div id="tab4" role="tabpanel" aria-labelledby="tabBtn4" class="tab-content hidden flex flex-col h-full">
+      <div id="chatMessages" class="scrollable flex-grow mb-4" aria-live="polite" aria-atomic="true" role="log" tabindex="0"></div>
+      <div class="flex flex-wrap gap-2 justify-center">
+       <button type="button" class="chat-quick-btn" data-question="Como posso automatizar meus contratos?">Como posso automatizar meus contratos?</button>
+       <button type="button" class="chat-quick-btn" data-question="Quais documentos posso registrar em blockchain?">Quais documentos posso registrar em blockchain?</button>
+       <button type="button" class="chat-quick-btn" data-question="O que é um smart contract?">O que é um smart contract?</button>
+      </div>
+      <form id="chatForm" class="mt-4 flex gap-2" aria-label="Enviar mensagem para IA">
+       <input type="text" id="chatInput" placeholder="Digite sua pergunta..." class="flex-grow bg-[#222] rounded px-3 py-2 text-white font-mono" autocomplete="off" required/>
+       <button type="submit" class="btn-neon px-4 py-2 rounded-md font-semibold">
+        Enviar
+       </button>
+      </form>
+     </div>
+    </section>
+   </div>
+  </div>
+
+  <script>
+   // Scroll reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    function revealOnScroll() {
+      const windowHeight = window.innerHeight;
+      reveals.forEach((el) => {
+        const elementTop = el.getBoundingClientRect().top;
+        if (elementTop < windowHeight - 100) {
+          el.classList.add('active');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    // Modal Demo open/close
+    const modalDemo = document.getElementById('modalDemo');
+    const btnVerDemo = document.getElementById('btnVerDemo');
+    const modalDemoClose = document.getElementById('modalDemoClose');
+
+    btnVerDemo.addEventListener('click', () => {
+      modalDemo.classList.remove('hidden');
+      modalDemo.setAttribute('aria-hidden', 'false');
+      modalDemo.focus();
+      document.body.style.overflow = 'hidden';
+    });
+
+    modalDemoClose.addEventListener('click', closeModalDemo);
+    modalDemo.addEventListener('click', (e) => {
+      if (e.target === modalDemo) {
+        closeModalDemo();
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalDemo.getAttribute('aria-hidden') === 'false') {
+        closeModalDemo();
+      }
+    });
+
+    function closeModalDemo() {
+      modalDemo.classList.add('hidden');
+      modalDemo.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Tabs functionality
+    const tabButtons = document.querySelectorAll('.modal-tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        tabButtons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+          b.setAttribute('tabindex', '-1');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        btn.setAttribute('tabindex', '0');
+
+        tabContents.forEach(tc => {
+          if (tc.id === target) {
+            tc.classList.remove('hidden');
+            tc.setAttribute('tabindex', '0');
+          } else {
+            tc.classList.add('hidden');
+            tc.setAttribute('tabindex', '-1');
+          }
+        });
+      });
+    });
+
+    // Geração de Contrato Automatizado (Typeform style)
+    const contractForm = document.getElementById('contractForm');
+    const steps = Array.from(contractForm.querySelectorAll('.form-step'));
+    const prevStepBtn = document.getElementById('prevStep');
+    const nextStepBtn = document.getElementById('nextStep');
+    const contractPreview = document.getElementById('contractPreview');
+    const btnDownloadPDF = document.getElementById('btnDownloadPDF');
+    const btnDownloadDOCX = document.getElementById('btnDownloadDOCX');
+
+    let currentStep = 0;
+    let contractData = {
+      contractType: '',
+      areaAtuacao: '',
+      clausulas: ''
+    };
+
+    function updateStep() {
+      steps.forEach((step, i) => {
+        step.classList.toggle('hidden', i !== currentStep);
+      });
+      prevStepBtn.disabled = currentStep === 0;
+      nextStepBtn.textContent = currentStep === steps.length - 1 ? 'Finalizar' : 'Próximo';
+      if (currentStep === steps.length - 1) {
+        generateContractText();
+        btnDownloadPDF.disabled = false;
+        btnDownloadDOCX.disabled = false;
+      } else {
+        btnDownloadPDF.disabled = true;
+        btnDownloadDOCX.disabled = true;
+      }
+    }
+
+    function generateContractText() {
+      const {contractType, areaAtuacao, clausulas} = contractData;
+      let text = `Contrato de ${contractType}\nÁrea de Atuação: ${areaAtuacao}\n\nCláusulas:\n${clausulas}\n\n---\nEste contrato foi gerado automaticamente pela Prometeus.`;
+      contractPreview.textContent = text;
+    }
+
+    contractForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Validate current step inputs
+      let valid = true;
+      const inputs = steps[currentStep].querySelectorAll('select, textarea');
+      inputs.forEach(input => {
+        if (!input.checkValidity()) valid = false;
+      });
+      if (!valid) {
+        inputs.forEach(input => {
+          if (!input.checkValidity()) input.reportValidity();
+        });
+        return;
+      }
+      // Save data
+      if (currentStep === 0) {
+        contractData.contractType = document.getElementById('contractType').value;
+      } else if (currentStep === 1) {
+        contractData.areaAtuacao = document.getElementById('areaAtuacao').value;
+      } else if (currentStep === 2) {
+        contractData.clausulas = document.getElementById('clausulas').value.trim();
+      }
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        updateStep();
+      } else {
+        // Final step - do nothing or show message
+      }
+    });
+
+    prevStepBtn.addEventListener('click', () => {
+      if (currentStep > 0) {
+        currentStep--;
+        updateStep();
+      }
+    });
+
+    btnDownloadPDF.addEventListener('click', () => {
+      downloadTextFile(contractPreview.textContent, 'contrato_prometeus.pdf', 'application/pdf');
+    });
+    btnDownloadDOCX.addEventListener('click', () => {
+      downloadTextFile(contractPreview.textContent, 'contrato_prometeus.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+    });
+
+    function downloadTextFile(text, filename, mimeType) {
+      // Simple text file download, not real PDF/DOCX generation
+      const blob = new Blob([text], {type: mimeType});
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    updateStep();
+
+    // Simulação de Registro em Blockchain
+    const blockchainForm = document.getElementById('blockchainForm');
+    const uploadDoc = document.getElementById('uploadDoc');
+    const hashSection = document.getElementById('hashSection');
+    const hashValue = document.getElementById('hashValue');
+    const networkSelect = document.getElementById('networkSelect');
+    const linkSection = document.getElementById('linkSection');
+    const verificationLink = document.getElementById('verificationLink');
+
+    blockchainForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!uploadDoc.files.length) {
+        alert('Por favor, faça upload de um documento.');
+        return;
+      }
+      if (!networkSelect.value) {
+        alert('Por favor, selecione a rede.');
+        return;
+      }
+      const file = uploadDoc.files[0];
+      const arrayBuffer = await file.arrayBuffer();
+      const hashHex = await sha256(arrayBuffer);
+      hashValue.textContent = hashHex;
+      hashSection.classList.remove('hidden');
+
+      // Simulate timestamp and link
+      const timestamp = new Date().toISOString();
+      const network = networkSelect.value;
+      const fakeLink = `https://explorer.${network.toLowerCase()}.org/tx/${hashHex}`;
+      verificationLink.href = fakeLink;
+      verificationLink.textContent = fakeLink + ` (timestamp: ${timestamp})`;
+      linkSection.classList.remove('hidden');
+    });
+
+    async function sha256(buffer) {
+      const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      return hashHex;
+    }
+
+    // Análise Automática de Cláusula (simulada)
+    const clauseForm = document.getElementById('clauseForm');
+    const clauseInput = document.getElementById('clauseInput');
+    const clauseResult = document.getElementById('clauseResult');
+    const riskLevel = document.getElementById('riskLevel');
+    const rewriteSuggestion = document.getElementById('rewriteSuggestion');
+    const jurisprudenceList = document.getElementById('jurisprudenceList');
+
+    clauseForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = clauseInput.value.trim();
+      if (!text) return;
+
+      // Simulated analysis
+      clauseResult.style.display = 'block';
+      // Simple risk detection by keywords
+      const riskKeywords = ['penalidade', 'multa', 'indenização', 'rescisão'];
+      let riskFound = riskKeywords.some(word => text.toLowerCase().includes(word));
+      riskLevel.textContent = riskFound ? 'Alto risco detectado' : 'Risco baixo';
+
+      // Suggestion (simple rephrase)
+      rewriteSuggestion.textContent = text.replace(/não\s+é permitido/gi, 'é proibido').replace(/deve/gi, 'é obrigatório');
+
+      // Simulated jurisprudence
+      jurisprudenceList.innerHTML = '';
+      const jurisprudences = [
+        'STJ, REsp 1234567, 2021',
+        'TJSP, Apelação 987654, 2020',
+        'STF, ADI 4321, 2019'
+      ];
+      jurisprudences.forEach(j => {
+        const li = document.createElement('li');
+        li.textContent = j;
+        jurisprudenceList.appendChild(li);
+      });
+    });
+
+    // Mini Chat IA (simulated)
+    const chatMessages = document.getElementById('chatMessages');
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const quickButtons = document.querySelectorAll('.chat-quick-btn');
+
+    const chatResponses = {
+      "Como posso automatizar meus contratos?": "Você pode automatizar seus contratos utilizando nossa plataforma que gera contratos inteligentes ajustados por IA, reduzindo tempo e erros.",
+      "Quais documentos posso registrar em blockchain?": "Documentos como contratos, atas, procurações e registros notariais podem ser registrados em blockchain para garantir integridade e validade jurídica.",
+      "O que é um smart contract?": "Smart contract é um contrato digital autoexecutável, com cláusulas codificadas que são automaticamente aplicadas quando condições são atendidas."
+    };
+
+    function addChatMessage(text, sender = 'bot') {
+      const div = document.createElement('div');
+      div.classList.add('chat-bubble', sender === 'user' ? 'chat-user' : 'chat-bot');
+      div.textContent = text;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    quickButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const question = btn.dataset.question;
+        addChatMessage(question, 'user');
+        setTimeout(() => {
+          addChatMessage(chatResponses[question] || "Desculpe, não entendi a pergunta.", 'bot');
+        }, 700);
+      });
+    });
+
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const question = chatInput.value.trim();
+      if (!question) return;
+      addChatMessage(question, 'user');
+      chatInput.value = '';
+      setTimeout(() => {
+        // Simple keyword matching for demo
+        let answer = "Desculpe, não entendi a pergunta.";
+        for (const key in chatResponses) {
+          if (question.toLowerCase().includes(key.toLowerCase())) {
+            answer = chatResponses[key];
+            break;
+          }
+        }
+        addChatMessage(answer, 'bot');
+      }, 800);
+    });
+
+    // Button "Solicite uma Demonstração" scrolls to CTA final section
+    const btnSoliciteDemo = document.getElementById('btnSoliciteDemo');
+    btnSoliciteDemo.addEventListener('click', () => {
+      document.getElementById('cta-final').scrollIntoView({behavior: 'smooth'});
+    });
+  </script>
+ </body>
+</html>

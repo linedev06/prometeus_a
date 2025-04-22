@@ -1,0 +1,786 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Prometeus - Plataforma para Advogados
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #000000;
+      color: #ffffff;
+      scroll-behavior: smooth;
+    }
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #111111;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #ffffff;
+      border-radius: 10px;
+      border: 2px solid #111111;
+    }
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation-fill-mode: forwards;
+      animation-name: fadeInUp;
+      animation-duration: 0.8s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .scale-up {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .scale-up:hover {
+      transform: scale(1.05);
+    }
+    .btn-animate {
+      transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-animate:hover {
+      background-color: #ffffff;
+      color: #000000;
+    }
+    /* Hamburger animation */
+    #menu-btn {
+      position: relative;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    #menu-btn span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: 4px 2px;
+    }
+    #menu-btn.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    #menu-btn.open span:nth-child(2) {
+      opacity: 0;
+    }
+    #menu-btn.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+    /* Mobile menu slide down */
+    #mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #mobile-menu.open {
+      max-height: 500px; /* enough to show all menu items */
+    }
+    /* Smooth fade for mobile menu links */
+    #mobile-menu a {
+      opacity: 0;
+      transform: translateY(-10px);
+      animation-fill-mode: forwards;
+      animation-name: fadeInDown;
+      animation-duration: 0.5s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #mobile-menu.open a {
+      animation-play-state: running;
+    }
+    #mobile-menu a:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    #mobile-menu a:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    #mobile-menu a:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+    #mobile-menu a:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+    #mobile-menu a:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+    @keyframes fadeInDown {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Focus outlines for accessibility */
+    a:focus, button:focus {
+      outline: 2px solid #f87171; /* red-400 */
+      outline-offset: 2px;
+    }
+  </style>
+ </head>
+ <body class="flex flex-col min-h-screen">
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-90 backdrop-blur-md border-b border-gray-700">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+     <a class="flex items-center space-x-2 text-white font-extrabold text-2xl select-none" href="#home" tabindex="0" aria-label="Ir para início">
+      <span>
+       Prometeus
+      </span>
+     </a>
+     <div class="hidden md:flex space-x-8 text-white font-semibold">
+      <a class="hover:text-red-600 transition-colors duration-300 flex items-center space-x-1" href="#home" tabindex="0">
+       <i class="fas fa-home" aria-hidden="true">
+       </i>
+       <span>
+        Início
+       </span>
+      </a>
+      <a class="hover:text-red-600 transition-colors duration-300 flex items-center space-x-1" href="#videos" tabindex="0">
+       <i class="fas fa-video" aria-hidden="true">
+       </i>
+       <span>
+        Vídeos
+       </span>
+      </a>
+      <a class="hover:text-red-600 transition-colors duration-300 flex items-center space-x-1" href="#categories" tabindex="0">
+       <i class="fas fa-th-large" aria-hidden="true">
+       </i>
+       <span>
+        Categorias
+       </span>
+      </a>
+      <a class="hover:text-red-600 transition-colors duration-300 flex items-center space-x-1" href="#about" tabindex="0">
+       <i class="fas fa-info-circle" aria-hidden="true">
+       </i>
+       <span>
+        Sobre
+       </span>
+      </a>
+      <a class="hover:text-red-600 transition-colors duration-300 flex items-center space-x-1" href="#contact" tabindex="0">
+       <i class="fas fa-envelope" aria-hidden="true">
+       </i>
+       <span>
+        Contato
+       </span>
+      </a>
+     </div>
+     <div class="md:hidden">
+      <button aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu" class="text-white focus:outline-none focus:ring-2 focus:ring-red-600" id="menu-btn" type="button" tabindex="0">
+       <span></span>
+       <span></span>
+       <span></span>
+      </button>
+     </div>
+    </div>
+   </div>
+   <!-- Mobile menu -->
+   <div class="bg-black border-t border-gray-700 overflow-hidden max-h-0" id="mobile-menu" role="menu" aria-hidden="true">
+    <a class="block px-4 py-3 text-white hover:bg-gray-900 transition-colors duration-300 flex items-center space-x-2" href="#home" role="menuitem" tabindex="-1">
+     <i class="fas fa-home" aria-hidden="true">
+     </i>
+     <span>
+      Início
+     </span>
+    </a>
+    <a class="block px-4 py-3 text-white hover:bg-gray-900 transition-colors duration-300 flex items-center space-x-2" href="#videos" role="menuitem" tabindex="-1">
+     <i class="fas fa-video" aria-hidden="true">
+     </i>
+     <span>
+      Vídeos
+     </span>
+    </a>
+    <a class="block px-4 py-3 text-white hover:bg-gray-900 transition-colors duration-300 flex items-center space-x-2" href="#categories" role="menuitem" tabindex="-1">
+     <i class="fas fa-th-large" aria-hidden="true">
+     </i>
+     <span>
+      Categorias
+     </span>
+    </a>
+    <a class="block px-4 py-3 text-white hover:bg-gray-900 transition-colors duration-300 flex items-center space-x-2" href="#about" role="menuitem" tabindex="-1">
+     <i class="fas fa-info-circle" aria-hidden="true">
+     </i>
+     <span>
+      Sobre
+     </span>
+    </a>
+    <a class="block px-4 py-3 text-white hover:bg-gray-900 transition-colors duration-300 flex items-center space-x-2" href="#contact" role="menuitem" tabindex="-1">
+     <i class="fas fa-envelope" aria-hidden="true">
+     </i>
+     <span>
+      Contato
+     </span>
+    </a>
+   </div>
+  </nav>
+  <!-- Hero Section -->
+  <header class="pt-20 pb-16 px-6 sm:px-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between" id="home">
+   <div class="max-w-xl fade-in" style="animation-delay: 0.2s;">
+    <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight">
+     Prometeus
+    </h1>
+    <p class="text-gray-300 mb-6 text-lg sm:text-xl">
+     Empresa de advogados focada na experiência personalizada do usuário e dos profissionais que atuam conosco.
+    </p>
+    <a class="inline-flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg btn-animate transition" href="#videos" tabindex="0">
+     <i class="fas fa-play-circle" aria-hidden="true">
+     </i>
+     <span>
+      Explore Nossos Serviços
+     </span>
+    </a>
+   </div>
+   <div class="mt-10 md:mt-0 w-full max-w-lg fade-in" style="animation-delay: 0.4s;">
+    <img alt="Advogado moderno trabalhando em laptop com interface tecnológica em fundo preto" class="rounded-xl shadow-2xl scale-up" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/c8a9c86f-7cc6-426e-40ad-9f6f7055b6c1.jpg" width="600"/>
+   </div>
+  </header>
+  <!-- Videos Section -->
+  <section class="max-w-7xl mx-auto px-6 sm:px-12 py-16" id="videos">
+   <h2 class="text-3xl font-extrabold mb-10 text-white text-center fade-in" style="animation-delay: 0.2s;">
+    Conteúdos Recentes
+   </h2>
+   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <article aria-label="Conteúdo sobre Direito Constitucional - Introdução ao tema" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.3s;" tabindex="0">
+     <img alt="Direito Constitucional com livros e martelo de juiz em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/5eae8753-faa2-49a5-108b-c43b3a15e1a9.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Direito Constitucional: Introdução
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Entenda os fundamentos do Direito Constitucional com exemplos práticos.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+       <i class="fas fa-eye" aria-hidden="true">
+       </i>
+     <span>
+        Visualizar
+       </span>
+      </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Direito Penal - Crimes e Penas" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.35s;" tabindex="0">
+     <img alt="Direito Penal com balança da justiça e martelo de juiz em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/0d283a2e-6146-4c7f-a5f3-b1084d3f1ff1.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Direito Penal: Crimes e Penas
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Conheça os principais crimes e suas respectivas penas no Brasil.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Direito Civil - Contratos e Obrigações" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.4s;" tabindex="0">
+     <img alt="Direito Civil com documentos e caneta em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/0f6b3621-3e3c-4989-2b34-d105310806f5.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Direito Civil: Contratos e Obrigações
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Aprenda sobre contratos, obrigações e direitos civis essenciais.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Direito Trabalhista - Direitos do trabalhador" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.45s;" tabindex="0">
+     <img alt="Direito Trabalhista com capacete e documentos em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/0a8e12e6-ffb4-4778-65d0-5b6336ed5c9d.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Direito Trabalhista: Direitos do Trabalhador
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Saiba mais sobre os direitos trabalhistas e como aplicá-los.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Direito Empresarial - Sociedades e contratos" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.5s;" tabindex="0">
+     <img alt="Direito Empresarial com edifícios e contratos em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/d1e86c2a-a6a7-4fd9-3e18-c5440d1c9f43.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Direito Empresarial: Sociedades e Contratos
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Explore os aspectos legais das sociedades empresariais e contratos.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Direito Ambiental - Legislação e casos" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.55s;" tabindex="0">
+     <img alt="Direito Ambiental com árvores e balança da justiça em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/1fe52549-2892-49c1-14d9-d5e1a6321429.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Direito Ambiental: Legislação e Casos
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Conheça as leis ambientais e casos importantes no Brasil.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Direito Tributário - Impostos e tributos" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.6s;" tabindex="0">
+     <img alt="Direito Tributário com calculadora e documentos em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/cc6756cf-2996-4651-e503-ca25d667101b.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Direito Tributário: Impostos e Tributos
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Entenda a legislação tributária e suas aplicações práticas.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Direito Internacional - Tratados e acordos" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.65s;" tabindex="0">
+     <img alt="Direito Internacional com globo terrestre e documentos em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/29118b58-52cc-4e0a-c55b-4ddc0cffd5ba.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Direito Internacional: Tratados e Acordos
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Saiba mais sobre os tratados internacionais e sua importância.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Ética Jurídica - Princípios e conduta" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.7s;" tabindex="0">
+     <img alt="Ética Jurídica com balança e livros em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/be3a6ab7-b3a8-4125-afb7-752749e20c41.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Ética Jurídica: Princípios e Conduta
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Entenda os princípios éticos que regem a advocacia.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Processo Civil - Procedimentos e prazos" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.75s;" tabindex="0">
+     <img alt="Processo Civil com documentos e relógio em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/e41c8b16-fa6a-49d0-aef6-a16679426de5.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Processo Civil: Procedimentos e Prazos
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Aprenda sobre os principais procedimentos e prazos processuais.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Mediação e Arbitragem - Resolução de conflitos" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.8s;" tabindex="0">
+     <img alt="Mediação e Arbitragem com aperto de mãos em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/0c90ebc3-6db5-462e-87cd-eddf36e0370a.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Mediação e Arbitragem: Resolução de Conflitos
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Conheça métodos alternativos para resolver disputas jurídicas.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Direito Digital - Segurança e privacidade" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.85s;" tabindex="0">
+     <img alt="Direito Digital com cadeado e computador em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/e338ac75-7417-4236-9a0d-1093c3ebd449.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Direito Digital: Segurança e Privacidade
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Saiba como proteger dados e garantir privacidade na era digital.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Direito de Família - Divórcio e guarda" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.9s;" tabindex="0">
+     <img alt="Direito de Família com família e documentos em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/bd6e71f4-1bfd-467c-45c1-1191ea2b511a.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Direito de Família: Divórcio e Guarda
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Entenda os processos legais relacionados à família e tutela.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+    <article aria-label="Conteúdo sobre Direito Administrativo - Licitações e contratos públicos" class="bg-gray-900 rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 fade-in" style="animation-delay: 0.95s;" tabindex="0">
+     <img alt="Direito Administrativo com edifício governamental em fundo preto" class="w-full h-48 object-cover" height="225" loading="lazy" src="https://storage.googleapis.com/a1aa/image/f98b80a3-ff54-448c-8b82-a28662387cb9.jpg" width="400"/>
+     <div class="p-4">
+      <h3 class="text-white font-semibold text-lg mb-2">
+       Direito Administrativo: Licitações e Contratos Públicos
+      </h3>
+      <p class="text-gray-400 text-sm mb-3">
+       Saiba como funcionam as licitações e contratos no setor público.
+      </p>
+      <a href="telavid.html"> <button aria-label="Visualizar conteúdo Direito Constitucional" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg flex items-center justify-center space-x-2 btn-animate" tabindex="0">
+        <i class="fas fa-eye" aria-hidden="true">
+        </i>
+      <span>
+         Visualizar
+        </span>
+       </button></a>
+     </div>
+    </article>
+   </div>
+  </section>
+  <!-- Categories Section -->
+  <section class="max-w-7xl mx-auto px-6 sm:px-12 py-16 border-t border-gray-800" id="categories">
+   <h2 class="text-3xl font-extrabold mb-10 text-white text-center fade-in" style="animation-delay: 0.2s;">
+    Categorias
+   </h2>
+   <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-center">
+    <button aria-label="Filtrar conteúdos da categoria Direito Constitucional" class="category-btn bg-gray-900 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-red-600 transition-colors duration-300 scale-up focus:outline-none focus:ring-2 focus:ring-red-600" data-category="Constitucional" tabindex="0">
+     <i class="fas fa-balance-scale fa-3x mb-3 text-white" aria-hidden="true">
+     </i>
+     <span class="text-white font-semibold">
+      Constitucional
+     </span>
+    </button>
+    <button aria-label="Filtrar conteúdos da categoria Direito Penal" class="category-btn bg-gray-900 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-red-600 transition-colors duration-300 scale-up focus:outline-none focus:ring-2 focus:ring-red-600" data-category="Penal" tabindex="0">
+     <i class="fas fa-gavel fa-3x mb-3 text-white" aria-hidden="true">
+     </i>
+     <span class="text-white font-semibold">
+      Penal
+     </span>
+    </button>
+    <button aria-label="Filtrar conteúdos da categoria Direito Civil" class="category-btn bg-gray-900 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-red-600 transition-colors duration-300 scale-up focus:outline-none focus:ring-2 focus:ring-red-600" data-category="Civil" tabindex="0">
+     <i class="fas fa-file-contract fa-3x mb-3 text-white" aria-hidden="true">
+     </i>
+     <span class="text-white font-semibold">
+      Civil
+     </span>
+    </button>
+    <button aria-label="Filtrar conteúdos da categoria Direito Trabalhista" class="category-btn bg-gray-900 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-red-600 transition-colors duration-300 scale-up focus:outline-none focus:ring-2 focus:ring-red-600" data-category="Trabalhista" tabindex="0">
+     <i class="fas fa-hard-hat fa-3x mb-3 text-white" aria-hidden="true">
+     </i>
+     <span class="text-white font-semibold">
+      Trabalhista
+     </span>
+    </button>
+    <button aria-label="Filtrar conteúdos da categoria Direito Empresarial" class="category-btn bg-gray-900 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-red-600 transition-colors duration-300 scale-up focus:outline-none focus:ring-2 focus:ring-red-600" data-category="Empresarial" tabindex="0">
+     <i class="fas fa-building fa-3x mb-3 text-white" aria-hidden="true">
+     </i>
+     <span class="text-white font-semibold">
+      Empresarial
+     </span>
+    </button>
+    <button aria-label="Filtrar conteúdos da categoria Direito Ambiental" class="category-btn bg-gray-900 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-red-600 transition-colors duration-300 scale-up focus:outline-none focus:ring-2 focus:ring-red-600" data-category="Ambiental" tabindex="0">
+     <i class="fas fa-tree fa-3x mb-3 text-white" aria-hidden="true">
+     </i>
+     <span class="text-white font-semibold">
+      Ambiental
+     </span>
+    </button>
+    <button aria-label="Filtrar conteúdos da categoria Direito Tributário" class="category-btn bg-gray-900 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-red-600 transition-colors duration-300 scale-up focus:outline-none focus:ring-2 focus:ring-red-600" data-category="Tributário" tabindex="0">
+     <i class="fas fa-calculator fa-3x mb-3 text-white" aria-hidden="true">
+     </i>
+     <span class="text-white font-semibold">
+      Tributário
+     </span>
+    </button>
+    <button aria-label="Filtrar conteúdos da categoria Direito Internacional" class="category-btn bg-gray-900 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-red-600 transition-colors duration-300 scale-up focus:outline-none focus:ring-2 focus:ring-red-600" data-category="Internacional" tabindex="0">
+     <i class="fas fa-globe-americas fa-3x mb-3 text-white" aria-hidden="true">
+     </i>
+     <span class="text-white font-semibold">
+      Internacional
+     </span>
+    </button>
+    <button aria-label="Filtrar conteúdos da categoria Ética Jurídica" class="category-btn bg-gray-900 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-red-600 transition-colors duration-300 scale-up focus:outline-none focus:ring-2 focus:ring-red-600" data-category="Ética" tabindex="0">
+     <i class="fas fa-user-shield fa-3x mb-3 text-white" aria-hidden="true">
+     </i>
+     <span class="text-white font-semibold">
+      Ética
+     </span>
+    </button>
+    <button aria-label="Filtrar conteúdos da categoria Processo Civil" class="category-btn bg-gray-900 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:bg-red-600 transition-colors duration-300 scale-up focus:outline-none focus:ring-2 focus:ring-red-600" data-category="Processo Civil" tabindex="0">
+     <i class="fas fa-file-alt fa-3x mb-3 text-white" aria-hidden="true">
+     </i>
+     <span class="text-white font-semibold">
+      Processo Civil
+     </span>
+    </button>
+   </div>
+  </section>
+  <!-- About Section -->
+  <section class="max-w-7xl mx-auto px-6 sm:px-12 py-16 border-t border-gray-800" id="about">
+   <h2 class="text-3xl font-extrabold mb-6 text-white text-center fade-in" style="animation-delay: 0.2s;">
+    Sobre o Prometeus
+   </h2>
+   <p class="max-w-4xl mx-auto text-gray-300 text-center text-lg leading-relaxed fade-in" style="animation-delay: 0.3s;">
+    O Prometeus é uma empresa de advocacia que prioriza a experiência personalizada tanto para seus clientes quanto para os advogados que atuam conosco. Com tecnologia de ponta e uma equipe dedicada, oferecemos soluções jurídicas inovadoras, eficientes e humanas, garantindo atendimento de excelência e resultados concretos.
+   </p>
+  </section>
+  <!-- Contact Section -->
+  <section class="max-w-7xl mx-auto px-6 sm:px-12 py-16 border-t border-gray-800" id="contact">
+   <h2 class="text-3xl font-extrabold mb-6 text-white text-center fade-in" style="animation-delay: 0.2s;">
+    Contato
+   </h2>
+   <form aria-label="Formulário de contato" class="max-w-3xl mx-auto bg-gray-900 rounded-lg p-8 shadow-lg fade-in" id="contact-form" style="animation-delay: 0.3s;">
+    <div class="mb-6">
+     <label class="block mb-2 font-semibold text-white" for="name">
+      Nome
+     </label>
+     <input aria-required="true" class="w-full rounded-md bg-black border border-gray-700 text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-600" id="name" name="name" placeholder="Seu nome completo" required="" type="text" tabindex="0"/>
+    </div>
+    <div class="mb-6">
+     <label class="block mb-2 font-semibold text-white" for="email">
+      Email
+     </label>
+     <input aria-required="true" class="w-full rounded-md bg-black border border-gray-700 text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-600" id="email" name="email" placeholder="seuemail@exemplo.com" required="" type="email" tabindex="0"/>
+    </div>
+    <div class="mb-6">
+     <label class="block mb-2 font-semibold text-white" for="message">
+      Mensagem
+     </label>
+     <textarea aria-required="true" class="w-full rounded-md bg-black border border-gray-700 text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-600" id="message" name="message" placeholder="Escreva sua mensagem aqui" required="" rows="5" tabindex="0"></textarea>
+    </div>
+    <button aria-label="Enviar mensagem" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg flex items-center justify-center space-x-3 btn-animate focus:outline-none focus:ring-2 focus:ring-red-600" type="submit" tabindex="0">
+     <i class="fas fa-paper-plane" aria-hidden="true">
+     </i>
+     <span>
+      Enviar
+     </span>
+    </button>
+    <p aria-live="polite" class="mt-4 text-center text-green-500 font-semibold hidden" id="form-message" role="alert">
+     Mensagem enviada com sucesso!
+    </p>
+   </form>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-black border-t border-gray-800 py-8 mt-auto">
+   <div class="max-w-7xl mx-auto px-6 sm:px-12 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+    <p>
+     © 2024 Prometeus. Todos os direitos reservados.
+    </p>
+    <div class="flex space-x-6 mt-4 md:mt-0">
+     <a aria-label="Facebook" class="hover:text-red-600 transition-colors duration-300" href="https://facebook.com" rel="noopener" target="_blank" tabindex="0">
+      <i class="fab fa-facebook-f fa-lg" aria-hidden="true">
+      </i>
+     </a>
+     <a aria-label="Twitter" class="hover:text-red-600 transition-colors duration-300" href="https://twitter.com" rel="noopener" target="_blank" tabindex="0">
+      <i class="fab fa-twitter fa-lg" aria-hidden="true">
+      </i>
+     </a>
+     <a aria-label="LinkedIn" class="hover:text-red-600 transition-colors duration-300" href="https://linkedin.com" rel="noopener" target="_blank" tabindex="0">
+      <i class="fab fa-linkedin-in fa-lg" aria-hidden="true">
+      </i>
+     </a>
+     <a aria-label="Instagram" class="hover:text-red-600 transition-colors duration-300" href="https://instagram.com" rel="noopener" target="_blank" tabindex="0">
+      <i class="fab fa-instagram fa-lg" aria-hidden="true">
+      </i>
+     </a>
+    </div>
+   </div>
+  </footer>
+  <script>
+   // Mobile menu toggle with smooth animation and aria updates
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = menuBtn.classList.toggle('open');
+      if (isOpen) {
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        // Set tabindex for menu items to 0 to be focusable
+        mobileMenu.querySelectorAll('a').forEach(link => link.setAttribute('tabindex', '0'));
+      } else {
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        // Remove tabindex to prevent tabbing when hidden
+        mobileMenu.querySelectorAll('a').forEach(link => link.setAttribute('tabindex', '-1'));
+      }
+    });
+
+    // Animate fade-in on scroll with IntersectionObserver
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {
+      threshold: 0,
+      rootMargin: "0px 0px -100px 0px"
+    };
+
+    const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) {
+          return;
+        } else {
+          entry.target.style.animationPlayState = 'running';
+          appearOnScroll.unobserve(entry.target);
+        }
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => {
+      fader.style.animationPlayState = 'paused';
+      appearOnScroll.observe(fader);
+    });
+
+    // Category filter functionality
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const videoArticles = document.querySelectorAll('#videos article');
+
+    categoryButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const category = button.getAttribute('data-category');
+        // Remove active from all buttons
+        categoryButtons.forEach(btn => btn.classList.remove('bg-red-600'));
+        // Add active to clicked button
+        button.classList.add('bg-red-600');
+        // Filter videos
+        videoArticles.forEach(article => {
+          const title = article.querySelector('h3').textContent.toLowerCase();
+          if (title.includes(category.toLowerCase())) {
+            article.classList.remove('hidden');
+            article.classList.add('fade-in');
+            article.style.animationPlayState = 'paused';
+            appearOnScroll.observe(article);
+          } else {
+            article.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Reset filter on clicking "Vídeos" nav link
+    const videosNavLink = document.querySelector('a[href="#videos"]');
+    videosNavLink.addEventListener('click', () => {
+      categoryButtons.forEach(btn => btn.classList.remove('bg-red-600'));
+      videoArticles.forEach(article => {
+        article.classList.remove('hidden');
+        article.classList.add('fade-in');
+        article.style.animationPlayState = 'paused';
+        appearOnScroll.observe(article);
+      });
+    });
+
+    // Contact form submission simulation
+    const contactForm = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Simple validation (already required on inputs)
+      const name = contactForm.name.value.trim();
+      const email = contactForm.email.value.trim();
+      const message = contactForm.message.value.trim();
+
+      if (name && email && message) {
+        // Simulate sending message
+        formMessage.classList.remove('hidden');
+        contactForm.reset();
+        setTimeout(() => {
+          formMessage.classList.add('hidden');
+        }, 5000);
+      }
+    });
+
+    // Keyboard accessibility for content cards (simulate view on Enter or Space)
+    videoArticles.forEach(article => {
+      article.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const btn = article.querySelector('button');
+          btn.click();
+        }
+      });
+    });
+
+    // Simulate content view alert on button click
+    videoArticles.forEach(article => {
+      const btn = article.querySelector('button');
+      btn.addEventListener('click', () => {
+        const title = article.querySelector('h3').textContent;
+        alert(Você iniciou a visualização do conteúdo: "${title}");
+      });
+    });
+  </script>
+ </body>
+</html>

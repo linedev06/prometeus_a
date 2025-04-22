@@ -1,0 +1,859 @@
+<html lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   LawyerPro Connect
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&amp;family=Roboto+Slab:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #000000;
+      color: #f9fafb;
+    }
+    /* Scrollbar for chat messages */
+    #chat-messages::-webkit-scrollbar {
+      width: 8px;
+    }
+    #chat-messages::-webkit-scrollbar-track {
+      background: #121212;
+    }
+    #chat-messages::-webkit-scrollbar-thumb {
+      background-color: #2563eb;
+      border-radius: 10px;
+      border: 2px solid #121212;
+    }
+    /* Smooth fade-in animation for chat messages */
+    .fade-in {
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Pulse animation for online status */
+    .pulse-green {
+      position: relative;
+    }
+    .pulse-green::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      border-radius: 9999px;
+      transform: translate(-50%, -50%);
+      animation: pulse 2s infinite;
+      z-index: -1;
+      opacity: 0.6;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+      }
+    }
+    /* Sidebar scroll fade */
+    aside::-webkit-scrollbar {
+      width: 6px;
+    }
+    aside::-webkit-scrollbar-track {
+      background: #121212;
+    }
+    aside::-webkit-scrollbar-thumb {
+      background-color: #2563eb;
+      border-radius: 10px;
+      border: 2px solid #121212;
+    }
+    /* Button hover glow */
+    .glow-hover:hover {
+      box-shadow: 0 0 8px 2px #2563eb;
+      transition: box-shadow 0.3s ease;
+    }
+    /* Input focus ring */
+    textarea:focus {
+      outline: none;
+      box-shadow: 0 0 8px 2px #2563eb;
+      border-color: transparent;
+      transition: box-shadow 0.3s ease;
+      background-color: #121212;
+      color: #f9fafb;
+    }
+    /* Scroll smooth for chat */
+    #chat-messages {
+      scroll-behavior: smooth;
+    }
+    /* Mobile contact list button */
+    #mobile-contact-button {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      z-index: 50;
+      background-color: #2563eb;
+      color: white;
+      border-radius: 9999px;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 12px 2px #2563eb;
+      transition: background-color 0.3s ease;
+    }
+    #mobile-contact-button:hover {
+      background-color: #1e40af;
+    }
+    /* Animate sidebar slide in/out */
+    .sidebar-mobile {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 280px;
+      background-color: #000000;
+      border-right: 1px solid #1e293b;
+      box-shadow: 4px 0 12px rgba(37, 99, 235, 0.5);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 60;
+      overflow-y: auto;
+      border-color: #1f2937;
+      border-radius: 0 0 0 0;
+    }
+    .sidebar-mobile.open {
+      transform: translateX(0);
+    }
+    /* Overlay behind sidebar */
+    #sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 55;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #sidebar-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+ </head>
+ <body class="min-h-screen flex flex-col text-white">
+  <!-- Header -->
+  <header class="bg-black shadow-lg border-b border-gray-800">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <div class="flex items-center space-x-3">
+     <img alt="Logotipo LawyerPro Connect, letras LP brancas em fundo azul escuro quadrado" class="w-20 h-50 rounded" height="500" src="logo2.png" width="900"/>
+ 
+    </div>
+    <nav class="hidden md:flex space-x-8 text-gray-300 font-semibold text-sm tracking-wide">
+     <a class="flex items-center space-x-2 hover:text-blue-500 transition duration-300 ease-in-out glow-hover" href="#" id="nav-dashboard">
+      <i class="fas fa-tachometer-alt"></i>
+      <span>Dashboard</span>
+     </a>
+     <a class="flex items-center space-x-2 hover:text-blue-500 transition duration-300 ease-in-out glow-hover" href="#" id="nav-clients">
+      <i class="fas fa-user-friends"></i>
+      <span>Clientes</span>
+     </a>
+     <a class="flex items-center space-x-2 hover:text-blue-500 transition duration-300 ease-in-out glow-hover" href="#" id="nav-cases">
+      <i class="fas fa-briefcase"></i>
+      <span>Casos</span>
+     </a>
+     <a class="flex items-center space-x-2 hover:text-blue-500 transition duration-300 ease-in-out glow-hover" href="#" id="nav-messages">
+      <i class="fas fa-comments"></i>
+      <span>Mensagens</span>
+     </a>
+     <a class="flex items-center space-x-2 hover:text-blue-500 transition duration-300 ease-in-out glow-hover" href="#" id="nav-calendar">
+      <i class="fas fa-calendar-alt"></i>
+      <span>Calendário</span>
+     </a>
+     <a class="flex items-center space-x-2 hover:text-blue-500 transition duration-300 ease-in-out glow-hover" href="#" id="nav-settings">
+      <i class="fas fa-cog"></i>
+      <span>Configurações</span>
+     </a>
+    </nav>
+    <div class="hidden md:flex items-center space-x-6 text-gray-400">
+     <button aria-label="Notificações" class="relative hover:text-blue-500 transition duration-300 ease-in-out glow-hover focus:outline-none" id="btn-notifications">
+      <i class="fas fa-bell fa-lg"></i>
+      <span class="absolute -top-1 -right-1 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center font-semibold animate-pulse">
+       3
+      </span>
+     </button>
+     <button aria-label="Menu do usuário" class="flex items-center space-x-2 cursor-pointer hover:text-blue-500 transition duration-300 ease-in-out glow-hover focus:outline-none" id="btn-user-menu">
+      <img alt="Avatar do usuário, iniciais JD em círculo cinza escuro" class="w-8 h-8 rounded-full border border-gray-700" height="32" src="https://storage.googleapis.com/a1aa/image/9f0d50f2-a68d-4e59-8d73-06b1dd0b1a83.jpg" width="32"/>
+      <i class="fas fa-chevron-down text-gray-400"></i>
+     </button>
+    </div>
+    <button aria-label="Abrir menu" class="md:hidden text-gray-400 hover:text-blue-500 focus:outline-none glow-hover" id="mobile-menu-button">
+     <i class="fas fa-bars fa-lg"></i>
+    </button>
+   </div>
+   <!-- Mobile menu -->
+   <nav aria-label="Menu móvel" class="hidden md:hidden bg-black border-t border-gray-800" id="mobile-menu">
+    <a class="flex items-center space-x-3 px-4 py-3 text-gray-300 font-semibold hover:bg-gray-900 transition duration-300 ease-in-out" href="#" id="mnav-dashboard">
+     <i class="fas fa-tachometer-alt"></i>
+     <span>Dashboard</span>
+    </a>
+    <a class="flex items-center space-x-3 px-4 py-3 text-gray-300 font-semibold hover:bg-gray-900 transition duration-300 ease-in-out" href="#" id="mnav-clients">
+     <i class="fas fa-user-friends"></i>
+     <span>Clientes</span>
+    </a>
+    <a class="flex items-center space-x-3 px-4 py-3 text-gray-300 font-semibold hover:bg-gray-900 transition duration-300 ease-in-out" href="#" id="mnav-cases">
+     <i class="fas fa-briefcase"></i>
+     <span>Casos</span>
+    </a>
+    <a class="flex items-center space-x-3 px-4 py-3 text-gray-300 font-semibold hover:bg-gray-900 transition duration-300 ease-in-out" href="#" id="mnav-messages">
+     <i class="fas fa-comments"></i>
+     <span>Mensagens</span>
+    </a>
+    <a class="flex items-center space-x-3 px-4 py-3 text-gray-300 font-semibold hover:bg-gray-900 transition duration-300 ease-in-out" href="#" id="mnav-calendar">
+     <i class="fas fa-calendar-alt"></i>
+     <span>Calendário</span>
+    </a>
+    <a class="flex items-center space-x-3 px-4 py-3 text-gray-300 font-semibold hover:bg-gray-900 transition duration-300 ease-in-out" href="#" id="mnav-settings">
+     <i class="fas fa-cog"></i>
+     <span>Configurações</span>
+    </a>
+    <div class="border-t border-gray-800"></div>
+    <a class="block px-4 py-3 text-gray-300 font-semibold hover:bg-gray-900 transition duration-300 ease-in-out" href="#" id="mnav-user">
+     John Doe
+    </a>
+    <a class="block px-4 py-3 text-gray-300 font-semibold hover:bg-gray-900 transition duration-300 ease-in-out" href="#" id="mnav-logout">
+     Sair
+    </a>
+   </nav>
+  </header>
+  <!-- Mobile contact list button -->
+  <button aria-label="Abrir lista de contatos" id="mobile-contact-button" class="lg:hidden" title="Contatos">
+   <i class="fas fa-address-book fa-lg"></i>
+  </button>
+  <!-- Mobile sidebar contact list -->
+  <aside aria-label="Lista de contatos móvel" class="sidebar-mobile" id="mobile-sidebar" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+   <div class="p-6 border-b border-gray-800 flex items-center justify-between">
+    <h2 class="text-lg font-semibold tracking-wide font-['Roboto_Slab'] select-none text-white">
+     Contatos
+    </h2>
+    <button aria-label="Fechar lista de contatos" id="close-sidebar" class="text-gray-400 hover:text-blue-500 focus:outline-none glow-hover">
+     <i class="fas fa-times fa-lg"></i>
+    </button>
+   </div>
+   <ul class="divide-y divide-gray-900">
+    <li>
+     <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Alice Brown">
+      <img alt="Avatar de Alice Brown, advogada com cabelo castanho curto, círculo azul" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/d86d719a-71aa-4e8a-b736-8b6497849c85.jpg" width="40"/>
+      <div class="ml-4 text-left">
+       <p class="text-white font-semibold">
+        Alice Brown
+       </p>
+       <p class="text-xs text-blue-400">
+        Direito Corporativo
+       </p>
+      </div>
+      <span aria-label="Online" class="ml-auto inline-block w-3 h-3 bg-green-500 rounded-full pulse-green"></span>
+     </button>
+    </li>
+    <li>
+     <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Charles Miller">
+      <img alt="Avatar de Charles Miller, advogado com óculos e cabelo preto curto, círculo azul escuro" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/5527776c-42db-46fc-2d08-b25b0fbd3e5c.jpg" width="40"/>
+      <div class="ml-4 text-left">
+       <p class="text-white font-semibold">
+        Charles Miller
+       </p>
+       <p class="text-xs text-blue-400">
+        Defesa Criminal
+       </p>
+      </div>
+      <span aria-label="Offline" class="ml-auto inline-block w-3 h-3 bg-gray-700 rounded-full"></span>
+     </button>
+    </li>
+    <li>
+     <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Diana Smith">
+      <img alt="Avatar de Diana Smith, advogada com cabelo loiro longo, círculo azul marinho" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/c50a14b3-5399-4438-c21e-decaf19cd752.jpg" width="40"/>
+      <div class="ml-4 text-left">
+       <p class="text-white font-semibold">
+        Diana Smith
+       </p>
+       <p class="text-xs text-blue-400">
+        Direito de Família
+       </p>
+      </div>
+      <span aria-label="Online" class="ml-auto inline-block w-3 h-3 bg-green-500 rounded-full pulse-green"></span>
+     </button>
+    </li>
+    <li>
+     <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Edward Rogers">
+      <img alt="Avatar de Edward Rogers, advogado com barba e cabelo castanho curto, círculo azul escuro" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/c24b06b8-bae8-401c-cf0a-37f28716dde7.jpg" width="40"/>
+      <div class="ml-4 text-left">
+       <p class="text-white font-semibold">
+        Edward Rogers
+       </p>
+       <p class="text-xs text-blue-400">
+        Propriedade Intelectual
+       </p>
+      </div>
+      <span aria-label="Offline" class="ml-auto inline-block w-3 h-3 bg-gray-700 rounded-full"></span>
+     </button>
+    </li>
+    <li>
+     <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Fiona Martinez">
+      <img alt="Avatar de Fiona Martinez, advogada com cabelo preto cacheado, círculo azul" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/30784d19-a578-455c-9d69-1dbae8d127b1.jpg" width="40"/>
+      <div class="ml-4 text-left">
+       <p class="text-white font-semibold">
+        Fiona Martinez
+       </p>
+       <p class="text-xs text-blue-400">
+        Direito Imobiliário
+       </p>
+      </div>
+      <span aria-label="Online" class="ml-auto inline-block w-3 h-3 bg-green-500 rounded-full pulse-green"></span>
+     </button>
+    </li>
+    <li>
+     <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="George Harris">
+      <img alt="Avatar de George Harris, advogado com cabelo cinza curto, círculo azul marinho" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/2185b503-c851-4886-e491-6df1f88b186c.jpg" width="40"/>
+      <div class="ml-4 text-left">
+       <p class="text-white font-semibold">
+        George Harris
+       </p>
+       <p class="text-xs text-blue-400">
+        Direito Tributário
+       </p>
+      </div>
+      <span aria-label="Offline" class="ml-auto inline-block w-3 h-3 bg-gray-700 rounded-full"></span>
+     </button>
+    </li>
+    <li>
+     <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Isabella Lee">
+      <img alt="Avatar de Isabella Lee, advogada com cabelo preto liso, círculo azul" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/5b5ee2d9-1105-42cf-6b24-7054bb042ddb.jpg" width="40"/>
+      <div class="ml-4 text-left">
+       <p class="text-white font-semibold">
+        Isabella Lee
+       </p>
+       <p class="text-xs text-blue-400">
+        Direito Ambiental
+       </p>
+      </div>
+      <span aria-label="Online" class="ml-auto inline-block w-3 h-3 bg-green-500 rounded-full pulse-green"></span>
+     </button>
+    </li>
+    <li>
+     <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="James Miller">
+      <img alt="Avatar de James Miller, advogado com cabelo escuro curto e óculos, círculo azul escuro" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/9b2b3eaf-606c-4861-6447-e22cbb247b30.jpg" width="40"/>
+      <div class="ml-4 text-left">
+       <p class="text-white font-semibold">
+        James Miller
+       </p>
+       <p class="text-xs text-blue-400">
+        Direito Corporativo
+       </p>
+      </div>
+      <span aria-label="Offline" class="ml-auto inline-block w-3 h-3 bg-gray-700 rounded-full"></span>
+     </button>
+    </li>
+    <li>
+     <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Karen Lopez">
+      <img alt="Avatar de Karen Lopez, advogada com cabelo castanho médio, círculo azul marinho" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/59b15fd7-2c57-400f-5b25-f4f74e3d2fbd.jpg" width="40"/>
+      <div class="ml-4 text-left">
+       <p class="text-white font-semibold">
+        Karen Lopez
+       </p>
+       <p class="text-xs text-blue-400">
+        Direito Trabalhista
+       </p>
+      </div>
+      <span aria-label="Online" class="ml-auto inline-block w-3 h-3 bg-green-500 rounded-full pulse-green"></span>
+     </button>
+    </li>
+   </ul>
+  </aside>
+  <main class="flex-1 flex overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+   <!-- Sidebar desktop -->
+   <aside aria-label="Navegação lateral" class="hidden lg:flex flex-col w-72 bg-black border border-gray-800 rounded-lg shadow-lg overflow-y-auto">
+    <div class="p-6 border-b border-gray-800">
+     <h2 class="text-lg font-semibold tracking-wide font-['Roboto_Slab'] select-none">
+      Contatos
+     </h2>
+    </div>
+    <ul class="flex-1 overflow-y-auto divide-y divide-gray-900">
+     <li>
+      <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Alice Brown" id="desktop-contact-0">
+       <img alt="Avatar de Alice Brown, advogada com cabelo castanho curto, círculo azul" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/d86d719a-71aa-4e8a-b736-8b6497849c85.jpg" width="40"/>
+       <div class="ml-4 text-left">
+        <p class="text-white font-semibold">
+         Alice Brown
+        </p>
+        <p class="text-xs text-blue-400">
+         Direito Corporativo
+        </p>
+       </div>
+       <span aria-label="Online" class="ml-auto inline-block w-3 h-3 bg-green-500 rounded-full pulse-green"></span>
+      </button>
+     </li>
+     <li>
+      <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Charles Miller" id="desktop-contact-1">
+       <img alt="Avatar de Charles Miller, advogado com óculos e cabelo preto curto, círculo azul escuro" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/5527776c-42db-46fc-2d08-b25b0fbd3e5c.jpg" width="40"/>
+       <div class="ml-4 text-left">
+        <p class="text-white font-semibold">
+         Charles Miller
+        </p>
+        <p class="text-xs text-blue-400">
+         Defesa Criminal
+        </p>
+       </div>
+       <span aria-label="Offline" class="ml-auto inline-block w-3 h-3 bg-gray-700 rounded-full"></span>
+      </button>
+     </li>
+     <li>
+      <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Diana Smith" id="desktop-contact-2">
+       <img alt="Avatar de Diana Smith, advogada com cabelo loiro longo, círculo azul marinho" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/c50a14b3-5399-4438-c21e-decaf19cd752.jpg" width="40"/>
+       <div class="ml-4 text-left">
+        <p class="text-white font-semibold">
+         Diana Smith
+        </p>
+        <p class="text-xs text-blue-400">
+         Direito de Família
+        </p>
+       </div>
+       <span aria-label="Online" class="ml-auto inline-block w-3 h-3 bg-green-500 rounded-full pulse-green"></span>
+      </button>
+     </li>
+     <li>
+      <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Edward Rogers" id="desktop-contact-3">
+       <img alt="Avatar de Edward Rogers, advogado com barba e cabelo castanho curto, círculo azul escuro" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/c24b06b8-bae8-401c-cf0a-37f28716dde7.jpg" width="40"/>
+       <div class="ml-4 text-left">
+        <p class="text-white font-semibold">
+         Edward Rogers
+        </p>
+        <p class="text-xs text-blue-400">
+         Propriedade Intelectual
+        </p>
+       </div>
+       <span aria-label="Offline" class="ml-auto inline-block w-3 h-3 bg-gray-700 rounded-full"></span>
+      </button>
+     </li>
+     <li>
+      <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Fiona Martinez" id="desktop-contact-4">
+       <img alt="Avatar de Fiona Martinez, advogada com cabelo preto cacheado, círculo azul" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/30784d19-a578-455c-9d69-1dbae8d127b1.jpg" width="40"/>
+       <div class="ml-4 text-left">
+        <p class="text-white font-semibold">
+         Fiona Martinez
+        </p>
+        <p class="text-xs text-blue-400">
+         Direito Imobiliário
+        </p>
+       </div>
+       <span aria-label="Online" class="ml-auto inline-block w-3 h-3 bg-green-500 rounded-full pulse-green"></span>
+      </button>
+     </li>
+     <li>
+      <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="George Harris" id="desktop-contact-5">
+       <img alt="Avatar de George Harris, advogado com cabelo cinza curto, círculo azul marinho" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/2185b503-c851-4886-e491-6df1f88b186c.jpg" width="40"/>
+       <div class="ml-4 text-left">
+        <p class="text-white font-semibold">
+         George Harris
+        </p>
+        <p class="text-xs text-blue-400">
+         Direito Tributário
+        </p>
+       </div>
+       <span aria-label="Offline" class="ml-auto inline-block w-3 h-3 bg-gray-700 rounded-full"></span>
+      </button>
+     </li>
+     <li>
+      <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Isabella Lee" id="desktop-contact-6">
+       <img alt="Avatar de Isabella Lee, advogada com cabelo preto liso, círculo azul" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/5b5ee2d9-1105-42cf-6b24-7054bb042ddb.jpg" width="40"/>
+       <div class="ml-4 text-left">
+        <p class="text-white font-semibold">
+         Isabella Lee
+        </p>
+        <p class="text-xs text-blue-400">
+         Direito Ambiental
+        </p>
+       </div>
+       <span aria-label="Online" class="ml-auto inline-block w-3 h-3 bg-green-500 rounded-full pulse-green"></span>
+      </button>
+     </li>
+     <li>
+      <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="James Miller" id="desktop-contact-7">
+       <img alt="Avatar de James Miller, advogado com cabelo escuro curto e óculos, círculo azul escuro" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/9b2b3eaf-606c-4861-6447-e22cbb247b30.jpg" width="40"/>
+       <div class="ml-4 text-left">
+        <p class="text-white font-semibold">
+         James Miller
+        </p>
+        <p class="text-xs text-blue-400">
+         Direito Corporativo
+        </p>
+       </div>
+       <span aria-label="Offline" class="ml-auto inline-block w-3 h-3 bg-gray-700 rounded-full"></span>
+      </button>
+     </li>
+     <li>
+      <button class="w-full flex items-center px-6 py-3 hover:bg-blue-900 focus:bg-blue-800 focus:outline-none transition duration-300 ease-in-out glow-hover" data-contact="Karen Lopez" id="desktop-contact-8">
+       <img alt="Avatar de Karen Lopez, advogada com cabelo castanho médio, círculo azul marinho" class="w-10 h-10 rounded-full border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/59b15fd7-2c57-400f-5b25-f4f74e3d2fbd.jpg" width="40"/>
+       <div class="ml-4 text-left">
+        <p class="text-white font-semibold">
+         Karen Lopez
+        </p>
+        <p class="text-xs text-blue-400">
+         Direito Trabalhista
+        </p>
+       </div>
+       <span aria-label="Online" class="ml-auto inline-block w-3 h-3 bg-green-500 rounded-full pulse-green"></span>
+      </button>
+     </li>
+    </ul>
+   </aside>
+   <!-- Main content area -->
+   <section class="flex-1 flex flex-col bg-black rounded-lg shadow-lg border border-gray-800 overflow-hidden">
+    <!-- Chat header -->
+    <header class="flex items-center justify-between border-b border-gray-800 px-6 py-4 select-none">
+     <div class="flex items-center space-x-4">
+      <img alt="Avatar de Alice Brown, advogada com cabelo castanho curto, círculo azul" class="w-12 h-12 rounded-full border border-blue-700" height="48" src="https://storage.googleapis.com/a1aa/image/d86d719a-71aa-4e8a-b736-8b6497849c85.jpg" width="48"/>
+      <div>
+       <h2 class="text-lg font-semibold tracking-wide font-['Roboto_Slab'] text-white" id="chat-contact-name">
+        Alice Brown
+       </h2>
+       <p class="text-xs text-blue-400" id="chat-contact-specialty">
+        Direito Corporativo
+       </p>
+      </div>
+     </div>
+     <div class="flex items-center space-x-8 text-gray-400">
+      <button aria-label="Iniciar chamada de voz" class="hover:text-blue-500 transition duration-300 ease-in-out glow-hover focus:outline-none transform hover:scale-110 motion-reduce:transform-none" id="btn-voice-call">
+       <i class="fas fa-phone fa-lg"></i>
+      </button>
+      <button aria-label="Iniciar chamada de vídeo" class="hover:text-blue-500 transition duration-300 ease-in-out glow-hover focus:outline-none transform hover:scale-110 motion-reduce:transform-none" id="btn-video-call">
+       <i class="fas fa-video fa-lg"></i>
+      </button>
+      <button aria-label="Ver detalhes do caso" class="hover:text-blue-500 transition duration-300 ease-in-out glow-hover focus:outline-none transform hover:scale-110 motion-reduce:transform-none" id="btn-case-details">
+       <i class="fas fa-file-alt fa-lg"></i>
+      </button>
+      <button aria-label="Mais opções" class="hover:text-blue-500 transition duration-300 ease-in-out glow-hover focus:outline-none transform hover:scale-110 motion-reduce:transform-none" id="btn-more-options">
+       <i class="fas fa-ellipsis-v fa-lg"></i>
+      </button>
+     </div>
+    </header>
+    <!-- Chat messages -->
+    <div aria-live="polite" class="flex-1 overflow-y-auto px-6 py-4 space-y-6 bg-black" id="chat-messages" tabindex="0">
+     <div class="flex items-start space-x-4 fade-in">
+      <img alt="Avatar de Alice Brown, advogada com cabelo castanho curto, círculo azul" class="w-10 h-10 rounded-full mt-1 border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/d86d719a-71aa-4e8a-b736-8b6497849c85.jpg" width="40"/>
+      <div>
+       <p class="text-sm text-blue-400 font-semibold">
+        Alice Brown
+       </p>
+       <div class="mt-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 max-w-xs md:max-w-md text-gray-200 font-normal shadow-md">
+        Bom dia, John. Eu revisei o rascunho do contrato e adicionei meus comentários.
+       </div>
+       <time class="block text-xs text-gray-600 mt-1" datetime="2024-06-01T09:15">
+        9:15
+       </time>
+      </div>
+     </div>
+     <div class="flex items-end space-x-4 justify-end fade-in" style="animation-delay: 0.1s;">
+      <div class="text-right">
+       <p class="text-sm text-blue-300 font-semibold">
+        John Doe
+       </p>
+       <div class="mt-1 bg-blue-700 text-white rounded-lg px-4 py-2 max-w-xs md:max-w-md font-normal shadow-lg">
+        Obrigado, Alice. Vou revisar e te retorno até o meio-dia.
+       </div>
+       <time class="block text-xs text-blue-400 mt-1" datetime="2024-06-01T09:20">
+        9:20
+       </time>
+      </div>
+      <img alt="Avatar do usuário, iniciais JD em círculo cinza escuro" class="w-10 h-10 rounded-full mt-1 border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/9f0d50f2-a68d-4e59-8d73-06b1dd0b1a83.jpg" width="40"/>
+     </div>
+     <div class="flex items-start space-x-4 fade-in" style="animation-delay: 0.2s;">
+      <img alt="Avatar de Alice Brown, advogada com cabelo castanho curto, círculo azul" class="w-10 h-10 rounded-full mt-1 border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/d86d719a-71aa-4e8a-b736-8b6497849c85.jpg" width="40"/>
+      <div>
+       <p class="text-sm text-blue-400 font-semibold">
+        Alice Brown
+       </p>
+       <div class="mt-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 max-w-xs md:max-w-md text-gray-200 font-normal shadow-md">
+        Além disso, o cliente solicitou uma reunião na próxima semana para discutir as opções de acordo.
+       </div>
+       <time class="block text-xs text-gray-600 mt-1" datetime="2024-06-01T09:22">
+        9:22
+       </time>
+      </div>
+     </div>
+     <div class="flex items-end space-x-4 justify-end fade-in" style="animation-delay: 0.3s;">
+      <div class="text-right">
+       <p class="text-sm text-blue-300 font-semibold">
+        John Doe
+       </p>
+       <div class="mt-1 bg-blue-700 text-white rounded-lg px-4 py-2 max-w-xs md:max-w-md font-normal shadow-lg">
+        Entendido. Vou preparar a agenda e enviar para você até amanhã.
+       </div>
+       <time class="block text-xs text-blue-400 mt-1" datetime="2024-06-01T09:25">
+        9:25
+       </time>
+      </div>
+      <img alt="Avatar do usuário, iniciais JD em círculo cinza escuro" class="w-10 h-10 rounded-full mt-1 border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/9f0d50f2-a68d-4e59-8d73-06b1dd0b1a83.jpg" width="40"/>
+     </div>
+     <div class="flex items-start space-x-4 fade-in" style="animation-delay: 0.4s;">
+      <img alt="Avatar de Alice Brown, advogada com cabelo castanho curto, círculo azul" class="w-10 h-10 rounded-full mt-1 border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/d86d719a-71aa-4e8a-b736-8b6497849c85.jpg" width="40"/>
+      <div>
+       <p class="text-sm text-blue-400 font-semibold">
+        Alice Brown
+       </p>
+       <div class="mt-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 max-w-xs md:max-w-md text-gray-200 font-normal shadow-md">
+        Perfeito. Me avise se precisar de documentos adicionais.
+       </div>
+       <time class="block text-xs text-gray-600 mt-1" datetime="2024-06-01T09:27">
+        9:27
+       </time>
+      </div>
+     </div>
+     <div class="flex items-end space-x-4 justify-end fade-in" style="animation-delay: 0.5s;">
+      <div class="text-right">
+       <p class="text-sm text-blue-300 font-semibold">
+        John Doe
+       </p>
+       <div class="mt-1 bg-blue-700 text-white rounded-lg px-4 py-2 max-w-xs md:max-w-md font-normal shadow-lg">
+        Pode deixar. Obrigado, Alice.
+       </div>
+       <time class="block text-xs text-blue-400 mt-1" datetime="2024-06-01T09:30">
+        9:30
+       </time>
+      </div>
+      <img alt="Avatar do usuário, iniciais JD em círculo cinza escuro" class="w-10 h-10 rounded-full mt-1 border border-blue-700" height="40" src="https://storage.googleapis.com/a1aa/image/9f0d50f2-a68d-4e59-8d73-06b1dd0b1a83.jpg" width="40"/>
+     </div>
+    </div>
+    <!-- Message input -->
+    <form aria-label="Formulário para enviar mensagem" class="border-t border-gray-800 px-6 py-4 flex items-center space-x-4 bg-black" id="message-form">
+     <button aria-label="Anexar arquivo" class="text-gray-500 hover:text-blue-500 transition duration-300 ease-in-out glow-hover focus:outline-none transform hover:scale-110 motion-reduce:transform-none" type="button" id="btn-attach">
+      <i class="fas fa-paperclip fa-lg"></i>
+     </button>
+     <textarea aria-label="Campo para digitar mensagem" class="flex-1 resize-none border border-gray-700 rounded-md px-4 py-2 text-white bg-black placeholder-gray-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent font-normal" placeholder="Digite sua mensagem..." rows="1" id="message-input"></textarea>
+     <button aria-label="Enviar mensagem" class="bg-blue-700 hover:bg-blue-800 text-white rounded-md px-5 py-2 font-semibold transition duration-300 ease-in-out glow-hover focus:outline-none focus:ring-2 focus:ring-blue-600 transform hover:scale-105 motion-reduce:transform-none" type="submit" id="btn-send">
+      <i class="fas fa-paper-plane"></i>
+     </button>
+    </form>
+   </section>
+  </main>
+  <!-- Overlay for mobile sidebar -->
+  <div id="sidebar-overlay" tabindex="-1" aria-hidden="true"></div>
+  <script>
+   const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileContactButton = document.getElementById('mobile-contact-button');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const closeSidebarBtn = document.getElementById('close-sidebar');
+    const chatContactName = document.getElementById('chat-contact-name');
+    const chatContactSpecialty = document.getElementById('chat-contact-specialty');
+    const chatMessages = document.getElementById('chat-messages');
+    const messageForm = document.getElementById('message-form');
+    const messageInput = document.getElementById('message-input');
+
+    // Toggle mobile main menu
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Open mobile contact sidebar
+    mobileContactButton.addEventListener('click', () => {
+      mobileSidebar.classList.add('open');
+      sidebarOverlay.classList.add('visible');
+      mobileSidebar.setAttribute('aria-hidden', 'false');
+      mobileSidebar.focus();
+    });
+
+    // Close mobile contact sidebar
+    closeSidebarBtn.addEventListener('click', closeSidebar);
+    sidebarOverlay.addEventListener('click', closeSidebar);
+
+    function closeSidebar() {
+      mobileSidebar.classList.remove('open');
+      sidebarOverlay.classList.remove('visible');
+      mobileSidebar.setAttribute('aria-hidden', 'true');
+      mobileContactButton.focus();
+    }
+
+    // Handle contact selection (both mobile and desktop)
+    function selectContact(name, specialty, avatarSrc) {
+      chatContactName.textContent = name;
+      chatContactSpecialty.textContent = specialty;
+      // Update avatar in chat header
+      const chatHeaderAvatar = document.querySelector('header img.w-12');
+      if (chatHeaderAvatar) {
+        chatHeaderAvatar.src = avatarSrc;
+        chatHeaderAvatar.alt = `Avatar de ${name}, advogado(a)`;
+      }
+      // Clear chat messages and add a welcome message
+      chatMessages.innerHTML = '';
+      addChatMessage(name, specialty, avatarSrc, `Olá, ${name}. Esta é a sua nova conversa.`);
+      // Close mobile sidebar if open
+      if (mobileSidebar.classList.contains('open')) {
+        closeSidebar();
+      }
+    }
+
+    // Add chat message helper
+    function addChatMessage(name, specialty, avatarSrc, message) {
+      const isUser = name === 'John Doe';
+      const container = document.createElement('div');
+      container.className = `flex ${isUser ? 'items-end justify-end space-x-4' : 'items-start space-x-4'} fade-in`;
+      if (isUser) container.style.flexDirection = 'row-reverse';
+
+      const img = document.createElement('img');
+      img.className = 'w-10 h-10 rounded-full mt-1 border border-blue-700';
+      img.src = avatarSrc;
+      img.alt = `Avatar de ${name}, advogado(a)`;
+      img.height = 40;
+      img.width = 40;
+
+      const messageWrapper = document.createElement('div');
+      messageWrapper.className = isUser ? 'text-right' : '';
+      const pName = document.createElement('p');
+      pName.className = isUser ? 'text-sm text-blue-300 font-semibold' : 'text-sm text-blue-400 font-semibold';
+      pName.textContent = name;
+
+      const msgDiv = document.createElement('div');
+      msgDiv.className = isUser ? 'mt-1 bg-blue-700 text-white rounded-lg px-4 py-2 max-w-xs md:max-w-md font-normal shadow-lg' : 'mt-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 max-w-xs md:max-w-md text-gray-200 font-normal shadow-md';
+      msgDiv.textContent = message;
+
+      const time = document.createElement('time');
+      time.className = isUser ? 'block text-xs text-blue-400 mt-1' : 'block text-xs text-gray-600 mt-1';
+      const now = new Date();
+      time.dateTime = now.toISOString();
+      time.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+      messageWrapper.appendChild(pName);
+      messageWrapper.appendChild(msgDiv);
+      messageWrapper.appendChild(time);
+
+      if (isUser) {
+        container.appendChild(messageWrapper);
+        container.appendChild(img);
+      } else {
+        container.appendChild(img);
+        container.appendChild(messageWrapper);
+      }
+
+      chatMessages.appendChild(container);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Attach event listeners to all contact buttons (mobile and desktop)
+    const contactButtons = document.querySelectorAll('button[data-contact]');
+    contactButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const name = btn.getAttribute('data-contact');
+        const specialtyMap = {
+          'Alice Brown': 'Direito Corporativo',
+          'Charles Miller': 'Defesa Criminal',
+          'Diana Smith': 'Direito de Família',
+          'Edward Rogers': 'Propriedade Intelectual',
+          'Fiona Martinez': 'Direito Imobiliário',
+          'George Harris': 'Direito Tributário',
+          'Isabella Lee': 'Direito Ambiental',
+          'James Miller': 'Direito Corporativo',
+          'Karen Lopez': 'Direito Trabalhista'
+        };
+        const specialty = specialtyMap[name] || '';
+        const avatarMap = {
+          'Alice Brown': 'https://storage.googleapis.com/a1aa/image/d86d719a-71aa-4e8a-b736-8b6497849c85.jpg',
+          'Charles Miller': 'https://storage.googleapis.com/a1aa/image/5527776c-42db-46fc-2d08-b25b0fbd3e5c.jpg',
+          'Diana Smith': 'https://storage.googleapis.com/a1aa/image/c50a14b3-5399-4438-c21e-decaf19cd752.jpg',
+          'Edward Rogers': 'https://storage.googleapis.com/a1aa/image/c24b06b8-bae8-401c-cf0a-37f28716dde7.jpg',
+          'Fiona Martinez': 'https://storage.googleapis.com/a1aa/image/30784d19-a578-455c-9d69-1dbae8d127b1.jpg',
+          'George Harris': 'https://storage.googleapis.com/a1aa/image/2185b503-c851-4886-e491-6df1f88b186c.jpg',
+          'Isabella Lee': 'https://storage.googleapis.com/a1aa/image/5b5ee2d9-1105-42cf-6b24-7054bb042ddb.jpg',
+          'James Miller': 'https://storage.googleapis.com/a1aa/image/9b2b3eaf-606c-4861-6447-e22cbb247b30.jpg',
+          'Karen Lopez': 'https://storage.googleapis.com/a1aa/image/59b15fd7-2c57-400f-5b25-f4f74e3d2fbd.jpg'
+        };
+        const avatarSrc = avatarMap[name] || '';
+        selectContact(name, specialty, avatarSrc);
+      });
+    });
+
+    // Buttons functionality
+    document.getElementById('btn-voice-call').addEventListener('click', () => {
+      alert('Iniciando chamada de voz...');
+    });
+    document.getElementById('btn-video-call').addEventListener('click', () => {
+      alert('Iniciando chamada de vídeo...');
+    });
+    document.getElementById('btn-case-details').addEventListener('click', () => {
+      alert('Abrindo detalhes do caso...');
+    });
+    document.getElementById('btn-more-options').addEventListener('click', () => {
+      alert('Mais opções...');
+    });
+    document.getElementById('btn-notifications').addEventListener('click', () => {
+      alert('Visualizando notificações...');
+    });
+    document.getElementById('btn-user-menu').addEventListener('click', () => {
+      alert('Abrindo menu do usuário...');
+    });
+
+    // Navigation links functionality (just alerts for demo)
+    const navIds = ['nav-dashboard', 'nav-clients', 'nav-cases', 'nav-messages', 'nav-calendar', 'nav-settings',
+                    'mnav-dashboard', 'mnav-clients', 'mnav-cases', 'mnav-messages', 'mnav-calendar', 'mnav-settings',
+                    'mnav-user', 'mnav-logout'];
+    navIds.forEach(id => {
+      const el = document.getElementById(id);
+      if(el) {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          switch(id) {
+            case 'mnav-logout':
+              alert('Saindo...');
+              break;
+            case 'mnav-user':
+              alert('Abrindo perfil do usuário...');
+              break;
+            default:
+              alert(`Navegando para: ${el.textContent.trim()}`);
+          }
+          // Close mobile menu if open
+          if(!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+          // Close mobile sidebar if open
+          if(mobileSidebar.classList.contains('open')) {
+            closeSidebar();
+          }
+        });
+      }
+    });
+
+    // Send message form functionality
+    messageForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = messageInput.value.trim();
+      if(text.length === 0) return;
+      // Add user message
+      addChatMessage('John Doe', '', 'https://storage.googleapis.com/a1aa/image/9f0d50f2-a68d-4e59-8d73-06b1dd0b1a83.jpg', text);
+      messageInput.value = '';
+      messageInput.focus();
+      // Simulate reply after 1.5s
+      setTimeout(() => {
+        addChatMessage(chatContactName.textContent, chatContactSpecialty.textContent, document.querySelector('header img.w-12').src, 'Recebi sua mensagem, obrigado.');
+      }, 1500);
+    });
+
+    // Initialize with Alice Brown selected
+    window.addEventListener('DOMContentLoaded', () => {
+      selectContact('Alice Brown', 'Direito Corporativo', 'https://storage.googleapis.com/a1aa/image/d86d719a-71aa-4e8a-b736-8b6497849c85.jpg');
+    });
+  </script>
+ </body>
+</html>

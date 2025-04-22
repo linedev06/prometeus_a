@@ -1,0 +1,713 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Simulador Jurídico - Prometeus
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+    font-family: 'Inter', sans-serif;
+    background-color: #000000;
+  }
+  /* White text without glow for header brand */
+  .brand-text {
+    color: #ffffff;
+    font-weight: 300;
+    user-select: none;
+    letter-spacing: 0.05em;
+  }
+  /* Buttons and highlights without neon glow */
+  .btn-white {
+    background-color: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 0 5px #cccccc88;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  }
+  .btn-white:hover, .btn-white:focus {
+    background-color: #e5e7eb;
+    color: #0f172a;
+    box-shadow: 0 0 10px #bbbbbbcc;
+    outline: none;
+  }
+  /* Fade-in animation */
+  .fade-in {
+    animation: fadeIn 0.6s ease forwards;
+    opacity: 0;
+  }
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  /* Scrollbar styling for document preview */
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #111111;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+  /* Tooltip styling */
+  #tooltip {
+    max-width: 280px;
+    font-weight: 300;
+    line-height: 1.3;
+    pointer-events: none;
+    user-select: none;
+    background-color: #111f2a;
+    color: #ffffff;
+    border-radius: 0.375rem;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 0 10px #222;
+    font-size: 0.875rem;
+    position: absolute;
+    z-index: 9999;
+  }
+  /* Clause underline style */
+  .clause {
+    position: relative;
+    color: #ffffff;
+    cursor: help;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: #ccccccaa;
+  }
+  .clause:hover {
+    text-decoration-color: #ffffff;
+  }
+  /* Fixed buttons container removed fixed positioning */
+  .fixed-buttons-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    max-width: 280px;
+    margin: 2rem auto 0 auto;
+    justify-content: center;
+    position: relative;
+    z-index: 50;
+  }
+  /* Button style for demonstration and meeting */
+  .btn-fixed {
+    background: linear-gradient(135deg, #ffffffcc, #ffffff99);
+    color: #0f172a;
+    font-weight: 400;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 0 8px #ccccccaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    font-size: 1.125rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    text-shadow: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn-fixed:hover, .btn-fixed:focus {
+    background: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 0 12px #bbbbbbcc;
+    outline: none;
+  }
+  /* Icon style inside fixed buttons */
+  .btn-fixed i {
+    font-size: 1.5rem;
+    color: #0f172a;
+    transition: color 0.3s ease;
+  }
+  .btn-fixed:hover i, .btn-fixed:focus i {
+    color: #0f172a;
+  }
+  /* Responsive adjustments for fixed buttons */
+  @media (max-width: 640px) {
+    .fixed-buttons-wrapper {
+      max-width: 90vw;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 2rem auto;
+    }
+    .btn-fixed {
+      font-size: 1rem;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+  /* Headings and text without neon */
+  h1, h2, h3, legend {
+    color: #ffffff;
+    font-weight: 300;
+  }
+  p, span, label, a {
+    color: #cccccc;
+  }
+  a:hover, a:focus {
+    color: #ffffff;
+  }
+  </style>
+ </head>
+ <body class="bg-black text-slate-300 min-h-screen flex flex-col">
+  <header class="fixed top-0 left-0 w-full bg-black bg-opacity-95 backdrop-blur-md z-30 shadow-md">
+    <nav class="max-w-7xl mx-auto px-1 py-0 flex items-center justify-between">
+    <a class="text-2xl brand-text select-none tracking-wide" href="#">
+      <img src="LOGO1.png" alt="Logo Prometeus" style="width: 190px; height: auto;">
+    </a>
+    <ul class="hidden md:flex space-x-8 font-light text-slate-400">
+     <li>
+      <a class="hover:text-white transition-colors" href="index.html">
+       Início
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-white transition-colors" href="#simulador">
+       Simulador
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-white transition-colors" href="#resultados">
+       Resultados
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-white transition-colors" href="#contato">
+       Contato
+      </a>
+     </li>
+    </ul>
+    <div class="md:hidden">
+     <button aria-label="Abrir menu" class="text-white focus:outline-none focus:ring-2 focus:ring-white rounded" id="btn-menu">
+      <i class="fas fa-bars fa-lg">
+      </i>
+     </button>
+    </div>
+   </nav>
+   <div class="hidden bg-black bg-opacity-95 backdrop-blur-md px-6 pb-4 md:hidden" id="mobile-menu">
+    <ul class="flex flex-col space-y-4 font-light text-slate-400">
+     <li>
+      <a class="block hover:text-white transition-colors" href="#intro">
+       Início
+      </a>
+     </li>
+     <li>
+      <a class="block hover:text-white transition-colors" href="#simulador">
+       Simulador
+      </a>
+     </li>
+     <li>
+      <a class="block hover:text-white transition-colors" href="#resultados">
+       Resultados
+      </a>
+     </li>
+     <li>
+      <a class="block hover:text-white transition-colors" href="#contato">
+       Contato
+      </a>
+     </li>
+    </ul>
+   </div>
+  </header>
+  <main class="flex-grow pt-24 pb-32 max-w-5xl mx-auto px-6 w-full">
+   <!-- Etapa 1 - Introdução -->
+   <section class="min-h-[60vh] flex flex-col justify-center items-center text-center px-4 fade-in" id="intro">
+    <h1 class="text-3xl sm:text-4xl font-light mb-6 max-w-3xl leading-relaxed">
+     Você está a poucos segundos de ver o que a inteligência artificial pode fazer pelo seu setor jurídico.
+    </h1>
+    <button class="btn-white px-8 py-3 rounded-md font-light text-lg shadow-lg hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-400 transition" id="start-simulation">
+     Começar Simulação
+    </button>
+   </section>
+   <!-- Etapa 2 - Perguntas Rápidas e Inteligentes -->
+   <section aria-label="Formulário de perguntas do simulador" class="hidden flex flex-col space-y-8 mt-12 max-w-3xl mx-auto fade-in" id="simulador">
+    <form class="space-y-10" id="simulation-form" novalidate="">
+     <!-- Pergunta 1 -->
+     <fieldset class="space-y-2">
+      <legend class="text-xl font-light">
+       Qual o seu setor?
+      </legend>
+      <select class="w-full rounded-md bg-[#1e293b] border border-gray-400 text-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400" name="setor" required="">
+       <option disabled="" selected="" value="">
+        Selecione o setor
+       </option>
+       <option value="Tecnologia">
+        Tecnologia
+       </option>
+       <option value="Imobiliário">
+        Imobiliário
+       </option>
+       <option value="Saúde">
+        Saúde
+       </option>
+       <option value="Varejo">
+        Varejo
+       </option>
+       <option value="Financeiro">
+        Financeiro
+       </option>
+       <option value="Jurídico">
+        Jurídico
+       </option>
+       <option value="Educação">
+        Educação
+       </option>
+       <option value="Outros">
+        Outros
+       </option>
+      </select>
+     </fieldset>
+     <!-- Pergunta 2 -->
+     <fieldset class="space-y-2">
+      <legend class="text-xl font-light">
+       Qual documento você precisa?
+      </legend>
+      <select class="w-full rounded-md bg-[#1e293b] border border-gray-400 text-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400" name="documento" required="">
+       <option disabled="" selected="" value="">
+        Selecione o documento
+       </option>
+       <option value="Contrato de prestação de serviço">
+        Contrato de prestação de serviço
+       </option>
+       <option value="Termo de confidencialidade">
+        Termo de confidencialidade
+       </option>
+       <option value="Acordo de parceria">
+        Acordo de parceria
+       </option>
+       <option value="Contrato de trabalho">
+        Contrato de trabalho
+       </option>
+       <option value="Contrato de locação">
+        Contrato de locação
+       </option>
+       <option value="Outro">
+        Outro
+       </option>
+      </select>
+     </fieldset>
+     <!-- Pergunta 3 -->
+     <fieldset class="space-y-2">
+      <legend class="text-xl font-light">
+       Qual o nível de complexidade?
+      </legend>
+      <div class="flex space-x-6">
+       <label class="flex items-center space-x-2 cursor-pointer">
+        <input class="accent-gray-400" name="complexidade" required="" type="radio" value="Baixa"/>
+        <span>
+         Baixa
+        </span>
+       </label>
+       <label class="flex items-center space-x-2 cursor-pointer">
+        <input class="accent-gray-400" name="complexidade" type="radio" value="Média"/>
+        <span>
+         Média
+        </span>
+       </label>
+       <label class="flex items-center space-x-2 cursor-pointer">
+        <input class="accent-gray-400" name="complexidade" type="radio" value="Alta"/>
+        <span>
+         Alta
+        </span>
+       </label>
+      </div>
+     </fieldset>
+     <!-- Pergunta 4 -->
+     <fieldset class="space-y-2">
+      <legend class="text-xl font-light">
+       Deseja inserir cláusulas específicas?
+      </legend>
+      <textarea class="w-full rounded-md bg-[#1e293b] border border-gray-400 text-slate-300 px-4 py-2 resize-y focus:outline-none focus:ring-2 focus:ring-gray-400" name="clausulas" placeholder="Digite suas cláusulas específicas ou deixe em branco para pular" rows="3"></textarea>
+     </fieldset>
+     <!-- Pergunta 5 -->
+     <fieldset class="space-y-2">
+      <legend class="text-xl font-light">
+       Para qual finalidade?
+      </legend>
+      <select class="w-full rounded-md bg-[#1e293b] border border-gray-400 text-slate-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400" name="finalidade" required="">
+       <option disabled="" selected="" value="">
+        Selecione a finalidade
+       </option>
+       <option value="Interna">
+        Interna
+       </option>
+       <option value="Comercial">
+        Comercial
+       </option>
+       <option value="Investidores">
+        Investidores
+       </option>
+       <option value="Compliance">
+        Compliance
+       </option>
+      </select>
+     </fieldset>
+     <div class="flex justify-center">
+      <button class="btn-white px-10 py-3 rounded-md font-light text-lg shadow-lg hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-400 transition" type="submit">
+       Gerar Resultados
+      </button>
+     </div>
+    </form>
+   </section>
+   <!-- Etapa 3 - Resultados Gerados em Tempo Real -->
+   <section aria-label="Resultados da simulação" class="hidden mt-16 max-w-5xl mx-auto space-y-12 fade-in" id="resultados">
+    <h2 class="text-3xl font-light text-white text-center mb-8">
+     Resultados Gerados em Tempo Real
+    </h2>
+    <!-- Documento Jurídico Automatizado -->
+    <article class="bg-[#1e293b] rounded-lg shadow-lg p-6 space-y-4">
+     <h3 class="text-2xl font-light text-white mb-4 flex items-center space-x-3">
+      <i class="fas fa-file-contract">
+      </i>
+      <span>
+       Documento Jurídico Automatizado
+      </span>
+     </h3>
+     <div class="relative border border-gray-400 rounded-md bg-[#0f172a] p-4 max-h-[300px] overflow-y-auto scrollbar-thin">
+      <p class="text-slate-300 leading-relaxed whitespace-pre-line" id="document-text">
+       Carregando documento jurídico automatizado...
+      </p>
+      <div class="hidden absolute z-50 max-w-xs p-3 bg-[#111f2a] text-white rounded-md shadow-lg text-sm pointer-events-none" id="tooltip">
+      </div>
+     </div>
+     <div class="flex flex-wrap gap-4 mt-4 justify-center sm:justify-start">
+      <button class="btn-white flex items-center space-x-2 px-5 py-2 rounded-md font-light text-base shadow hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-400 transition" id="btn-download">
+       <i class="fas fa-file-pdf">
+       </i>
+       <span>
+        Baixar .PDF
+       </span>
+      </button>
+      <button class="btn-white flex items-center space-x-2 px-5 py-2 rounded-md font-light text-base shadow hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-400 transition" id="btn-edit">
+       <i class="fas fa-edit">
+       </i>
+       <span>
+        Editar em ambiente seguro
+       </span>
+      </button>
+      <button class="btn-white flex items-center space-x-2 px-5 py-2 rounded-md font-light text-base shadow hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-400 transition" id="btn-email">
+       <i class="fas fa-envelope">
+       </i>
+       <span>
+        Enviar por e-mail
+       </span>
+      </button>
+     </div>
+    </article>
+    <!-- Parecer Jurídico Inteligente -->
+    <article class="bg-[#1e293b] rounded-lg shadow-lg p-6 space-y-4">
+     <h3 class="text-2xl font-light text-white mb-4 flex items-center space-x-3">
+      <i class="fas fa-lightbulb">
+      </i>
+      <span>
+       Parecer Jurídico Inteligente
+      </span>
+     </h3>
+     <p class="text-slate-300 leading-relaxed text-lg" id="parecer-text">
+      Carregando parecer jurídico inteligente...
+     </p>
+     <div class="flex flex-wrap items-center space-x-6 mt-4">
+      <div class="flex items-center space-x-2">
+       <span class="text-white font-semibold text-lg">
+        Pontuação de risco:
+       </span>
+       <div class="flex items-center space-x-1 text-green-400 font-semibold text-lg">
+        <i class="fas fa-shield-alt">
+        </i>
+        <span id="risk-score">
+         --%
+        </span>
+       </div>
+      </div>
+      <div class="text-slate-400 italic max-w-xl" id="suggestions-text">
+       Carregando sugestões adicionais da IA...
+      </div>
+     </div>
+    </article>
+    <!-- Estimativa de Ganhos com IA -->
+    <article class="bg-[#1e293b] rounded-lg shadow-lg p-6 space-y-6">
+     <h3 class="text-2xl font-light text-white mb-4 flex items-center space-x-3">
+      <i class="fas fa-chart-line">
+      </i>
+      <span>
+       Estimativa de Ganhos com IA
+      </span>
+     </h3>
+     <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+      <div>
+       <img alt="Ícone de relógio digital branco representando horas economizadas" class="mx-auto mb-2" height="80" src="https://storage.googleapis.com/a1aa/image/0d83c7af-47f3-4289-46ba-286dd037fa6b.jpg" width="80"/>
+       <p class="text-white font-semibold text-lg">
+        Horas economizadas
+       </p>
+       <p class="text-slate-300 text-xl font-light" id="hours-saved">
+        6h
+       </p>
+      </div>
+      <div>
+       <img alt="Ícone de cifrão branco representando custos evitados" class="mx-auto mb-2" height="80" src="https://storage.googleapis.com/a1aa/image/961e991b-a170-4aa0-0089-39f17b51ea29.jpg" width="80"/>
+       <p class="text-white font-semibold text-lg">
+        Custos evitados
+       </p>
+       <p class="text-slate-300 text-xl font-light" id="costs-avoided">
+        R$ 480,00
+       </p>
+      </div>
+      <div>
+       <img alt="Ícone de raio branco representando velocidade de resposta" class="mx-auto mb-2" height="80" src="https://storage.googleapis.com/a1aa/image/c2914aa9-5561-47d0-970c-cfa2d6b745d3.jpg" width="80"/>
+       <p class="text-white font-semibold text-lg">
+        Velocidade de resposta
+       </p>
+       <p class="text-slate-300 text-xl font-light" id="response-speed">
+        38 segundos
+       </p>
+      </div>
+     </div>
+    </article>
+    <div class="flex justify-center mt-8">
+     <button class="btn-white px-10 py-3 rounded-md font-light text-lg shadow-lg hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-400 transition" id="btn-reset">
+      Refazer simulação
+     </button>
+    </div>
+    <!-- Botões "Ver Demonstração Completa" e "Agendar Reunião" abaixo resultados -->
+    <div aria-label="Ações rápidas" class="fixed-buttons-wrapper fade-in" role="region">
+     <a aria-label="Ver Demonstração Completa" class="btn-fixed" href="#demo" tabindex="0" id="btn-demo">
+      <i aria-hidden="true" class="fas fa-play-circle">
+      </i>
+      <span>
+       Ver Demonstração Completa
+      </span>
+     </a>
+     <a aria-label="Agendar Reunião" class="btn-fixed" href="#contato" tabindex="0" id="btn-meeting">
+      <i aria-hidden="true" class="fas fa-calendar-alt">
+      </i>
+      <span>
+       Agendar Reunião
+      </span>
+     </a>
+    </div>
+   </section>
+  </main>
+  <!-- Contato Section Anchor -->
+  <section class="max-w-3xl mx-auto px-6 py-16 text-center text-slate-400 font-light" id="contato">
+   <h2 class="text-3xl text-white mb-6 font-light">
+    Contato
+   </h2>
+   <p>
+    Entre em contato conosco para mais informações e suporte.
+   </p>
+   <p class="mt-4">
+    Email:
+    <a class="text-white hover:underline" href="mailto:contato@prometeus.com">
+     contato@prometeus.com
+    </a>
+   </p>
+   <p>
+    Telefone:
+    <a class="text-white hover:underline" href="tel:+5511999999999">
+     +55 (11) 99999-9999
+    </a>
+   </p>
+  </section>
+  <script>
+   // Mobile menu toggle
+  const btnMenu = document.getElementById('btn-menu');
+  const mobileMenu = document.getElementById('mobile-menu');
+  btnMenu.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Elements for steps
+  const introSection = document.getElementById('intro');
+  const simuladorSection = document.getElementById('simulador');
+  const resultadosSection = document.getElementById('resultados');
+  const startBtn = document.getElementById('start-simulation');
+  const form = document.getElementById('simulation-form');
+  const resetBtn = document.getElementById('btn-reset');
+
+  // Document text container and tooltip
+  const documentText = document.getElementById('document-text');
+  const tooltip = document.getElementById('tooltip');
+
+  // Parecer elements
+  const parecerText = document.getElementById('parecer-text');
+  const riskScore = document.getElementById('risk-score');
+  const suggestionsText = document.getElementById('suggestions-text');
+
+  // Estimativa elements
+  const hoursSaved = document.getElementById('hours-saved');
+  const costsAvoided = document.getElementById('costs-avoided');
+  const responseSpeed = document.getElementById('response-speed');
+
+  // Buttons in results
+  const btnDownload = document.getElementById('btn-download');
+  const btnEdit = document.getElementById('btn-edit');
+  const btnEmail = document.getElementById('btn-email');
+
+  // Buttons fixed
+  const btnDemo = document.getElementById('btn-demo');
+  const btnMeeting = document.getElementById('btn-meeting');
+
+  // Data for simulation (mocked)
+  const clauses = [
+    {
+      text: "Cláusula 1: Objeto do contrato",
+      explanation: "Esta cláusula define o objeto do contrato, especificando os serviços ou produtos envolvidos."
+    },
+    {
+      text: "Cláusula 2: Prazo e vigência",
+      explanation: "Estabelece o prazo de duração do contrato e as condições para renovação ou término."
+    },
+    {
+      text: "Cláusula 3: Confidencialidade",
+      explanation: "Garante que as partes mantenham sigilo sobre informações sensíveis trocadas."
+    },
+    {
+      text: "Cláusula 4: Penalidades por inadimplência",
+      explanation: "Define as penalidades aplicáveis em caso de descumprimento das obrigações contratuais."
+    },
+    {
+      text: "Cláusula 5: Foro e legislação aplicável",
+      explanation: "Determina o foro competente para resolução de conflitos e a legislação que rege o contrato."
+    }
+  ];
+
+  // Helper: escape HTML special chars
+  function escapeHtml(text) {
+    return text.replace(/[&<>"']/g, function(m) {
+      return ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[m];
+    });
+  }
+
+  // Render document with interactive clauses
+  function renderDocument() {
+    // Compose document text with span-wrapped clauses for hover
+    let docHtml = "";
+    clauses.forEach((clause, i) => {
+      docHtml += `<span class="clause" data-index="${i}">${escapeHtml(clause.text)}</span>\n\n`;
+    });
+    documentText.innerHTML = docHtml;
+  }
+
+  // Show tooltip near mouse
+  function showTooltip(e, text) {
+    tooltip.textContent = text;
+    const offsetX = 15;
+    const offsetY = 15;
+    let left = e.pageX + offsetX;
+    let top = e.pageY + offsetY;
+    // Prevent tooltip from going off right edge
+    const tooltipRect = tooltip.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    if (left + tooltipRect.width > viewportWidth - 10) {
+      left = viewportWidth - tooltipRect.width - 10;
+    }
+    // Prevent tooltip from going off bottom edge
+    const viewportHeight = window.innerHeight;
+    if (top + tooltipRect.height > window.scrollY + viewportHeight - 10) {
+      top = e.pageY - tooltipRect.height - offsetY;
+    }
+    tooltip.style.left = left + 'px';
+    tooltip.style.top = top + 'px';
+    tooltip.classList.remove('hidden');
+  }
+  function hideTooltip() {
+    tooltip.classList.add('hidden');
+  }
+
+  // Start simulation button click
+  startBtn.addEventListener('click', () => {
+    introSection.classList.add('hidden');
+    simuladorSection.classList.remove('hidden');
+    simuladorSection.classList.add('fade-in');
+    simuladorSection.scrollIntoView({behavior: 'smooth'});
+  });
+
+  // Form submission
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    // Validate required fields
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    // Hide form, show results
+    simuladorSection.classList.add('hidden');
+    resultadosSection.classList.remove('hidden');
+    resultadosSection.classList.add('fade-in');
+    resultadosSection.scrollIntoView({behavior: 'smooth'});
+
+    // Render document
+    renderDocument();
+
+    // Fill parecer jurídico inteligente
+    parecerText.textContent = "Este documento atende à LGPD, contém cláusulas de proteção contra inadimplência e está otimizado para uso comercial.";
+    riskScore.textContent = "92% seguro";
+    suggestionsText.textContent = "Sugestões adicionais da IA: Considere incluir cláusulas de mediação para resolução de conflitos e revisar periodicidade de revisões contratuais.";
+
+    // Fill estimativa de ganhos
+    hoursSaved.textContent = "6h";
+    costsAvoided.textContent = "R$ 480,00";
+    responseSpeed.textContent = "38 segundos";
+  });
+
+  // Reset simulation
+  resetBtn.addEventListener('click', () => {
+    resultadosSection.classList.add('hidden');
+    simuladorSection.classList.remove('hidden');
+    simuladorSection.classList.add('fade-in');
+    form.reset();
+    simuladorSection.scrollIntoView({behavior: 'smooth'});
+  });
+
+  // Tooltip events for clauses
+  documentText.addEventListener('mousemove', e => {
+    const target = e.target;
+    if (target.classList.contains('clause')) {
+      const idx = target.getAttribute('data-index');
+      if (idx !== null) {
+        showTooltip(e, clauses[idx].explanation);
+      }
+    } else {
+      hideTooltip();
+    }
+  });
+  documentText.addEventListener('mouseleave', e => {
+    hideTooltip();
+  });
+
+  // Buttons in results (mocked actions)
+  btnDownload.addEventListener('click', () => {
+    alert('Download do PDF iniciado (simulado).');
+  });
+  btnEdit.addEventListener('click', () => {
+    alert('Abrindo ambiente seguro de edição (simulado).');
+  });
+  btnEmail.addEventListener('click', () => {
+    alert('Abrindo formulário para envio por e-mail (simulado).');
+  });
+
+  // Fixed buttons functionality
+  btnDemo.addEventListener('click', e => {
+    e.preventDefault();
+    alert('Abrindo a demonstração completa (simulado).');
+  });
+  btnMeeting.addEventListener('click', e => {
+    e.preventDefault();
+    alert('Abrindo formulário para agendar reunião (simulado).');
+  });
+  </script>
+ </body>
+</html>
