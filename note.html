@@ -1,0 +1,981 @@
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>App de Anotações</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    /* Light mode styles */
+    html.light body {
+      background-color: #f9fafb;
+      color: #111827;
+    }
+    html.light #header,
+    html.light #footer {
+      background-color: #ffffff;
+      border-color: #d1d5db;
+      color: #111827;
+    }
+    html.light #mainContent {
+      background-color: #f3f4f6;
+      color: #111827;
+    }
+    html.light #notesSection,
+    html.light #editorSection {
+      background-color: #ffffff;
+      color: #111827;
+    }
+    html.light #notesList li {
+      background-color: #f9fafb;
+      color: #111827;
+    }
+    html.light #notesList li:hover {
+      background-color: #e5e7eb;
+      color: #111827;
+    }
+    html.light #notesList li.selected {
+      background-color: #111827;
+      color: #f9fafb;
+      font-weight: 600;
+      box-shadow: 0 0 10px rgb(17 24 39 / 0.5);
+    }
+    html.light #filePreview {
+      background-color: #f3f4f6;
+      border-color: #d1d5db;
+      color: #111827;
+    }
+    html.light #filePreview pre {
+      background-color: #e5e7eb;
+      color: #111827;
+    }
+    html.light button,
+    html.light input,
+    html.light textarea {
+      color: #111827;
+      background-color: #ffffff;
+      border-color: #d1d5db;
+    }
+    html.light button:hover {
+      background-color: #e5e7eb;
+      color: #111827;
+    }
+    html.light button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    html.light .tooltip .tooltiptext {
+      background-color: #111827;
+      color: #f9fafb;
+      border-color: transparent;
+    }
+    /* Dark mode styles */
+    html.dark body {
+      background-color: #000000;
+      color: #f0f0f0;
+    }
+    html.dark #header,
+    html.dark #footer {
+      background-color: #000000;
+      border-color: #1f2937;
+      color: #f0f0f0;
+    }
+    html.dark #mainContent {
+      background-color: #111827;
+      color: #f0f0f0;
+    }
+    html.dark #notesSection,
+    html.dark #editorSection {
+      background-color: #111827;
+      color: #f0f0f0;
+    }
+    html.dark #notesList li {
+      background-color: #1f2937;
+      color: #d1d5db;
+    }
+    html.dark #notesList li:hover {
+      background-color: #374151;
+      color: #f9fafb;
+    }
+    html.dark #notesList li.selected {
+      background-color: #f9fafb;
+      color: #000000;
+      font-weight: 600;
+      box-shadow: 0 0 10px rgb(249 250 251 / 0.5);
+    }
+    html.dark #filePreview {
+      background-color: #1f2937;
+      border-color: #374151;
+      color: #f0f0f0;
+    }
+    html.dark #filePreview pre {
+      background-color: #374151;
+      color: #f0f0f0;
+    }
+    html.dark button,
+    html.dark input,
+    html.dark textarea {
+      color: #f0f0f0;
+      background-color: #1f2937;
+      border-color: #374151;
+    }
+    html.dark button:hover {
+      background-color: #374151;
+      color: #f9fafb;
+    }
+    html.dark button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    html.dark .tooltip .tooltiptext {
+      background-color: #f9fafb;
+      color: #000000;
+      border-color: transparent;
+    }
+    /* Scrollbar */
+    #notesList::-webkit-scrollbar {
+      width: 8px;
+    }
+    html.light #notesList::-webkit-scrollbar-track {
+      background: #e5e7eb;
+    }
+    html.light #notesList::-webkit-scrollbar-thumb {
+      background-color: #9ca3af;
+      border-radius: 4px;
+    }
+    html.dark #notesList::-webkit-scrollbar-track {
+      background: #121212;
+    }
+    html.dark #notesList::-webkit-scrollbar-thumb {
+      background-color: #444444;
+      border-radius: 4px;
+    }
+    #filePreview::-webkit-scrollbar {
+      width: 6px;
+    }
+    html.light #filePreview::-webkit-scrollbar-thumb {
+      background-color: #555;
+    }
+    html.dark #filePreview::-webkit-scrollbar-thumb {
+      background-color: #888;
+    }
+    #filePreview::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    /* Focus outlines */
+    button:focus, input:focus, textarea:focus, li:focus {
+      outline-offset: 2px;
+      outline-color: #3b82f6;
+      outline-style: solid;
+      outline-width: 2px;
+    }
+    /* Tooltip container */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: max-content;
+      max-width: 220px;
+      border-radius: 6px;
+      padding: 6px 10px;
+      position: absolute;
+      z-index: 10;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.85rem;
+      line-height: 1.2;
+      user-select: none;
+      pointer-events: none;
+      border: 1px solid transparent;
+    }
+    /* Tooltip arrow */
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent transparent transparent;
+    }
+    /* Show tooltip on hover/focus */
+    .tooltip:hover .tooltiptext,
+    .tooltip:focus-within .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    /* Smooth transitions for buttons */
+    button {
+      transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+    }
+    /* Modal backdrop */
+    .modal-backdrop {
+      background-color: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+    }
+    html.light .modal-backdrop {
+      background-color: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <header id="header" class="border-b p-5 flex items-center justify-center select-none transition-colors duration-300">
+    <h1 id="headerTitle" class="text-3xl font-semibold tracking-wide select-none"></h1>
+  </header>
+
+  <main id="mainContent" class="flex-grow container mx-auto p-6 max-w-7xl flex flex-col md:flex-row gap-10 transition-colors duration-300">
+    <!-- Lista de Notas -->
+    <section id="notesSection" class="rounded-3xl shadow-lg p-6 flex flex-col transition-colors duration-300" aria-label="Lista de anotações">
+      <div class="flex items-center justify-between mb-6">
+        <h2 id="notesTitle" class="text-xl font-semibold tracking-wide select-none">Suas Anotações</h2>
+        <button
+          id="addNoteBtn"
+          class="tooltip font-semibold rounded-full p-3 shadow-md transition-colors duration-300 focus:ring-4 focus:ring-blue-500 focus:outline-none"
+          aria-label="Adicionar nova anotação"
+          title="Adicionar nova anotação"
+          type="button"
+        >
+          <i class="fas fa-plus text-lg"></i>
+          <span class="tooltiptext">Clique para criar uma nova anotação</span>
+        </button>
+      </div>
+      <ul id="notesList" class="overflow-y-auto flex-grow space-y-3 max-h-[calc(100vh-280px)] rounded-xl transition-colors duration-300" tabindex="0" aria-live="polite" aria-relevant="additions removals"></ul>
+      <p id="notesEmptyMsg" class="text-center mt-6 select-none"></p>
+      <div id="notesFooter" class="mt-6 flex justify-between items-center text-xs select-none">
+        <span><i class="fas fa-info-circle mr-1"></i> Total de anotações: <span id="notesCount">0</span></span>
+        <button id="sortBtn" class="tooltip flex items-center gap-1 font-semibold rounded-md px-3 py-1 focus:outline-none" aria-label="Ordenar anotações" title="Ordenar anotações" type="button">
+          <i class="fas fa-sort-alpha-down"></i>
+          <span class="tooltiptext">Ordenar por título (A-Z / Z-A)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Editor de Nota -->
+    <section id="editorSection" class="rounded-3xl shadow-lg p-8 flex flex-col relative transition-colors duration-300" aria-label="Editor de anotação">
+      <input
+        id="noteTitle"
+        type="text"
+        placeholder="Título da anotação"
+        class="border-b pb-3 mb-6 text-3xl font-semibold placeholder-opacity-60 focus:outline-none transition-colors duration-300 rounded-sm"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Título da anotação"
+      />
+      <textarea
+        id="noteContent"
+        rows="15"
+        placeholder="Escreva sua anotação aqui..."
+        class="border rounded-2xl p-6 resize-none font-light leading-relaxed placeholder-opacity-60 focus:outline-none transition-colors duration-300 flex-grow"
+        spellcheck="true"
+        aria-label="Conteúdo da anotação"
+      ></textarea>
+
+      <!-- Área para preview de arquivos (imagens, áudio, docs) -->
+      <div id="filePreview" class="mt-6 rounded-xl border p-4 overflow-auto max-h-48 bg-opacity-10 transition-colors duration-300 hidden" aria-live="polite" aria-label="Visualização de arquivos anexados"></div>
+
+      <div class="mt-8 flex flex-wrap justify-between items-center gap-4">
+        <div class="flex gap-4 flex-wrap">
+          <button
+            id="deleteNoteBtn"
+            class="font-semibold rounded-full px-6 py-3 shadow-md flex items-center justify-center gap-2 transition-colors duration-300 focus:outline-none"
+            disabled
+            aria-disabled="true"
+            title="Excluir anotação"
+            type="button"
+          >
+            <i class="fas fa-trash-alt"></i> Excluir
+          </button>
+          <button
+            id="saveNoteBtn"
+            class="font-semibold rounded-full px-6 py-3 shadow-md flex items-center justify-center gap-2 transition-colors duration-300 focus:outline-none"
+            disabled
+            aria-disabled="true"
+            title="Salvar anotação"
+            type="button"
+          >
+            <i class="fas fa-save"></i> Salvar
+          </button>
+          <button
+            id="duplicateNoteBtn"
+            class="font-semibold rounded-full px-6 py-3 shadow-md flex items-center justify-center gap-2 transition-colors duration-300 focus:outline-none"
+            disabled
+            aria-disabled="true"
+            title="Duplicar anotação"
+            type="button"
+          >
+            <i class="fas fa-clone"></i> Duplicar
+          </button>
+        </div>
+        <div class="flex gap-4 flex-wrap items-center">
+          <label for="fileInput" class="tooltip cursor-pointer bg-gray-600 hover:bg-gray-700 text-white rounded-full p-3 shadow-md transition-colors duration-300 flex items-center justify-center gap-2 focus:outline-none" title="Adicionar arquivos (imagens, áudio, documentos)" tabindex="0" aria-label="Adicionar arquivos (imagens, áudio, documentos)">
+            <i class="fas fa-paperclip"></i> Anexar
+            <span class="tooltiptext">Adicionar imagens, áudios ou documentos</span>
+          </label>
+          <input type="file" id="fileInput" multiple accept="image/*,audio/*,application/pdf,text/plain" class="hidden" aria-hidden="true" />
+          <button
+            id="darkModeToggle"
+            class="tooltip rounded-full p-3 shadow-md transition-colors duration-300 focus:outline-none"
+            aria-label="Alternar modo escuro/claro"
+            title="Alternar modo escuro/claro"
+            type="button"
+          >
+            <i class="fas fa-moon"></i>
+            <span class="tooltiptext">Alternar entre modo escuro e claro</span>
+          </button>
+          <button
+            id="exportNoteBtn"
+            class="font-semibold rounded-full px-5 py-3 shadow-md flex items-center justify-center gap-2 transition-colors duration-300 focus:outline-none"
+            disabled
+            aria-disabled="true"
+            title="Exportar anotação como TXT"
+            type="button"
+          >
+            <i class="fas fa-file-export"></i> Exportar TXT
+            <span class="tooltiptext">Exportar a anotação atual como arquivo TXT</span>
+          </button>
+          <button
+            id="exportPdfBtn"
+            class="font-semibold rounded-full px-5 py-3 shadow-md flex items-center justify-center gap-2 transition-colors duration-300 focus:outline-none"
+            disabled
+            aria-disabled="true"
+            title="Exportar anotação como PDF"
+            type="button"
+          >
+            <i class="fas fa-file-pdf"></i> Exportar PDF
+            <span class="tooltiptext">Exportar a anotação atual como arquivo PDF</span>
+          </button>
+        </div>
+      </div>
+      <p id="statusMsg" class="mt-4 text-sm select-none min-h-[1.25rem]"></p>
+    </section>
+  </main>
+
+  <footer id="footer" class="border-t p-5 text-center text-sm select-none transition-colors duration-300">
+    &copy; 2025 App de Anotações. Desenvolvido com dedicação.
+  </footer>
+
+  <!-- Modal de confirmação para exclusão -->
+  <div id="deleteModal" class="fixed inset-0 hidden items-center justify-center z-50" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle" aria-describedby="deleteModalDesc">
+    <div class="modal-backdrop absolute inset-0 rounded-lg"></div>
+    <div class="bg-gray-900 rounded-3xl shadow-xl p-8 max-w-md mx-4 relative z-10 text-white transition-colors duration-300" id="deleteModalContent">
+      <h3 class="text-2xl font-semibold mb-4" id="deleteModalTitle">Excluir anotação</h3>
+      <p class="mb-6 text-gray-300" id="deleteModalDesc">Tem certeza que deseja excluir esta anotação? Esta ação não pode ser desfeita.</p>
+      <div class="flex justify-end gap-4">
+        <button id="cancelDeleteBtn" class="rounded-full px-6 py-3 font-semibold transition-colors duration-300 focus:outline-none bg-gray-700 hover:bg-gray-600" type="button">Cancelar</button>
+        <button id="confirmDeleteBtn" class="rounded-full px-6 py-3 font-semibold transition-colors duration-300 focus:outline-none bg-red-700 hover:bg-red-800" type="button">Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { jsPDF } = window.jspdf;
+
+    // Elementos
+    const notesList = document.getElementById('notesList');
+    const noteTitle = document.getElementById('noteTitle');
+    const noteContent = document.getElementById('noteContent');
+    const addNoteBtn = document.getElementById('addNoteBtn');
+    const saveNoteBtn = document.getElementById('saveNoteBtn');
+    const deleteNoteBtn = document.getElementById('deleteNoteBtn');
+    const duplicateNoteBtn = document.getElementById('duplicateNoteBtn');
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const exportNoteBtn = document.getElementById('exportNoteBtn');
+    const exportPdfBtn = document.getElementById('exportPdfBtn');
+    const statusMsg = document.getElementById('statusMsg');
+    const notesEmptyMsg = document.getElementById('notesEmptyMsg');
+    const notesCount = document.getElementById('notesCount');
+    const sortBtn = document.getElementById('sortBtn');
+    const fileInput = document.getElementById('fileInput');
+    const filePreview = document.getElementById('filePreview');
+
+    // Modal elementos
+    const deleteModal = document.getElementById('deleteModal');
+    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+    // Estado
+    let notes = JSON.parse(localStorage.getItem('notes')) || [];
+    let selectedNoteId = null;
+    let sortAsc = true;
+
+    // Salvar notas no localStorage
+    function saveNotesToStorage() {
+      localStorage.setItem('notes', JSON.stringify(notes));
+    }
+
+    // Atualiza contador de notas
+    function updateNotesCount() {
+      notesCount.textContent = notes.length;
+    }
+
+    // Formata data e hora para exibição
+    function formatDateTime(dateStr) {
+      const d = new Date(dateStr);
+      if (isNaN(d)) return '';
+      return d.toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    }
+
+    // Renderiza lista de notas
+    function renderNotes() {
+      notesList.innerHTML = '';
+      if (notes.length === 0) {
+        notesEmptyMsg.textContent = 'Nenhuma anotação ainda. Clique no + para criar sua primeira anotação.';
+        updateNotesCount();
+        return;
+      } else {
+        notesEmptyMsg.textContent = '';
+      }
+      updateNotesCount();
+
+      // Ordenar notas por título
+      const sortedNotes = [...notes].sort((a, b) => {
+        const titleA = a.title.toLowerCase();
+        const titleB = b.title.toLowerCase();
+        if (titleA < titleB) return sortAsc ? -1 : 1;
+        if (titleA > titleB) return sortAsc ? 1 : -1;
+        return 0;
+      });
+
+      sortedNotes.forEach((note) => {
+        const li = document.createElement('li');
+        li.className =
+          'cursor-pointer p-4 rounded-2xl transition-colors flex flex-col justify-between ' +
+          (note.id === selectedNoteId
+            ? 'selected'
+            : '');
+        li.tabIndex = 0;
+        li.setAttribute('role', 'button');
+        li.setAttribute('aria-pressed', note.id === selectedNoteId ? 'true' : 'false');
+
+        // Título truncado
+        const titleText = note.title.length > 30 ? note.title.slice(0, 27) + '...' : note.title;
+
+        const titleSpan = document.createElement('span');
+        titleSpan.textContent = titleText;
+        titleSpan.className = 'truncate max-w-full text-lg';
+
+        const dateSpan = document.createElement('span');
+        dateSpan.textContent = formatDateTime(note.createdAt);
+        dateSpan.className = 'text-xs opacity-70 mt-1 select-none';
+
+        li.appendChild(titleSpan);
+        li.appendChild(dateSpan);
+
+        li.addEventListener('click', () => {
+          selectNote(note.id);
+        });
+        li.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectNote(note.id);
+          }
+        });
+
+        notesList.appendChild(li);
+      });
+    }
+
+    // Seleciona uma nota para edição
+    function selectNote(id) {
+      selectedNoteId = id;
+      const note = notes.find((n) => n.id === id);
+      if (note) {
+        noteTitle.value = note.title;
+        noteContent.value = note.content;
+        currentFiles = note.files ? JSON.parse(JSON.stringify(note.files)) : [];
+        saveNoteBtn.disabled = true;
+        saveNoteBtn.setAttribute('aria-disabled', 'true');
+        deleteNoteBtn.disabled = false;
+        deleteNoteBtn.setAttribute('aria-disabled', 'false');
+        duplicateNoteBtn.disabled = false;
+        duplicateNoteBtn.setAttribute('aria-disabled', 'false');
+        exportNoteBtn.disabled = false;
+        exportNoteBtn.setAttribute('aria-disabled', 'false');
+        exportPdfBtn.disabled = false;
+        exportPdfBtn.setAttribute('aria-disabled', 'false');
+        statusMsg.textContent = `Editando: "${note.title}" (Criado em: ${formatDateTime(note.createdAt)})`;
+        renderFilePreview(currentFiles);
+      }
+      renderNotes();
+    }
+
+    // Limpa editor para nova nota
+    function clearEditor() {
+      selectedNoteId = null;
+      noteTitle.value = '';
+      noteContent.value = '';
+      currentFiles = [];
+      saveNoteBtn.disabled = true;
+      saveNoteBtn.setAttribute('aria-disabled', 'true');
+      deleteNoteBtn.disabled = true;
+      deleteNoteBtn.setAttribute('aria-disabled', 'true');
+      duplicateNoteBtn.disabled = true;
+      duplicateNoteBtn.setAttribute('aria-disabled', 'true');
+      exportNoteBtn.disabled = true;
+      exportNoteBtn.setAttribute('aria-disabled', 'true');
+      exportPdfBtn.disabled = true;
+      exportPdfBtn.setAttribute('aria-disabled', 'true');
+      statusMsg.textContent = 'Pronto para criar uma nova anotação.';
+      clearFilePreview();
+      renderNotes();
+    }
+
+    // Verifica se houve alteração na nota
+    function isNoteChanged() {
+      if (!selectedNoteId) {
+        return noteTitle.value.trim() !== '' || noteContent.value.trim() !== '' || currentFiles.length > 0;
+      }
+      const note = notes.find((n) => n.id === selectedNoteId);
+      if (!note) return false;
+      if (note.title !== noteTitle.value) return true;
+      if (note.content !== noteContent.value) return true;
+      if ((note.files?.length || 0) !== currentFiles.length) return true;
+      // Checagem profunda dos arquivos (nome e tipo)
+      if (note.files && currentFiles) {
+        for (let i = 0; i < note.files.length; i++) {
+          if (!currentFiles[i] || note.files[i].name !== currentFiles[i].name || note.files[i].type !== currentFiles[i].type) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    // Atualiza estado do botão salvar
+    function updateSaveButtonState() {
+      if (isNoteChanged()) {
+        saveNoteBtn.disabled = false;
+        saveNoteBtn.setAttribute('aria-disabled', 'false');
+      } else {
+        saveNoteBtn.disabled = true;
+        saveNoteBtn.setAttribute('aria-disabled', 'true');
+      }
+    }
+
+    // Variável para armazenar arquivos carregados na nota atual
+    let currentFiles = [];
+
+    // Renderiza preview dos arquivos anexados
+    function renderFilePreview(files) {
+      currentFiles = files || [];
+      if (!files || files.length === 0) {
+        clearFilePreview();
+        return;
+      }
+      filePreview.innerHTML = '';
+      filePreview.classList.remove('hidden');
+
+      files.forEach((file, index) => {
+        const container = document.createElement('div');
+        container.className = 'mb-4 last:mb-0';
+
+        // Detectar tipo pelo mimeType
+        if (file.type.startsWith('image/')) {
+          // Imagem
+          const img = document.createElement('img');
+          img.src = file.data;
+          img.alt = file.name || 'Imagem anexada';
+          img.className = 'max-h-40 rounded-lg shadow-md object-contain w-full';
+          container.appendChild(img);
+        } else if (file.type.startsWith('audio/')) {
+          // Áudio
+          const audio = document.createElement('audio');
+          audio.controls = true;
+          audio.src = file.data;
+          audio.className = 'w-full rounded-lg shadow-md';
+          container.appendChild(audio);
+        } else if (file.type === 'application/pdf') {
+          // PDF - embed via iframe
+          const iframe = document.createElement('iframe');
+          iframe.src = file.data;
+          iframe.className = 'w-full h-48 rounded-lg shadow-md';
+          iframe.title = file.name || 'Documento PDF anexado';
+          container.appendChild(iframe);
+        } else if (file.type === 'text/plain') {
+          // TXT - mostrar texto dentro de um pre
+          const pre = document.createElement('pre');
+          pre.className = 'bg-gray-800 text-white p-3 rounded-lg max-h-48 overflow-auto whitespace-pre-wrap break-words shadow-md';
+          pre.textContent = file.textContent || 'Arquivo de texto vazio';
+          container.appendChild(pre);
+        } else {
+          // Arquivo não suportado para preview
+          const p = document.createElement('p');
+          p.textContent = `Arquivo "${file.name}" não pode ser visualizado aqui.`;
+          p.className = 'italic text-gray-400';
+          container.appendChild(p);
+        }
+
+        // Botão remover arquivo
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'mt-2 text-red-500 hover:text-red-700 font-semibold focus:outline-none';
+        removeBtn.textContent = 'Remover arquivo';
+        removeBtn.addEventListener('click', () => {
+          currentFiles.splice(index, 1);
+          renderFilePreview(currentFiles);
+          updateSaveButtonState();
+        });
+        container.appendChild(removeBtn);
+
+        filePreview.appendChild(container);
+      });
+    }
+
+    // Limpa preview de arquivos
+    function clearFilePreview() {
+      currentFiles = [];
+      filePreview.innerHTML = '';
+      filePreview.classList.add('hidden');
+    }
+
+    // Adiciona arquivos selecionados ao preview e estado
+    fileInput.addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files);
+      for (const file of files) {
+        // Ler arquivo e converter para base64/dataURL
+        const fileData = await readFileAsDataURL(file);
+        let fileObj = {
+          name: file.name,
+          type: file.type,
+          data: fileData,
+        };
+        // Se for txt, ler texto para preview
+        if (file.type === 'text/plain') {
+          const text = await readFileAsText(file);
+          fileObj.textContent = text;
+        }
+        currentFiles.push(fileObj);
+      }
+      renderFilePreview(currentFiles);
+      updateSaveButtonState();
+      // Reset input para permitir re-upload do mesmo arquivo se quiser
+      fileInput.value = '';
+    });
+
+    // Função para ler arquivo como dataURL
+    function readFileAsDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('Erro ao ler arquivo'));
+        reader.readAsDataURL(file);
+      });
+    }
+    // Função para ler arquivo como texto
+    function readFileAsText(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('Erro ao ler arquivo'));
+        reader.readAsText(file);
+      });
+    }
+
+    // Adiciona nova nota
+    addNoteBtn.addEventListener('click', () => {
+      clearEditor();
+      noteTitle.focus();
+    });
+
+    noteTitle.addEventListener('input', updateSaveButtonState);
+    noteContent.addEventListener('input', updateSaveButtonState);
+
+    // Salvar nota (nova ou existente)
+    saveNoteBtn.addEventListener('click', () => {
+      const title = noteTitle.value.trim() || 'Anotação sem título';
+      const content = noteContent.value;
+
+      if (selectedNoteId) {
+        const noteIndex = notes.findIndex((n) => n.id === selectedNoteId);
+        if (noteIndex !== -1) {
+          notes[noteIndex].title = title;
+          notes[noteIndex].content = content;
+          notes[noteIndex].files = currentFiles;
+          // Atualiza updatedAt
+          notes[noteIndex].updatedAt = new Date().toISOString();
+          statusMsg.textContent = `Anotação "${title}" atualizada com sucesso.`;
+        }
+      } else {
+        const newNote = {
+          id: Date.now().toString(),
+          title,
+          content,
+          files: currentFiles,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        };
+        notes.unshift(newNote);
+        selectedNoteId = newNote.id;
+        statusMsg.textContent = `Anotação "${title}" criada com sucesso.`;
+      }
+      saveNotesToStorage();
+      renderNotes();
+      saveNoteBtn.disabled = true;
+      saveNoteBtn.setAttribute('aria-disabled', 'true');
+      deleteNoteBtn.disabled = false;
+      deleteNoteBtn.setAttribute('aria-disabled', 'false');
+      duplicateNoteBtn.disabled = false;
+      duplicateNoteBtn.setAttribute('aria-disabled', 'false');
+      exportNoteBtn.disabled = false;
+      exportNoteBtn.setAttribute('aria-disabled', 'false');
+      exportPdfBtn.disabled = false;
+      exportPdfBtn.setAttribute('aria-disabled', 'false');
+    });
+
+    // Abrir modal de confirmação para exclusão
+    deleteNoteBtn.addEventListener('click', () => {
+      if (!selectedNoteId) return;
+      openDeleteModal();
+    });
+
+    // Modal funções
+    function openDeleteModal() {
+      deleteModal.classList.remove('hidden');
+      deleteModal.classList.add('flex');
+      cancelDeleteBtn.focus();
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDeleteModal() {
+      deleteModal.classList.add('hidden');
+      deleteModal.classList.remove('flex');
+      document.body.style.overflow = '';
+      deleteNoteBtn.focus();
+    }
+
+    cancelDeleteBtn.addEventListener('click', () => {
+      closeDeleteModal();
+    });
+
+    confirmDeleteBtn.addEventListener('click', () => {
+      if (!selectedNoteId) return;
+      const note = notes.find((n) => n.id === selectedNoteId);
+      if (!note) return;
+      notes = notes.filter((n) => n.id !== selectedNoteId);
+      saveNotesToStorage();
+      clearEditor();
+      statusMsg.textContent = `Anotação "${note.title}" excluída.`;
+      closeDeleteModal();
+    });
+
+    // Duplicar nota
+    duplicateNoteBtn.addEventListener('click', () => {
+      if (!selectedNoteId) return;
+      const note = notes.find((n) => n.id === selectedNoteId);
+      if (!note) return;
+      const duplicatedNote = {
+        id: Date.now().toString(),
+        title: note.title + ' (cópia)',
+        content: note.content,
+        files: JSON.parse(JSON.stringify(note.files || [])),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      notes.unshift(duplicatedNote);
+      saveNotesToStorage();
+      selectNote(duplicatedNote.id);
+      statusMsg.textContent = `Anotação "${note.title}" duplicada.`;
+    });
+
+    // Alternar modo escuro/claro e sincronizar com sistema
+    function applyTheme(theme) {
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      }
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+      const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(newTheme);
+      localStorage.setItem('theme', newTheme);
+      statusMsg.textContent = newTheme === 'dark' ? 'Modo escuro ativado.' : 'Modo claro ativado.';
+    });
+
+    // Detecta e aplica tema do sistema e sincroniza com site
+    function detectSystemTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        applyTheme(savedTheme);
+      } else {
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(systemPrefersDark ? 'dark' : 'light');
+      }
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+        statusMsg.textContent = e.matches ? 'Modo escuro ativado pelo sistema.' : 'Modo claro ativado pelo sistema.';
+      }
+    });
+
+    // Exportar nota como TXT
+    exportNoteBtn.addEventListener('click', () => {
+      if (!selectedNoteId) return;
+      const note = notes.find((n) => n.id === selectedNoteId);
+      if (!note) return;
+      let exportText = `Título: ${note.title}\nCriado em: ${formatDateTime(note.createdAt)}\nÚltima edição: ${formatDateTime(note.updatedAt)}\n\n${note.content}\n\n---\nArquivos anexados:\n`;
+      if (note.files && note.files.length > 0) {
+        note.files.forEach((f, i) => {
+          exportText += `${i + 1}. ${f.name} (${f.type})\n`;
+        });
+      } else {
+        exportText += 'Nenhum arquivo anexado.';
+      }
+      const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${note.title.replace(/[\\\/:*?"<>|]/g, '') || 'anotacao'}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 0);
+      statusMsg.textContent = `Anotação "${note.title}" exportada como arquivo TXT.`;
+    });
+
+    // Exportar nota como PDF
+    exportPdfBtn.addEventListener('click', async () => {
+      if (!selectedNoteId) return;
+      const note = notes.find((n) => n.id === selectedNoteId);
+      if (!note) return;
+
+      const doc = new jsPDF();
+
+      const margin = 15;
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const maxLineWidth = pageWidth - margin * 2;
+      let y = margin;
+
+      doc.setFontSize(18);
+      doc.setTextColor(0, 0, 0);
+      doc.text(note.title, margin, y);
+      y += 10;
+
+      doc.setFontSize(10);
+      doc.setTextColor(80);
+      doc.text(`Criado em: ${formatDateTime(note.createdAt)}`, margin, y);
+      y += 6;
+      doc.text(`Última edição: ${formatDateTime(note.updatedAt)}`, margin, y);
+      y += 10;
+
+      doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0);
+
+      // Quebrar texto em linhas para caber na página
+      const splitContent = doc.splitTextToSize(note.content || '', maxLineWidth);
+      splitContent.forEach(line => {
+        if (y > doc.internal.pageSize.getHeight() - margin) {
+          doc.addPage();
+          y = margin;
+        }
+        doc.text(line, margin, y);
+        y += 6;
+      });
+
+      y += 10;
+      if (note.files && note.files.length > 0) {
+        if (y > doc.internal.pageSize.getHeight() - margin) {
+          doc.addPage();
+          y = margin;
+        }
+        doc.setFontSize(14);
+        doc.setTextColor(0, 0, 0);
+        doc.text('Arquivos anexados:', margin, y);
+        y += 8;
+        doc.setFontSize(10);
+        note.files.forEach((file, i) => {
+          if (y > doc.internal.pageSize.getHeight() - margin) {
+            doc.addPage();
+            y = margin;
+          }
+          doc.text(`${i + 1}. ${file.name} (${file.type})`, margin, y);
+          y += 6;
+        });
+      }
+
+      doc.save(`${note.title.replace(/[\\\/:*?"<>|]/g, '') || 'anotacao'}.pdf`);
+      statusMsg.textContent = `Anotação "${note.title}" exportada como arquivo PDF.`;
+    });
+
+    // Ordenar notas (toggle A-Z / Z-A)
+    sortBtn.addEventListener('click', () => {
+      sortAsc = !sortAsc;
+      renderNotes();
+      statusMsg.textContent = `Notas ordenadas por título (${sortAsc ? 'A-Z' : 'Z-A'}).`;
+      sortBtn.querySelector('i').className = sortAsc ? 'fas fa-sort-alpha-down' : 'fas fa-sort-alpha-up';
+    });
+
+    // Atalhos de teclado
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        if (!saveNoteBtn.disabled) {
+          saveNoteBtn.click();
+        }
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'd') {
+        e.preventDefault();
+        if (!duplicateNoteBtn.disabled) {
+          duplicateNoteBtn.click();
+        }
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') {
+        e.preventDefault();
+        addNoteBtn.click();
+      }
+      if (e.key === 'Escape') {
+        if (!deleteModal.classList.contains('hidden')) {
+          closeDeleteModal();
+        }
+      }
+    });
+
+    // Inicialização
+    detectSystemTheme();
+    renderNotes();
+    if (notes.length === 0) {
+      statusMsg.textContent = 'Pronto para criar uma nova anotação.';
+    } else {
+      statusMsg.textContent = 'Selecione uma anotação ou crie uma nova.';
+    }
+  </script>
+</body>
+</html>
