@@ -293,12 +293,14 @@
     }
   </style>
  </head>
+ <body class="relative">
   <header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-12 py-4 bg-black" id="header" role="banner">
    <a aria-label="Logo Prometeus" class="logo-container" href="/" tabindex="0">
-    <span class="logo-text" aria-hidden="true">
+    <span aria-hidden="true" class="logo-text">
      PROMETEUS
     </span>
-    <span class="logo-underline" aria-hidden="true"></span>
+    <span aria-hidden="true" class="logo-underline">
+    </span>
    </a>
    <!-- Desktop Nav -->
    <nav aria-label="Menu principal" class="hidden md:block" role="navigation">
@@ -364,314 +366,388 @@
   </nav>
   <main class="pt-24 md:pt-32 max-w-7xl mx-auto px-6 md:px-12">
    <!-- Hero Section -->
-
- <body class="relative">
-  <!-- Hero Section -->
-  <section class="min-h-screen flex flex-col justify-center items-center px-6 text-center py-20" id="hero">
-   <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight max-w-4xl reveal">
-    Do Conceito à Ação.
-    <br/>
-    A Prometeus transforma o Direito com soluções práticas, reais e automatizadas.
-   </h1>
-   <p class="mt-6 text-white text-lg sm:text-xl max-w-3xl reveal delay-200">
-    Veja como estamos redefinindo a advocacia digital com IA, blockchain e automação.
-   </p>
-   <button aria-label="Solicite uma Demonstração" class="btn-neon mt-12 px-8 py-4 rounded-full flex items-center justify-center gap-3 text-lg font-semibold reveal delay-400 hover:scale-105 focus:scale-105 focus:outline-none" id="btnSoliciteDemo">
-    <i class="fas fa-rocket fa-lg">
-    </i>
-    Solicite uma Demonstração
-   </button>
-  </section>
-  <!-- Casos de Uso Section -->
-  <section class="px-6 py-20 max-w-7xl mx-auto" id="casos-de-uso">
-   <h2 class="text-3xl sm:text-4xl font-extrabold mb-12 text-center reveal">
-    Casos de Uso
-   </h2>
-   <!-- Grid for desktop, horizontal scroll for mobile -->
-   <div aria-label="Casos de Uso" class="grid grid-cols-1 sm:grid-cols-2 gap-8 overflow-x-auto scrollbar-hide snap-x snap-mandatory sm:snap-none" role="list">
-    <!-- Card 1 -->
-    <article class="card-hover snap-start bg-[#121212] border border-gray-700 rounded-xl p-8 flex flex-col gap-6 reveal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer" tabindex="0" data-title="Automatização de Contratos Inteligentes" data-desc="Geração automática de contratos com cláusulas ajustadas por IA, e validação em blockchain para integridade e imutabilidade. Exemplo: Startup X reduziu 80% do tempo de negociação com contratos inteligentes gerados pela Prometeus.">
-     <div class="flex items-center gap-4">
-      <img alt="Ícone estilizado de corrente de blockchain branca com uma caneta digital sobreposta, representando contratos inteligentes" aria-hidden="true" class="w-12 h-12" height="48" src="https://storage.googleapis.com/a1aa/image/12cbffc4-477e-49cc-1411-05624e2c0573.jpg" width="48"/>
-      <h3 class="text-xl font-semibold text-white">
-       Automatização de Contratos Inteligentes
-      </h3>
-     </div>
-     <p class="text-gray-300 flex-grow">
-      Geração automática de contratos com cláusulas ajustadas por IA, e validação em blockchain para integridade e imutabilidade.
-     </p>
-     <blockquote class="italic text-white border-l-4 border-white pl-4">
-      “Startup X reduziu 80% do tempo de negociação com contratos inteligentes gerados pela Prometeus.”
-     </blockquote>
-    </article>
-    <!-- Card 2 -->
-    <article class="card-hover snap-start bg-[#121212] border border-gray-700 rounded-xl p-8 flex flex-col gap-6 reveal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer" tabindex="0" data-title="IA em Compliance e Due Diligence" data-desc="Análise preventiva de documentos, sinalização de riscos legais e sugestões de melhoria em tempo real. Exemplo: Departamento jurídico da Empresa Y recebeu alertas sobre cláusulas de risco antes de fechar contrato internacional.">
-     <div class="flex items-center gap-4">
-      <img alt="Ícone estilizado de escudo branco com chip digital, simbolizando IA em compliance e due diligence" aria-hidden="true" class="w-12 h-12" height="48" src="https://storage.googleapis.com/a1aa/image/89a35d30-18c7-4c66-e5f4-dfb5d3454bfd.jpg" width="48"/>
-      <h3 class="text-xl font-semibold text-white">
-       IA em Compliance e Due Diligence
-      </h3>
-     </div>
-     <p class="text-gray-300 flex-grow">
-      Análise preventiva de documentos, sinalização de riscos legais e sugestões de melhoria em tempo real.
-     </p>
-     <blockquote class="italic text-white border-l-4 border-white pl-4">
-      “Departamento jurídico da Empresa Y recebeu alertas sobre cláusulas de risco antes de fechar contrato internacional.”
-     </blockquote>
-    </article>
-    <!-- Card 3 -->
-    <article class="card-hover snap-start bg-[#121212] border border-gray-700 rounded-xl p-8 flex flex-col gap-6 reveal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer" tabindex="0" data-title="Blockchain para Registros Notariais" data-desc="Registro imutável de documentos e assinaturas digitais, com verificação pública via hash. Exemplo: O advogado Z utilizou nossa ferramenta para registrar atas e procurações em blockchain com validade jurídica.">
-     <div class="flex items-center gap-4">
-      <img alt="Ícone estilizado de selo de cartório branco com código QR, representando blockchain para registros notariais" aria-hidden="true" class="w-12 h-12" height="48" src="https://storage.googleapis.com/a1aa/image/3d6b545a-7476-43ed-3651-664a0d871b90.jpg" width="48"/>
-      <h3 class="text-xl font-semibold text-white">
-       Blockchain para Registros Notariais
-      </h3>
-     </div>
-     <p class="text-gray-300 flex-grow">
-      Registro imutável de documentos e assinaturas digitais, com verificação pública via hash.
-     </p>
-     <blockquote class="italic text-white border-l-4 border-white pl-4">
-      “O advogado Z utilizou nossa ferramenta para registrar atas e procurações em blockchain com validade jurídica.”
-     </blockquote>
-    </article>
-    <!-- Card 4 -->
-    <article class="card-hover snap-start bg-[#121212] border border-gray-700 rounded-xl p-8 flex flex-col gap-6 reveal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer" tabindex="0" data-title="Soluções sob Medida" data-desc="Automação modular para diferentes perfis: advogados autônomos, startups, escritórios, departamentos jurídicos. Exemplo: Advogada solo automatizou toda sua rotina de contratos, petições e cobrança com um sistema da Prometeus.">
-     <div class="flex items-center gap-4">
-      <img alt="Ícone estilizado de cubo branco se moldando, simbolizando soluções sob medida flexíveis" aria-hidden="true" class="w-12 h-12" height="48" src="https://storage.googleapis.com/a1aa/image/cee9cf7a-6aec-4dc2-ca3f-405ef112160a.jpg" width="48"/>
-      <h3 class="text-xl font-semibold text-white">
-       Soluções sob Medida
-      </h3>
-     </div>
-     <p class="text-gray-300 flex-grow">
-      Automação modular para diferentes perfis: advogados autônomos, startups, escritórios, departamentos jurídicos.
-     </p>
-     <blockquote class="italic text-white border-l-4 border-white pl-4">
-      “Advogada solo automatizou toda sua rotina de contratos, petições e cobrança com um sistema da Prometeus.”
-     </blockquote>
-    </article>
-   </div>
-  </section>
-  <!-- Quem Usa a Prometeus Section -->
-  <section class="px-6 py-20 max-w-6xl mx-auto" id="quem-usa">
-   <h2 class="text-3xl sm:text-4xl font-extrabold mb-12 text-center reveal">
-    Quem Usa a Prometeus?
-   </h2>
-   <div class="grid grid-cols-2 sm:grid-cols-5 gap-10 text-center reveal">
-    <!-- Persona 1 -->
-    <div class="flex flex-col items-center gap-4">
-     <img alt="Ícone branco representando startups jurídicas, foguete estilizado" aria-hidden="true" class="w-20 h-20 mx-auto" height="80" src="https://storage.googleapis.com/a1aa/image/9f1f3635-aaaa-4f32-6640-f42b81a975bc.jpg" width="80"/>
-     <h3 class="text-white font-semibold text-lg">
-      Startups jurídicas
-     </h3>
-     <p class="text-gray-400 text-sm max-w-xs">
-      Para quem precisa de velocidade, segurança e inovação.
-     </p>
-    </div>
-    <!-- Persona 2 -->
-    <div class="flex flex-col items-center gap-4">
-     <img alt="Ícone branco de balança da justiça representando escritórios de advocacia" aria-hidden="true" class="w-20 h-20 mx-auto" height="80" src="https://storage.googleapis.com/a1aa/image/0352aa31-d507-46bd-5b02-7056c69404f1.jpg" width="80"/>
-     <h3 class="text-white font-semibold text-lg">
-      Escritórios de advocacia
-     </h3>
-     <p class="text-gray-400 text-sm max-w-xs">
-      Para quem precisa de velocidade, segurança e inovação.
-     </p>
-    </div>
-    <!-- Persona 3 -->
-    <div class="flex flex-col items-center gap-4">
-     <img alt="Ícone branco de prédio corporativo representando departamentos de empresas" aria-hidden="true" class="w-20 h-20 mx-auto" height="80" src="https://storage.googleapis.com/a1aa/image/90a195e7-6e6d-4504-f48d-b179358c2888.jpg" width="80"/>
-     <h3 class="text-white font-semibold text-lg">
-      Departamentos de empresas
-     </h3>
-     <p class="text-gray-400 text-sm max-w-xs">
-      Para quem precisa de velocidade, segurança e inovação.
-     </p>
-    </div>
-    <!-- Persona 4 -->
-    <div class="flex flex-col items-center gap-4">
-     <img alt="Ícone branco de advogada autônoma com toga e laptop" aria-hidden="true" class="w-20 h-20 mx-auto" height="80" src="https://storage.googleapis.com/a1aa/image/5dd633ff-990d-41b8-7313-549efc9d12a6.jpg" width="80"/>
-     <h3 class="text-white font-semibold text-lg">
-      Advogados autônomos
-     </h3>
-     <p class="text-gray-400 text-sm max-w-xs">
-      Para quem precisa de velocidade, segurança e inovação.
-     </p>
-    </div>
-    <!-- Persona 5 -->
-    <div class="flex flex-col items-center gap-4">
-     <img alt="Ícone branco de laptop com código representando legaltechs" aria-hidden="true" class="w-20 h-20 mx-auto" height="80" src="https://storage.googleapis.com/a1aa/image/225bdad9-eb8e-434e-bfad-2b6f75815505.jpg" width="80"/>
-     <h3 class="text-white font-semibold text-lg">
-      Legaltechs
-     </h3>
-     <p class="text-gray-400 text-sm max-w-xs">
-      Para quem precisa de velocidade, segurança e inovação.
-     </p>
-    </div>
-   </div>
-  </section>
-  <!-- CTA Final Section -->
-  <section class="relative overflow-hidden px-6 py-24 text-center text-gray-100 animated-bg" id="cta-final">
-   <div class="relative z-10 max-w-4xl mx-auto">
-    <h2 class="text-4xl sm:text-5xl font-extrabold mb-6 leading-tight reveal">
-     Você ainda está fazendo tudo manualmente?
-    </h2>
-    <p class="text-white text-xl mb-12 reveal delay-200">
-     Descubra como a Prometeus pode automatizar sua rotina e potencializar seu trabalho.
+   <section class="min-h-screen flex flex-col justify-center items-center px-6 text-center py-20" id="hero">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight max-w-4xl reveal">
+     Do Conceito à Ação.
+     <br/>
+     A Prometeus transforma o Direito com soluções práticas, reais e automatizadas.
+    </h1>
+    <p class="mt-6 text-white text-lg sm:text-xl max-w-3xl reveal delay-200">
+     Veja como estamos redefinindo a advocacia digital com IA, blockchain e automação.
     </p>
-    <div class="flex flex-col sm:flex-row justify-center gap-6 reveal delay-400">
-     <button aria-label="Ver Demonstração" class="btn-neon px-8 py-4 rounded-full text-lg font-semibold flex items-center justify-center gap-3 hover:scale-105 focus:scale-105 focus:outline-none" id="btnVerDemo">
-      <i class="fas fa-play-circle fa-lg">
-      </i>
-      Ver Demonstração
-     </button>
-     <a aria-label="Agendar Reunião" class="btn-neon px-8 py-4 rounded-full text-lg font-semibold flex items-center justify-center gap-3 hover:scale-105 focus:scale-105 focus:outline-none" href="https://calendly.com/prometeus/reuniao" target="_blank" rel="noopener noreferrer">
-      <i class="fas fa-calendar-alt fa-lg">
-      </i>
-      Agendar Reunião
-     </a>
+    <button aria-label="Solicite uma Demonstração" class="btn-neon mt-12 px-8 py-4 rounded-full flex items-center justify-center gap-3 text-lg font-semibold reveal delay-400 hover:scale-105 focus:scale-105 focus:outline-none" id="btnSoliciteDemo">
+     <i class="fas fa-rocket fa-lg">
+     </i>
+     Solicite uma Demonstração
+    </button>
+   </section>
+   <!-- Casos de Uso Section -->
+   <section class="px-6 py-20 max-w-7xl mx-auto" id="casos-de-uso">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-12 text-center reveal">
+     Casos de Uso
+    </h2>
+    <!-- Grid for desktop, horizontal scroll for mobile -->
+    <div aria-label="Casos de Uso" class="grid grid-cols-1 sm:grid-cols-2 gap-8 overflow-x-auto scrollbar-hide snap-x snap-mandatory sm:snap-none" role="list">
+     <!-- Card 1 -->
+     <article class="card-hover snap-start bg-[#121212] border border-gray-700 rounded-xl p-8 flex flex-col gap-6 reveal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer" data-desc="Geração automática de contratos com cláusulas ajustadas por IA, e validação em blockchain para integridade e imutabilidade. Exemplo: Startup X reduziu 80% do tempo de negociação com contratos inteligentes gerados pela Prometeus." data-title="Automatização de Contratos Inteligentes" tabindex="0">
+      <div class="flex items-center gap-4 text-white">
+       <i aria-hidden="true" class="fas fa-link fa-2x"></i>
+       <h3 class="text-xl font-semibold text-white">
+        Automatização de Contratos Inteligentes
+       </h3>
+      </div>
+      <p class="text-gray-300 flex-grow">
+       Geração automática de contratos com cláusulas ajustadas por IA, e validação em blockchain para integridade e imutabilidade.
+      </p>
+      <blockquote class="italic text-white border-l-4 border-white pl-4">
+       “Startup X reduziu 80% do tempo de negociação com contratos inteligentes gerados pela Prometeus.”
+      </blockquote>
+     </article>
+     <!-- Card 2 -->
+     <article class="card-hover snap-start bg-[#121212] border border-gray-700 rounded-xl p-8 flex flex-col gap-6 reveal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer" data-desc="Análise preventiva de documentos, sinalização de riscos legais e sugestões de melhoria em tempo real. Exemplo: Departamento jurídico da Empresa Y recebeu alertas sobre cláusulas de risco antes de fechar contrato internacional." data-title="IA em Compliance e Due Diligence" tabindex="0">
+      <div class="flex items-center gap-4 text-white">
+       <i aria-hidden="true" class="fas fa-shield-alt fa-2x"></i>
+       <h3 class="text-xl font-semibold text-white">
+        IA em Compliance e Due Diligence
+       </h3>
+      </div>
+      <p class="text-gray-300 flex-grow">
+       Análise preventiva de documentos, sinalização de riscos legais e sugestões de melhoria em tempo real.
+      </p>
+      <blockquote class="italic text-white border-l-4 border-white pl-4">
+       “Departamento jurídico da Empresa Y recebeu alertas sobre cláusulas de risco antes de fechar contrato internacional.”
+      </blockquote>
+     </article>
+     <!-- Card 3 -->
+     <article class="card-hover snap-start bg-[#121212] border border-gray-700 rounded-xl p-8 flex flex-col gap-6 reveal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer" data-desc="Registro imutável de documentos e assinaturas digitais, com verificação pública via hash. Exemplo: O advogado Z utilizou nossa ferramenta para registrar atas e procurações em blockchain com validade jurídica." data-title="Blockchain para Registros Notariais" tabindex="0">
+      <div class="flex items-center gap-4 text-white">
+       <i aria-hidden="true" class="fas fa-certificate fa-2x"></i>
+       <h3 class="text-xl font-semibold text-white">
+        Blockchain para Registros Notariais
+       </h3>
+      </div>
+      <p class="text-gray-300 flex-grow">
+       Registro imutável de documentos e assinaturas digitais, com verificação pública via hash.
+      </p>
+      <blockquote class="italic text-white border-l-4 border-white pl-4">
+       “O advogado Z utilizou nossa ferramenta para registrar atas e procurações em blockchain com validade jurídica.”
+      </blockquote>
+     </article>
+     <!-- Card 4 -->
+     <article class="card-hover snap-start bg-[#121212] border border-gray-700 rounded-xl p-8 flex flex-col gap-6 reveal focus:outline-none focus:ring-2 focus:ring-white cursor-pointer" data-desc="Automação modular para diferentes perfis: advogados autônomos, startups, escritórios, departamentos jurídicos. Exemplo: Advogada solo automatizou toda sua rotina de contratos, petições e cobrança com um sistema da Prometeus." data-title="Soluções sob Medida" tabindex="0">
+      <div class="flex items-center gap-4 text-white">
+       <i aria-hidden="true" class="fas fa-cubes fa-2x"></i>
+       <h3 class="text-xl font-semibold text-white">
+        Soluções sob Medida
+       </h3>
+      </div>
+      <p class="text-gray-300 flex-grow">
+       Automação modular para diferentes perfis: advogados autônomos, startups, escritórios, departamentos jurídicos.
+      </p>
+      <blockquote class="italic text-white border-l-4 border-white pl-4">
+       “Advogada solo automatizou toda sua rotina de contratos, petições e cobrança com um sistema da Prometeus.”
+      </blockquote>
+     </article>
     </div>
-   </div>
-   <!-- Decorative lines images for subtle animation -->
-   <img alt="Linhas de código brancas em movimento sutil, representando tecnologia avançada, fundo animado" aria-hidden="true" class="pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-10" height="120" src="https://storage.googleapis.com/a1aa/image/fe24f875-bce9-47c1-8d3f-fde474167645.jpg" width="1200"/>
-  </section>
-
+   </section>
+   <!-- Quem Usa a Prometeus Section -->
+   <section class="px-6 py-20 max-w-6xl mx-auto" id="quem-usa">
+    <h2 class="text-3xl sm:text-4xl font-extrabold mb-12 text-center reveal">
+     Quem Usa a Prometeus?
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-10 text-center reveal">
+     <!-- Persona 1 -->
+     <div class="flex flex-col items-center gap-4 text-white">
+      <i aria-hidden="true" class="fas fa-rocket fa-5x mx-auto"></i>
+      <h3 class="font-semibold text-lg">
+       Startups jurídicas
+      </h3>
+      <p class="text-gray-400 text-sm max-w-xs">
+       Para quem precisa de velocidade, segurança e inovação.
+      </p>
+     </div>
+     <!-- Persona 2 -->
+     <div class="flex flex-col items-center gap-4 text-white">
+      <i aria-hidden="true" class="fas fa-balance-scale fa-5x mx-auto"></i>
+      <h3 class="font-semibold text-lg">
+       Escritórios de advocacia
+      </h3>
+      <p class="text-gray-400 text-sm max-w-xs">
+       Para quem precisa de velocidade, segurança e inovação.
+      </p>
+     </div>
+     <!-- Persona 3 -->
+     <div class="flex flex-col items-center gap-4 text-white">
+      <i aria-hidden="true" class="fas fa-building fa-5x mx-auto"></i>
+      <h3 class="font-semibold text-lg">
+       Departamentos de empresas
+      </h3>
+      <p class="text-gray-400 text-sm max-w-xs">
+       Para quem precisa de velocidade, segurança e inovação.
+      </p>
+     </div>
+     <!-- Persona 4 -->
+     <div class="flex flex-col items-center gap-4 text-white">
+      <i aria-hidden="true" class="fas fa-user-tie fa-5x mx-auto"></i>
+      <h3 class="font-semibold text-lg">
+       Advogados autônomos
+      </h3>
+      <p class="text-gray-400 text-sm max-w-xs">
+       Para quem precisa de velocidade, segurança e inovação.
+      </p>
+     </div>
+     <!-- Persona 5 -->
+     <div class="flex flex-col items-center gap-4 text-white">
+      <i aria-hidden="true" class="fas fa-laptop-code fa-5x mx-auto"></i>
+      <h3 class="font-semibold text-lg">
+       Legaltechs
+      </h3>
+      <p class="text-gray-400 text-sm max-w-xs">
+       Para quem precisa de velocidade, segurança e inovação.
+      </p>
+     </div>
+    </div>
+   </section>
+   <!-- CTA Final Section -->
+   <section class="relative overflow-hidden px-6 py-24 text-center text-gray-100 animated-bg" id="cta-final">
+    <div class="relative z-10 max-w-4xl mx-auto">
+     <h2 class="text-4xl sm:text-5xl font-extrabold mb-6 leading-tight reveal">
+      Você ainda está fazendo tudo manualmente?
+     </h2>
+     <p class="text-white text-xl mb-12 reveal delay-200">
+      Descubra como a Prometeus pode automatizar sua rotina e potencializar seu trabalho.
+     </p>
+     <div class="flex flex-col sm:flex-row justify-center gap-6 reveal delay-400">
+      <button aria-label="Ver Demonstração" class="btn-neon px-8 py-4 rounded-full text-lg font-semibold flex items-center justify-center gap-3 hover:scale-105 focus:scale-105 focus:outline-none" id="btnVerDemo">
+       <i class="fas fa-play-circle fa-lg">
+       </i>
+       Ver Demonstração
+      </button>
+      <a aria-label="Agendar Reunião" class="btn-neon px-8 py-4 rounded-full text-lg font-semibold flex items-center justify-center gap-3 hover:scale-105 focus:scale-105 focus:outline-none" href="https://calendly.com/prometeus/reuniao" rel="noopener noreferrer" target="_blank">
+       <i class="fas fa-calendar-alt fa-lg">
+       </i>
+       Agendar Reunião
+      </a>
+     </div>
+    </div>
+    <!-- Decorative lines images for subtle animation -->
+    <img alt="Linhas de código brancas em movimento sutil, representando tecnologia avançada, fundo animado" aria-hidden="true" class="pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-10" height="120" src="https://storage.googleapis.com/a1aa/image/ea269fe4-04ac-4d92-3d35-bf9861e70f0a.jpg" width="1200"/>
+   </section>
+  </main>
   <!-- Modal Demo Fullscreen -->
-  <div aria-hidden="true" aria-modal="true" role="dialog" id="modalDemo" class="fixed inset-0 z-50 hidden flex flex-col max-h-screen w-full max-w-full p-6 md:p-12 overflow-hidden rounded-lg mx-auto" tabindex="-1" aria-labelledby="modalDemoTitle" aria-describedby="modalDemoDesc">
+  <div aria-describedby="modalDemoDesc" aria-hidden="true" aria-labelledby="modalDemoTitle" aria-modal="true" class="fixed inset-0 z-50 hidden flex flex-col max-h-screen w-full max-w-full p-6 md:p-12 overflow-hidden rounded-lg mx-auto" id="modalDemo" role="dialog" tabindex="-1">
    <div class="flex justify-between items-center mb-6">
-    <h2 id="modalDemoTitle" class="text-3xl font-extrabold text-white font-orbitron">
+    <h2 class="text-3xl font-extrabold text-white font-orbitron" id="modalDemoTitle">
      Ecossistema Prometeus - Demonstração Interativa
     </h2>
-    <button aria-label="Fechar modal" id="modalDemoClose" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded">
-     <i class="fas fa-times fa-2x"></i>
+    <button aria-label="Fechar modal" class="text-white hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white rounded" id="modalDemoClose">
+     <i class="fas fa-times fa-2x">
+     </i>
     </button>
    </div>
-   <div id="modalDemoContent" class="flex flex-col md:flex-row gap-6 overflow-y-auto max-h-[80vh]">
+   <div class="flex flex-col md:flex-row gap-6 overflow-y-auto max-h-[80vh]" id="modalDemoContent">
     <!-- Left panel: Tabs and content -->
     <nav aria-label="Navegação das funcionalidades" class="flex md:flex-col gap-3 md:w-48">
-     <button class="modal-tab-btn active text-white font-semibold px-4 py-2 rounded-md" data-tab="tab1" type="button" id="tabBtn1" aria-controls="tab1" aria-selected="true" role="tab" tabindex="0">
+     <button aria-controls="tab1" aria-selected="true" class="modal-tab-btn active text-white font-semibold px-4 py-2 rounded-md" data-tab="tab1" id="tabBtn1" role="tab" tabindex="0" type="button">
       Geração de Contrato
      </button>
-     <button class="modal-tab-btn text-white font-semibold px-4 py-2 rounded-md" data-tab="tab2" type="button" id="tabBtn2" aria-controls="tab2" aria-selected="false" role="tab" tabindex="-1">
+     <button aria-controls="tab2" aria-selected="false" class="modal-tab-btn text-white font-semibold px-4 py-2 rounded-md" data-tab="tab2" id="tabBtn2" role="tab" tabindex="-1" type="button">
       Registro Blockchain
      </button>
-     <button class="modal-tab-btn text-white font-semibold px-4 py-2 rounded-md" data-tab="tab3" type="button" id="tabBtn3" aria-controls="tab3" aria-selected="false" role="tab" tabindex="-1">
+     <button aria-controls="tab3" aria-selected="false" class="modal-tab-btn text-white font-semibold px-4 py-2 rounded-md" data-tab="tab3" id="tabBtn3" role="tab" tabindex="-1" type="button">
       Análise de Cláusula
      </button>
-     <button class="modal-tab-btn text-white font-semibold px-4 py-2 rounded-md" data-tab="tab4" type="button" id="tabBtn4" aria-controls="tab4" aria-selected="false" role="tab" tabindex="-1">
+     <button aria-controls="tab4" aria-selected="false" class="modal-tab-btn text-white font-semibold px-4 py-2 rounded-md" data-tab="tab4" id="tabBtn4" role="tab" tabindex="-1" type="button">
       Mini Chat IA
      </button>
     </nav>
     <!-- Right panel: Tab contents -->
     <section class="flex-grow bg-[#121212] rounded-lg p-6 flex flex-col" tabindex="0">
      <!-- Tab 1: Geração de Contrato Automatizado -->
-     <div id="tab1" role="tabpanel" aria-labelledby="tabBtn1" class="tab-content flex flex-col h-full" >
-      <form id="contractForm" class="flex flex-col gap-6 flex-grow overflow-y-auto">
-       <div id="formStep1" class="form-step">
-        <label for="contractType" class="block text-white font-semibold mb-2">Qual o tipo de contrato?</label>
-        <select id="contractType" name="contractType" required class="w-full">
-         <option value="" disabled selected>Selecione o tipo de contrato</option>
-         <option value="Compra e Venda">Compra e Venda</option>
-         <option value="Prestação de Serviços">Prestação de Serviços</option>
-         <option value="Confidencialidade">Confidencialidade (NDA)</option>
-         <option value="Parceria">Parceria</option>
-         <option value="Outro">Outro</option>
+     <div aria-labelledby="tabBtn1" class="tab-content flex flex-col h-full" id="tab1" role="tabpanel">
+      <form class="flex flex-col gap-6 flex-grow overflow-y-auto" id="contractForm">
+       <div class="form-step" id="formStep1">
+        <label class="block text-white font-semibold mb-2" for="contractType">
+         Qual o tipo de contrato?
+        </label>
+        <select class="w-full" id="contractType" name="contractType" required="">
+         <option disabled="" selected="" value="">
+          Selecione o tipo de contrato
+         </option>
+         <option value="Compra e Venda">
+          Compra e Venda
+         </option>
+         <option value="Prestação de Serviços">
+          Prestação de Serviços
+         </option>
+         <option value="Confidencialidade">
+          Confidencialidade (NDA)
+         </option>
+         <option value="Parceria">
+          Parceria
+         </option>
+         <option value="Outro">
+          Outro
+         </option>
         </select>
        </div>
-       <div id="formStep2" class="form-step hidden">
-        <label for="areaAtuacao" class="block text-white font-semibold mb-2">Qual a sua área de atuação?</label>
-        <select id="areaAtuacao" name="areaAtuacao" required class="w-full">
-         <option value="" disabled selected>Selecione a área de atuação</option>
-         <option value="Direito Empresarial">Direito Empresarial</option>
-         <option value="Direito Civil">Direito Civil</option>
-         <option value="Direito Trabalhista">Direito Trabalhista</option>
-         <option value="Direito Digital">Direito Digital</option>
-         <option value="Outro">Outro</option>
+       <div class="form-step hidden" id="formStep2">
+        <label class="block text-white font-semibold mb-2" for="areaAtuacao">
+         Qual a sua área de atuação?
+        </label>
+        <select class="w-full" id="areaAtuacao" name="areaAtuacao" required="">
+         <option disabled="" selected="" value="">
+          Selecione a área de atuação
+         </option>
+         <option value="Direito Empresarial">
+          Direito Empresarial
+         </option>
+         <option value="Direito Civil">
+          Direito Civil
+         </option>
+         <option value="Direito Trabalhista">
+          Direito Trabalhista
+         </option>
+         <option value="Direito Digital">
+          Direito Digital
+         </option>
+         <option value="Outro">
+          Outro
+         </option>
         </select>
        </div>
-       <div id="formStep3" class="form-step hidden">
-        <label for="clausulas" class="block text-white font-semibold mb-2">Quais cláusulas deseja incluir?</label>
-        <textarea id="clausulas" name="clausulas" rows="4" placeholder="Descreva as cláusulas desejadas..." class="w-full resize-none" required></textarea>
+       <div class="form-step hidden" id="formStep3">
+        <label class="block text-white font-semibold mb-2" for="clausulas">
+         Quais cláusulas deseja incluir?
+        </label>
+        <textarea class="w-full resize-none" id="clausulas" name="clausulas" placeholder="Descreva as cláusulas desejadas..." required="" rows="4"></textarea>
        </div>
-       <div id="formStep4" class="form-step hidden flex flex-col flex-grow">
-        <label class="block text-white font-semibold mb-2">Contrato Gerado (em tempo real):</label>
-        <pre id="contractPreview" class="flex-grow bg-[#222] rounded p-4 overflow-y-auto whitespace-pre-wrap text-sm font-mono"></pre>
+       <div class="form-step hidden flex flex-col flex-grow" id="formStep4">
+        <label class="block text-white font-semibold mb-2">
+         Contrato Gerado (em tempo real):
+        </label>
+        <pre class="flex-grow bg-[#222] rounded p-4 overflow-y-auto whitespace-pre-wrap text-sm font-mono" id="contractPreview"></pre>
         <div class="mt-4 flex gap-4 justify-end">
-         <button type="button" id="btnDownloadPDF" class="btn-neon px-4 py-2 rounded-md font-semibold flex items-center gap-2" disabled>
-          <i class="fas fa-file-pdf"></i> Download PDF
+         <button class="btn-neon px-4 py-2 rounded-md font-semibold flex items-center gap-2" disabled="" id="btnDownloadPDF" type="button">
+          <i class="fas fa-file-pdf">
+          </i>
+          Download PDF
          </button>
-         <button type="button" id="btnDownloadDOCX" class="btn-neon px-4 py-2 rounded-md font-semibold flex items-center gap-2" disabled>
-          <i class="fas fa-file-word"></i> Download DOCX
+         <button class="btn-neon px-4 py-2 rounded-md font-semibold flex items-center gap-2" disabled="" id="btnDownloadDOCX" type="button">
+          <i class="fas fa-file-word">
+          </i>
+          Download DOCX
          </button>
         </div>
        </div>
        <div class="flex justify-between mt-auto pt-4">
-        <button type="button" id="prevStep" class="btn-neon px-4 py-2 rounded-md font-semibold" disabled>
+        <button class="btn-neon px-4 py-2 rounded-md font-semibold" disabled="" id="prevStep" type="button">
          Anterior
         </button>
-        <button type="submit" id="nextStep" class="btn-neon px-4 py-2 rounded-md font-semibold">
+        <button class="btn-neon px-4 py-2 rounded-md font-semibold" id="nextStep" type="submit">
          Próximo
         </button>
        </div>
       </form>
      </div>
      <!-- Tab 2: Simulação de Registro em Blockchain -->
-     <div id="tab2" role="tabpanel" aria-labelledby="tabBtn2" class="tab-content hidden flex flex-col h-full">
-      <form id="blockchainForm" class="flex flex-col gap-6 flex-grow overflow-y-auto">
+     <div aria-labelledby="tabBtn2" class="tab-content hidden flex flex-col h-full" id="tab2" role="tabpanel">
+      <form class="flex flex-col gap-6 flex-grow overflow-y-auto" id="blockchainForm">
        <div>
-        <label for="uploadDoc" class="block text-white font-semibold mb-2">Upload de documento</label>
-        <input type="file" id="uploadDoc" name="uploadDoc" accept=".txt,.doc,.docx,.pdf" class="w-full text-white" required/>
+        <label class="block text-white font-semibold mb-2" for="uploadDoc">
+         Upload de documento
+        </label>
+        <input accept=".txt,.doc,.docx,.pdf" class="w-full text-white" id="uploadDoc" name="uploadDoc" required="" type="file"/>
        </div>
-       <div id="hashSection" class="hidden flex flex-col gap-2">
-        <label class="block text-white font-semibold">Hash SHA-256 gerado:</label>
-        <code id="hashValue" class="break-words bg-[#222] p-2 rounded text-sm font-mono select-all"></code>
+       <div class="hidden flex flex-col gap-2" id="hashSection">
+        <label class="block text-white font-semibold">
+         Hash SHA-256 gerado:
+        </label>
+        <code class="break-words bg-[#222] p-2 rounded text-sm font-mono select-all" id="hashValue">
+        </code>
        </div>
        <div>
-        <label for="networkSelect" class="block text-white font-semibold mb-2">Rede escolhida</label>
-        <select id="networkSelect" name="networkSelect" class="w-full" required>
-         <option value="" disabled selected>Selecione a rede</option>
-         <option value="Ethereum">Ethereum</option>
-         <option value="Testnet">Testnet</option>
+        <label class="block text-white font-semibold mb-2" for="networkSelect">
+         Rede escolhida
+        </label>
+        <select class="w-full" id="networkSelect" name="networkSelect" required="">
+         <option disabled="" selected="" value="">
+          Selecione a rede
+         </option>
+         <option value="Ethereum">
+          Ethereum
+         </option>
+         <option value="Testnet">
+          Testnet
+         </option>
         </select>
        </div>
-       <div id="linkSection" class="hidden flex flex-col gap-2">
-        <label class="block text-white font-semibold">Link verificável (simulado) com timestamp:</label>
-        <a href="#" target="_blank" rel="noopener noreferrer" id="verificationLink" class="text-cyan-400 underline break-all"></a>
+       <div class="hidden flex flex-col gap-2" id="linkSection">
+        <label class="block text-white font-semibold">
+         Link verificável (simulado) com timestamp:
+        </label>
+        <a class="text-cyan-400 underline break-all" href="#" id="verificationLink" rel="noopener noreferrer" target="_blank">
+        </a>
        </div>
        <div class="mt-auto flex justify-end pt-4">
-        <button type="submit" class="btn-neon px-6 py-2 rounded-md font-semibold">
+        <button class="btn-neon px-6 py-2 rounded-md font-semibold" type="submit">
          Registrar
         </button>
        </div>
       </form>
      </div>
      <!-- Tab 3: Análise Automática de Cláusula -->
-     <div id="tab3" role="tabpanel" aria-labelledby="tabBtn3" class="tab-content hidden flex flex-col h-full">
-      <form id="clauseForm" class="flex flex-col gap-4 flex-grow overflow-y-auto">
-       <label for="clauseInput" class="block text-white font-semibold">Cole uma cláusula para análise:</label>
-       <textarea id="clauseInput" rows="6" placeholder="Cole aqui a cláusula..." class="w-full resize-none bg-[#222] p-3 rounded text-white font-mono" required></textarea>
-       <button type="submit" class="btn-neon px-6 py-2 rounded-md font-semibold self-start">
+     <div aria-labelledby="tabBtn3" class="tab-content hidden flex flex-col h-full" id="tab3" role="tabpanel">
+      <form class="flex flex-col gap-4 flex-grow overflow-y-auto" id="clauseForm">
+       <label class="block text-white font-semibold" for="clauseInput">
+        Cole uma cláusula para análise:
+       </label>
+       <textarea class="w-full resize-none bg-[#222] p-3 rounded text-white font-mono" id="clauseInput" placeholder="Cole aqui a cláusula..." required="" rows="6"></textarea>
+       <button class="btn-neon px-6 py-2 rounded-md font-semibold self-start" type="submit">
         Analisar
        </button>
-       <div id="clauseResult" class="mt-4 bg-[#1a1a1a] rounded p-4 text-sm text-white overflow-y-auto flex-grow scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-900" style="min-height:120px; display:none;">
-        <p><strong>Risco jurídico:</strong> <span id="riskLevel"></span></p>
-        <p class="mt-2"><strong>Sugestão de reescrita:</strong></p>
-        <pre id="rewriteSuggestion" class="whitespace-pre-wrap font-mono bg-[#222] p-3 rounded mt-1"></pre>
-        <p class="mt-2"><strong>Jurisprudência relacionada:</strong></p>
-        <ul id="jurisprudenceList" class="list-disc list-inside"></ul>
+       <div class="mt-4 bg-[#1a1a1a] rounded p-4 text-sm text-white overflow-y-auto flex-grow scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-900" id="clauseResult" style="min-height:120px; display:none;">
+        <p>
+         <strong>
+          Risco jurídico:
+         </strong>
+         <span id="riskLevel">
+         </span>
+        </p>
+        <p class="mt-2">
+         <strong>
+          Sugestão de reescrita:
+         </strong>
+        </p>
+        <pre class="whitespace-pre-wrap font-mono bg-[#222] p-3 rounded mt-1" id="rewriteSuggestion"></pre>
+        <p class="mt-2">
+         <strong>
+          Jurisprudência relacionada:
+         </strong>
+        </p>
+        <ul class="list-disc list-inside" id="jurisprudenceList">
+        </ul>
        </div>
       </form>
      </div>
      <!-- Tab 4: Mini Chat IA -->
-     <div id="tab4" role="tabpanel" aria-labelledby="tabBtn4" class="tab-content hidden flex flex-col h-full">
-      <div id="chatMessages" class="scrollable flex-grow mb-4" aria-live="polite" aria-atomic="true" role="log" tabindex="0"></div>
-      <div class="flex flex-wrap gap-2 justify-center">
-       <button type="button" class="chat-quick-btn" data-question="Como posso automatizar meus contratos?">Como posso automatizar meus contratos?</button>
-       <button type="button" class="chat-quick-btn" data-question="Quais documentos posso registrar em blockchain?">Quais documentos posso registrar em blockchain?</button>
-       <button type="button" class="chat-quick-btn" data-question="O que é um smart contract?">O que é um smart contract?</button>
+     <div aria-labelledby="tabBtn4" class="tab-content hidden flex flex-col h-full" id="tab4" role="tabpanel">
+      <div aria-atomic="true" aria-live="polite" class="scrollable flex-grow mb-4" id="chatMessages" role="log" tabindex="0">
       </div>
-      <form id="chatForm" class="mt-4 flex gap-2" aria-label="Enviar mensagem para IA">
-       <input type="text" id="chatInput" placeholder="Digite sua pergunta..." class="flex-grow bg-[#222] rounded px-3 py-2 text-white font-mono" autocomplete="off" required/>
-       <button type="submit" class="btn-neon px-4 py-2 rounded-md font-semibold">
+      <div class="flex flex-wrap gap-2 justify-center">
+       <button class="chat-quick-btn" data-question="Como posso automatizar meus contratos?" type="button">
+        Como posso automatizar meus contratos?
+       </button>
+       <button class="chat-quick-btn" data-question="Quais documentos posso registrar em blockchain?" type="button">
+        Quais documentos posso registrar em blockchain?
+       </button>
+       <button class="chat-quick-btn" data-question="O que é um smart contract?" type="button">
+        O que é um smart contract?
+       </button>
+      </div>
+      <form aria-label="Enviar mensagem para IA" class="mt-4 flex gap-2" id="chatForm">
+       <input autocomplete="off" class="flex-grow bg-[#222] rounded px-3 py-2 text-white font-mono" id="chatInput" placeholder="Digite sua pergunta..." required="" type="text"/>
+       <button class="btn-neon px-4 py-2 rounded-md font-semibold" type="submit">
         Enviar
        </button>
       </form>
@@ -679,7 +755,6 @@
     </section>
    </div>
   </div>
-
   <script>
    // Scroll reveal on scroll
     const reveals = document.querySelectorAll('.reveal');
@@ -694,6 +769,18 @@
     }
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
+
+    // Hamburger toggle
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+
+    hamburgerBtn.addEventListener('click', () => {
+      const expanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+      hamburgerBtn.setAttribute('aria-expanded', String(!expanded));
+      mobileMenu.classList.toggle('open');
+      hamburgerIcon.classList.toggle('active');
+    });
 
     // Modal Demo open/close
     const modalDemo = document.getElementById('modalDemo');

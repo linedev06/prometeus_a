@@ -157,65 +157,34 @@
   </style>
  </head>
  <body class="bg-black text-slate-300 min-h-screen flex flex-col">
-  <header class="fixed top-0 left-0 w-full bg-black bg-opacity-95 backdrop-blur-md z-30 shadow-md">
-    <nav class="max-w-7xl mx-auto px-1 py-0 flex items-center justify-between">
-    <a class="text-2xl brand-text select-none tracking-wide" href="#">
-      <img src="LOGO1.png" alt="Logo Prometeus" style="width: 190px; height: auto;">
-    </a>
-    <ul class="hidden md:flex space-x-8 font-light text-slate-400">
-     <li>
-      <a class="hover:text-white transition-colors" href="index.html">
-       Início
+  <header class="fixed top-0 left-0 w-full bg-black bg-opacity-95 backdrop-blur-md z-30 shadow-md h-14">
+    <nav class="max-w-7xl mx-auto px-2 py-0 flex items-center justify-between h-full relative">
+      <a class="text-2xl brand-text select-none tracking-wide relative" href="#">
+        <img src="LOGO1.png" alt="Logo Prometeus" class="absolute top-1/2 -translate-y-1/2" style="height: 50px; width: auto;">
       </a>
-     </li>
-     <li>
-      <a class="hover:text-white transition-colors" href="#simulador">
-       Simulador
-      </a>
-     </li>
-     <li>
-      <a class="hover:text-white transition-colors" href="#resultados">
-       Resultados
-      </a>
-     </li>
-     <li>
-      <a class="hover:text-white transition-colors" href="#contato">
-       Contato
-      </a>
-     </li>
-    </ul>
-    <div class="md:hidden">
-     <button aria-label="Abrir menu" class="text-white focus:outline-none focus:ring-2 focus:ring-white rounded" id="btn-menu">
-      <i class="fas fa-bars fa-lg">
-      </i>
-     </button>
+      <ul class="hidden md:flex space-x-8 font-light text-slate-400">
+        <li><a class="hover:text-white transition-colors" href="index.html">Início</a></li>
+        <li><a class="hover:text-white transition-colors" href="#simulador">Simulador</a></li>
+        <li><a class="hover:text-white transition-colors" href="#resultados">Resultados</a></li>
+        <li><a class="hover:text-white transition-colors" href="#contato">Contato</a></li>
+      </ul>
+      <div class="md:hidden">
+        <button aria-label="Abrir menu" class="text-white focus:outline-none focus:ring-2 focus:ring-white rounded" id="btn-menu">
+          <i class="fas fa-bars fa-lg"></i>
+        </button>
+      </div>
+    </nav>
+  
+    <div class="hidden bg-black bg-opacity-95 backdrop-blur-md px-6 pb-4 md:hidden" id="mobile-menu">
+      <ul class="flex flex-col space-y-4 font-light text-slate-400">
+        <li><a class="block hover:text-white transition-colors" href="#intro">Início</a></li>
+        <li><a class="block hover:text-white transition-colors" href="#simulador">Simulador</a></li>
+        <li><a class="block hover:text-white transition-colors" href="#resultados">Resultados</a></li>
+        <li><a class="block hover:text-white transition-colors" href="#contato">Contato</a></li>
+      </ul>
     </div>
-   </nav>
-   <div class="hidden bg-black bg-opacity-95 backdrop-blur-md px-6 pb-4 md:hidden" id="mobile-menu">
-    <ul class="flex flex-col space-y-4 font-light text-slate-400">
-     <li>
-      <a class="block hover:text-white transition-colors" href="#intro">
-       Início
-      </a>
-     </li>
-     <li>
-      <a class="block hover:text-white transition-colors" href="#simulador">
-       Simulador
-      </a>
-     </li>
-     <li>
-      <a class="block hover:text-white transition-colors" href="#resultados">
-       Resultados
-      </a>
-     </li>
-     <li>
-      <a class="block hover:text-white transition-colors" href="#contato">
-       Contato
-      </a>
-     </li>
-    </ul>
-   </div>
   </header>
+  
   <main class="flex-grow pt-24 pb-32 max-w-5xl mx-auto px-6 w-full">
    <!-- Etapa 1 - Introdução -->
    <section class="min-h-[60vh] flex flex-col justify-center items-center text-center px-4 fade-in" id="intro">
