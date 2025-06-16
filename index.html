@@ -3,314 +3,563 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
-   Prometeus - Advocacia Digital
+   PROMETEUS - Escritório de Advocacia e Tecnologia
   </title>
   <script src="https://cdn.tailwindcss.com">
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,700;1,700&amp;family=Montserrat:wght@300;400&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <style>
-   body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: #000000;
-      color: #e0e0e0;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
-    /* Typography */
-    h1,
-    h2,
-    h3,
-    h4 {
-      font-family: 'Merriweather', serif;
-      color: #f9fafb;
-    }
-    h1 {
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      line-height: 1.1;
-    }
-    h2.section-title {
-      font-weight: 700;
-      font-size: 1.75rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #e0e0e0;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-    h3.info-title,
-    h3.who-we-are-title {
-      font-weight: 700;
-      font-size: 1.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #e0e0e0;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-    h4 {
-      font-weight: 700;
-      font-size: 1.75rem;
-      color: #a1a1aa;
-      margin-bottom: 1rem;
-      letter-spacing: 0.05em;
-      text-align: left;
-    }
-    p {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      font-size: 1.125rem;
-      line-height: 1.75;
-      color: #cbd5e1;
-      margin-bottom: 1.25rem;
-      text-align: justify;
-    }
-    /* Header link letter spacing */
-    .header-link {
-      letter-spacing: 0.3em;
-    }
-    /* Button style matching black/white theme with subtle accent */
-    .btn-primary {
-      background-color: transparent;
-      color: #d1d5db;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      padding-left: 2.5rem;
-      padding-right: 2.5rem;
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-      border-radius: 0.75rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      font-size: 1.125rem;
-      user-select: none;
-      border: 2.5px solid #6b7280;
-      box-shadow: 0 0 0 0 transparent;
-      transition: background-color 0.3s ease, color 0.3s ease,
-        box-shadow 0.3s ease, transform 0.3s ease;
-      cursor: pointer;
-      text-transform: uppercase;
-    }
-    .btn-primary:hover,
-    .btn-primary:focus {
-      background-color: #374151;
-      color: #f9fafb;
-      outline: none;
-      box-shadow: 0 8px 20px rgba(107, 114, 128, 0.5);
-      transform: translateY(-3px);
-      border-color: #9ca3af;
-    }
-    .btn-primary:focus-visible {
-      outline: 3px solid #9ca3af;
-      outline-offset: 3px;
-    }
-    /* Scroll shadow for header */
-    .header-scrolled {
-      background-color: rgba(0, 0, 0, 0.9);
-      box-shadow: 0 3px 12px rgba(107, 114, 128, 0.3);
-      backdrop-filter: saturate(180%) blur(12px);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    /* Hamburger button styling */
-    .hamburger {
-      width: 28px;
-      height: 22px;
-      position: relative;
-      cursor: pointer;
-      display: inline-block;
-      transition: transform 0.3s ease;
-    }
-    .hamburger span {
-      background: #9ca3af;
-      position: absolute;
-      height: 3px;
-      width: 100%;
-      border-radius: 2px;
-      opacity: 1;
-      left: 0;
-      transition: all 0.3s ease;
-    }
-    .hamburger span:nth-child(1) {
-      top: 0;
-    }
-    .hamburger span:nth-child(2) {
-      top: 9px;
-    }
-    .hamburger span:nth-child(3) {
-      top: 18px;
-    }
-    .hamburger.active span:nth-child(1) {
-      top: 9px;
-      transform: rotate(45deg);
-      background: #d1d5db;
-    }
-    .hamburger.active span:nth-child(2) {
+   html, body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  /* Hamburger to X animation */
+  .hamburger > div {
+    transition: all 0.4s ease;
+  }
+  .hamburger.open > div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .hamburger.open > div:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.open > div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+  /* Scrollbar for sidebar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 3px;
+  }
+  /* Animations */
+  @keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+  @keyframes fadeInLeft {
+    0% {
       opacity: 0;
-      left: -60px;
+      transform: translateX(-30px);
     }
-    .hamburger.active span:nth-child(3) {
-      top: 9px;
-      transform: rotate(-45deg);
-      background: #d1d5db;
-    }
-    /* Mobile menu slide */
-    #mobile-menu {
-      transition: max-height 0.4s ease, opacity 0.4s ease;
-      overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-    }
-    #mobile-menu.open {
-      max-height: 600px;
+    100% {
       opacity: 1;
+      transform: translateX(0);
     }
-    /* Scrollbar styling for horizontal scroll */
-    .scrollbar-thin::-webkit-scrollbar {
-      height: 6px;
+  }
+  .fade-in {
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+  }
+  .fade-in-left {
+    animation: fadeInLeft 1s ease forwards;
+    opacity: 0;
+  }
+  /* Card hover effects */
+  .card {
+    background-color: transparent;
+    border: 1px solid white;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    cursor: default;
+  }
+  .card:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+  }
+  .card svg {
+    stroke: white;
+    stroke-width: 1.5;
+    fill: none;
+    transition: filter 0.4s ease;
+  }
+  .card:hover svg {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
+  }
+  .card-text {
+    transition: transform 0.4s ease, text-shadow 0.4s ease;
+  }
+  .card:hover .card-text {
+    transform: translateY(-6px);
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+  }
+  /* Button with border animation */
+  .btn-outline {
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    padding: 0.75rem 2rem;
+    letter-spacing: 0.15em;
+    transition: color 0.4s ease, border-color 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-outline::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 1px solid white;
+    pointer-events: none;
+    transition: transform 0.4s ease;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  .btn-outline:hover {
+    color: black;
+    background-color: white;
+    border-color: white;
+  }
+  .btn-outline:hover::before {
+    transform: scaleX(1);
+  }
+  /* Responsive adjustments */
+  @media (min-width: 768px) {
+    .grid-cols-1-md-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    .scrollbar-thin::-webkit-scrollbar-track {
-      background: transparent;
+  }
+  /* Underline below logo */
+  #logo-underline {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 1.5px;
+    background-color: white;
+    width: 60px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: width;
+    pointer-events: none;
+  }
+  #logo-container {
+    position: relative;
+    display: inline-block;
+  }
+  /* Expanded underline */
+  #logo-underline.expanded {
+    width: 120vw;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  </style>
+ </head>
+ <body class="relative">
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-90 backdrop-blur-sm">
+   <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative">
+    <a class="text-white text-2xl tracking-widest font-normal select-none relative" href="#inicio" id="logo-container" aria-label="Logo PROMETEUS">
+     PROMETEUS
+     <span id="logo-underline"></span>
+    </a>
+    <ul class="hidden md:flex space-x-10 text-white text-sm font-normal tracking-widest">
+     <li>
+      <a class="hover:text-gray-300 transition-colors duration-300" href="#inicio">
+       INÍCIO
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-gray-300 transition-colors duration-300" href="#sobre">
+       SOBRE NÓS
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-gray-300 transition-colors duration-300" href="#atuacao">
+       ATUAÇÃO JURÍDICA
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-gray-300 transition-colors duration-300" href="#association">
+       PROMETEUS ASSOCIATION
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-gray-300 transition-colors duration-300" href="#tecnologias">
+       TECNOLOGIAS
+      </a>
+     </li>
+     <li>
+      <a class="hover:text-gray-300 transition-colors duration-300" href="#contato">
+       CONTATO
+      </a>
+     </li>
+    </ul>
+    <button aria-expanded="false" aria-label="Abrir menu" class="md:hidden hamburger flex flex-col justify-between w-6 h-5 focus:outline-none" id="btnHamburger">
+     <div class="bg-white h-0.5 rounded">
+     </div>
+     <div class="bg-white h-0.5 rounded">
+     </div>
+     <div class="bg-white h-0.5 rounded">
+     </div>
+    </button>
+   </nav>
+  </header>
+  <!-- Sidebar mobile -->
+  <aside class="fixed top-0 left-0 h-full w-64 bg-black bg-opacity-95 backdrop-blur-md text-white transform -translate-x-full transition-transform duration-500 ease-in-out z-40 overflow-y-auto" id="sidebar">
+   <nav class="flex flex-col mt-20 space-y-8 px-8 text-lg tracking-widest font-normal select-none">
+    <a class="hover:text-gray-300 transition-colors duration-300" href="#inicio" tabindex="0">
+     INÍCIO
+    </a>
+    <a class="hover:text-gray-300 transition-colors duration-300" href="#sobre" tabindex="0">
+     SOBRE NÓS
+    </a>
+    <a class="hover:text-gray-300 transition-colors duration-300" href="#atuacao" tabindex="0">
+     ATUAÇÃO JURÍDICA
+    </a>
+    <a class="hover:text-gray-300 transition-colors duration-300" href="#association" tabindex="0">
+     PROMETEUS ASSOCIATION
+    </a>
+    <a class="hover:text-gray-300 transition-colors duration-300" href="#tecnologias" tabindex="0">
+     TECNOLOGIAS
+    </a>
+    <a class="hover:text-gray-300 transition-colors duration-300" href="#contato" tabindex="0">
+     CONTATO
+    </a>
+   </nav>
+  </aside>
+  <!-- Overlay for sidebar -->
+  <div class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-500 z-30" id="overlay">
+  </div>
+  <main class="pt-20 max-w-7xl mx-auto px-6">
+   <!-- INÍCIO -->
+   <section class="min-h-screen flex flex-col justify-center items-center text-center px-4" id="inicio">
+    <h1 class="text-white text-4xl sm:text-5xl md:text-6xl max-w-4xl leading-tight mb-6 animate-fadeInUp" style="animation-delay: 0.2s;">
+     UMA NOVA ERA DO DIREITO COMEÇA AQUI.
+    </h1>
+    <p class="text-white text-lg sm:text-xl max-w-3xl mb-10 animate-fadeInUp" style="animation-delay: 0.5s;">
+     Entre tradição jurídica e tecnologia imutável, surge a PROMETEUS.
+    </p>
+    <a class="inline-block px-8 py-3 border border-white rounded-md text-white text-sm sm:text-base tracking-widest transition-colors duration-500 hover:bg-white hover:text-black animate-fadeInUp" href="#sobre" style="animation-delay: 0.8s;">
+     CONHEÇA A PROMETEUS
+    </a>
+   </section>
+   <!-- SOBRE NÓS -->
+   <section class="py-20 max-w-4xl mx-auto text-center px-4" id="sobre">
+    <h2 class="text-white text-3xl sm:text-4xl mb-8 tracking-widest">
+     SOBRE NÓS
+    </h2>
+    <p class="text-white text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
+     A Prometeus é um escritório de advocacia moderno, liderado por Vitor Alves Felismino, com visão futurista e compromisso com ética, inovação e resultados. Unimos a tradição jurídica à tecnologia de ponta para oferecer soluções completas e confiáveis aos nossos clientes.
+    </p>
+   </section>
+   <!-- ATUAÇÃO JURÍDICA -->
+   <section class="py-20 px-4 bg-black" id="atuacao">
+    <h2 class="text-white text-4xl text-center mb-2 opacity-0" id="atuacao-title" style="font-weight:400; animation-fill-mode: forwards;">
+     ATUAÇÃO JURÍDICA
+    </h2>
+    <p class="text-white text-sm text-center mb-12 opacity-0 tracking-widest" id="atuacao-subtitle" style="font-weight:400; animation-fill-mode: forwards;">
+     Estratégia, ética e excelência em cada causa
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+     <!-- Direito Civil -->
+     <article class="card p-6 rounded-md flex flex-col items-center text-center transition-all duration-400 ease-in-out" tabindex="0" aria-label="Direito Civil">
+      <svg aria-hidden="true" class="w-12 h-12 mb-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M3 12h18"></path>
+       <path d="M12 3v18"></path>
+      </svg>
+      <h3 class="text-white text-lg tracking-widest mb-2" style="font-weight:400;">
+       DIREITO CIVIL
+      </h3>
+      <p class="card-text text-gray-300 text-sm leading-relaxed">
+       Ações de indenização, contratos, responsabilidade civil e questões patrimoniais.
+      </p>
+     </article>
+     <!-- Direito Empresarial -->
+     <article class="card p-6 rounded-md flex flex-col items-center text-center transition-all duration-400 ease-in-out" tabindex="0" aria-label="Direito Empresarial">
+      <svg aria-hidden="true" class="w-12 h-12 mb-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+       <rect height="14" rx="2" ry="2" width="18" x="3" y="5"></rect>
+       <path d="M3 10h18"></path>
+      </svg>
+      <h3 class="text-white text-lg tracking-widest mb-2" style="font-weight:400;">
+       DIREITO EMPRESARIAL
+      </h3>
+      <p class="card-text text-gray-300 text-sm leading-relaxed">
+       Estruturação societária, contratos empresariais, recuperação de crédito e blindagem patrimonial.
+      </p>
+     </article>
+     <!-- Direito do Consumidor -->
+     <article class="card p-6 rounded-md flex flex-col items-center text-center transition-all duration-400 ease-in-out" tabindex="0" aria-label="Direito do Consumidor">
+      <svg aria-hidden="true" class="w-12 h-12 mb-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+       <circle cx="12" cy="12" r="10"></circle>
+       <path d="M12 8v4l3 3"></path>
+      </svg>
+      <h3 class="text-white text-lg tracking-widest mb-2" style="font-weight:400;">
+       DIREITO DO CONSUMIDOR
+      </h3>
+      <p class="card-text text-gray-300 text-sm leading-relaxed">
+       Defesa de empresas e clientes em conflitos de consumo, ações indenizatórias e compliance.
+      </p>
+     </article>
+     <!-- Direito Trabalhista -->
+     <article class="card p-6 rounded-md flex flex-col items-center text-center transition-all duration-400 ease-in-out" tabindex="0" aria-label="Direito Trabalhista">
+      <svg aria-hidden="true" class="w-12 h-12 mb-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M4 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"></path>
+       <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <h3 class="text-white text-lg tracking-widest mb-2" style="font-weight:400;">
+       DIREITO TRABALHISTA
+      </h3>
+      <p class="card-text text-gray-300 text-sm leading-relaxed">
+       Consultoria preventiva, defesa em reclamações trabalhistas, acordos e reestruturações.
+      </p>
+     </article>
+     <!-- Direito Digital e Contratos -->
+     <article class="card p-6 rounded-md flex flex-col items-center text-center transition-all duration-400 ease-in-out" tabindex="0" aria-label="Direito Digital e Contratos">
+      <svg aria-hidden="true" class="w-12 h-12 mb-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+       <path d="M12 12v9"></path>
+       <path d="M8 21v-9"></path>
+       <path d="M3 8h18"></path>
+      </svg>
+      <h3 class="text-white text-lg tracking-widest mb-2" style="font-weight:400;">
+       DIREITO DIGITAL E CONTRATOS
+      </h3>
+      <p class="card-text text-gray-300 text-sm leading-relaxed">
+       Termos de uso, políticas de privacidade, contratos de software e proteção de dados (LGPD).
+      </p>
+     </article>
+     <!-- Direito de Família e Sucessões -->
+     <article class="card p-6 rounded-md flex flex-col items-center text-center transition-all duration-400 ease-in-out" tabindex="0" aria-label="Direito de Família e Sucessões">
+      <svg aria-hidden="true" class="w-12 h-12 mb-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4z"></path>
+       <path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path>
+      </svg>
+      <h3 class="text-white text-lg tracking-widest mb-2" style="font-weight:400;">
+       DIREITO DE FAMÍLIA E SUCESSÕES
+      </h3>
+      <p class="card-text text-gray-300 text-sm leading-relaxed">
+       Divórcios, inventários, guarda, pensão alimentícia e planejamento sucessório.
+      </p>
+     </article>
+    </div>
+    <blockquote class="max-w-3xl mx-auto mt-16 text-center italic text-white font-montserrat" style="font-weight:400; font-style: italic; font-size: 1.125rem; line-height: 1.6;">
+     “Na Prometeus, sua causa não é apenas um processo — é um compromisso com a justiça, conduzido com estratégia e humanidade.”
+    </blockquote>
+    <div class="flex justify-center mt-8">
+     <a class="btn-outline" href="#contato" role="button" tabindex="0" aria-label="Fale com um advogado">
+      FALE COM UM ADVOGADO
+     </a>
+    </div>
+   </section>
+   <!-- PROMETEUS ASSOCIATION -->
+   <section class="py-20 bg-gray-900 bg-opacity-90 px-4" id="association">
+    <div class="max-w-6xl mx-auto text-center mb-12">
+     <h2 class="text-white text-3xl sm:text-4xl mb-6 tracking-widest animate-fadeInUp" style="animation-delay: 0.2s;">
+      PROMETEUS ASSOCIATION
+     </h2>
+     <p class="text-gray-300 text-base sm:text-lg max-w-3xl mx-auto animate-fadeInUp" style="animation-delay: 0.5s;">
+      A Prometeus Association é a força tecnológica da Prometeus.
+      <br/>
+      Criamos soluções de proteção jurídica com IA, blockchain, contratos automatizados e NFTs.
+     </p>
+    </div>
+    <div class="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+     <div class="flex space-x-6 max-w-7xl mx-auto px-2 sm:px-6">
+      <!-- ATHENA AI -->
+      <article class="min-w-[280px] bg-black bg-opacity-70 rounded-lg p-6 flex-shrink-0 animate-fadeInLeft" style="animation-delay: 0.7s;">
+       <img alt="Logotipo minimalista da ATHENA AI, com ícone futurista em branco sobre fundo preto" class="mx-auto mb-4" height="80" src="https://storage.googleapis.com/a1aa/image/1b16b75e-b3e8-4806-ad76-e399834d73bd.jpg" width="80"/>
+       <h3 class="text-white text-xl mb-2 tracking-widest">
+        ATHENA AI
+       </h3>
+       <p class="text-gray-300 text-sm leading-relaxed">
+        Proteção jurídica preventiva com análise de riscos e inteligência preditiva.
+       </p>
+      </article>
+      <!-- KLEOS -->
+      <article class="min-w-[280px] bg-black bg-opacity-70 rounded-lg p-6 flex-shrink-0 animate-fadeInLeft" style="animation-delay: 0.9s;">
+       <img alt="Logotipo minimalista da KLEOS, com ícone tecnológico branco sobre fundo preto" class="mx-auto mb-4" height="80" src="https://storage.googleapis.com/a1aa/image/afb12755-2a9f-4d9c-5ca9-547a18b1f390.jpg" width="80"/>
+       <h3 class="text-white text-xl mb-2 tracking-widest">
+        KLEOS
+       </h3>
+       <p class="text-gray-300 text-sm leading-relaxed">
+        Automação do contencioso, petições inteligentes, integração com tribunais.
+       </p>
+      </article>
+      <!-- PARTHENON -->
+      <article class="min-w-[280px] bg-black bg-opacity-70 rounded-lg p-6 flex-shrink-0 animate-fadeInLeft" style="animation-delay: 1.1s;">
+       <img alt="Logotipo minimalista da PARTHENON, com ícone de dashboard branco sobre fundo preto" class="mx-auto mb-4" height="80" src="https://storage.googleapis.com/a1aa/image/1dbb6325-2129-48c8-6903-69e640f1e1ba.jpg" width="80"/>
+       <h3 class="text-white text-xl mb-2 tracking-widest">
+        PARTHENON
+       </h3>
+       <p class="text-gray-300 text-sm leading-relaxed">
+        Plataforma visual com dashboard de contratos, tokens, provas digitais e comunidade NFT.
+       </p>
+      </article>
+      <!-- THÉMIS -->
+      <article class="min-w-[280px] bg-black bg-opacity-70 rounded-lg p-6 flex-shrink-0 animate-fadeInLeft" style="animation-delay: 1.3s;">
+       <img alt="Logotipo minimalista da THÉMIS, com ícone de assinatura digital branco sobre fundo preto" class="mx-auto mb-4" height="80" src="https://storage.googleapis.com/a1aa/image/b24ad44a-6d87-49be-dfd0-04b2d2c332b2.jpg" width="80"/>
+       <h3 class="text-white text-xl mb-2 tracking-widest">
+        THÉMIS
+       </h3>
+       <p class="text-gray-300 text-sm leading-relaxed">
+        Assinatura jurídica acessível para pessoas físicas e microempresas.
+       </p>
+      </article>
+     </div>
+    </div>
+   </section>
+   <!-- TECNOLOGIAS -->
+   <section class="py-20 max-w-5xl mx-auto px-4 text-center" id="tecnologias">
+    <h2 class="text-white text-3xl sm:text-4xl mb-12 tracking-widest">
+     TECNOLOGIAS
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-12">
+     <div class="flex flex-col items-center space-y-3 animate-fadeInUp" style="animation-delay: 0.2s;">
+      <i class="fas fa-lock fa-3x text-white">
+      </i>
+      <p class="text-white text-sm tracking-widest">
+       CONTRATOS INTELIGENTES
+      </p>
+     </div>
+     <div class="flex flex-col items-center space-y-3 animate-fadeInUp" style="animation-delay: 0.4s;">
+      <i class="fas fa-coins fa-3x text-white">
+      </i>
+      <p class="text-white text-sm tracking-widest">
+       TOKEN PROMETEUS
+      </p>
+     </div>
+     <div class="flex flex-col items-center space-y-3 animate-fadeInUp" style="animation-delay: 0.6s;">
+      <i class="fas fa-id-card fa-3x text-white">
+      </i>
+      <p class="text-white text-sm tracking-widest">
+       CARTÕES NFT DE SERVIÇOS
+      </p>
+     </div>
+     <div class="flex flex-col items-center space-y-3 animate-fadeInUp" style="animation-delay: 0.8s;">
+      <i class="fas fa-broadcast-tower fa-3x text-white">
+      </i>
+      <p class="text-white text-sm tracking-widest">
+       CHATBOT JURÍDICO
+      </p>
+     </div>
+     <div class="flex flex-col items-center space-y-3 animate-fadeInUp" style="animation-delay: 1s;">
+      <i class="fas fa-file-invoice fa-3x text-white">
+      </i>
+      <p class="text-white text-sm tracking-widest">
+       ARMAZENAMENTO DE PROVAS VIA BLOCKCHAIN
+      </p>
+     </div>
+    </div>
+   </section>
+   <!-- CONTATO -->
+   <section class="py-20 max-w-3xl mx-auto px-4" id="contato">
+    <h2 class="text-white text-3xl sm:text-4xl mb-10 text-center tracking-widest">
+     CONTATO
+    </h2>
+    <form class="space-y-8" id="contactForm" novalidate="">
+     <div>
+      <label class="block text-white text-sm mb-2 tracking-widest" for="nome">
+       NOME
+      </label>
+      <input class="w-full bg-black bg-opacity-70 border border-white rounded-md px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white transition" id="nome" name="nome" placeholder="Seu nome" required="" type="text"/>
+     </div>
+     <div>
+      <label class="block text-white text-sm mb-2 tracking-widest" for="email">
+       E-MAIL
+      </label>
+      <input class="w-full bg-black bg-opacity-70 border border-white rounded-md px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white transition" id="email" name="email" placeholder="seu@email.com" required="" type="email"/>
+     </div>
+     <div>
+      <label class="block text-white text-sm mb-2 tracking-widest" for="assunto">
+       ASSUNTO
+      </label>
+      <input class="w-full bg-black bg-opacity-70 border border-white rounded-md px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white transition" id="assunto" name="assunto" placeholder="Assunto da mensagem" required="" type="text"/>
+     </div>
+     <div>
+      <label class="block text-white text-sm mb-2 tracking-widest" for="mensagem">
+       MENSAGEM
+      </label>
+      <textarea class="w-full bg-black bg-opacity-70 border border-white rounded-md px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white transition" id="mensagem" name="mensagem" placeholder="Escreva sua mensagem" required="" rows="5"></textarea>
+     </div>
+     <div class="text-center">
+      <button class="px-10 py-3 border border-white rounded-md text-white tracking-widest transition-colors duration-500 hover:bg-white hover:text-black" type="submit">
+       ENVIAR
+      </button>
+     </div>
+    </form>
+   </section>
+  </main>
+  <!-- Footer -->
+  <footer class="bg-black bg-opacity-90 text-white py-8 mt-20">
+   <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+    <div class="flex space-x-6 text-xl">
+     <a aria-label="Facebook" class="hover:text-gray-400 transition-colors duration-300" href="https://www.facebook.com" rel="noopener" target="_blank">
+      <i class="fab fa-facebook-f">
+      </i>
+     </a>
+     <a aria-label="Twitter" class="hover:text-gray-400 transition-colors duration-300" href="https://www.twitter.com" rel="noopener" target="_blank">
+      <i class="fab fa-twitter">
+      </i>
+     </a>
+     <a aria-label="LinkedIn" class="hover:text-gray-400 transition-colors duration-300" href="https://www.linkedin.com" rel="noopener" target="_blank">
+      <i class="fab fa-linkedin-in">
+      </i>
+     </a>
+     <a aria-label="Instagram" class="hover:text-gray-400 transition-colors duration-300" href="https://www.instagram.com" rel="noopener" target="_blank">
+      <i class="fab fa-instagram">
+      </i>
+     </a>
+    </div>
+    <address class="not-italic text-center md:text-left text-sm tracking-widest max-w-md">
+     Rua da Justiça, 1234, Centro, São Paulo - SP, Brasil
+    </address>
+    <div class="text-sm tracking-widest select-none">
+     © 2024 PROMETEUS. Todos os direitos reservados.
+    </div>
+   </div>
+  </footer>
+  <script>
+   // Hamburger menu toggle
+  const btnHamburger = document.getElementById('btnHamburger');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+
+  function toggleMenu() {
+    const expanded = btnHamburger.getAttribute('aria-expanded') === 'true';
+    if (expanded) {
+      btnHamburger.setAttribute('aria-expanded', 'false');
+      btnHamburger.classList.remove('open');
+      sidebar.classList.add('-translate-x-full');
+      overlay.classList.remove('opacity-100', 'pointer-events-auto');
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = '';
+    } else {
+      btnHamburger.setAttribute('aria-expanded', 'true');
+      btnHamburger.classList.add('open');
+      sidebar.classList.remove('-translate-x-full');
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      overlay.classList.add('opacity-100', 'pointer-events-auto');
+      document.body.style.overflow = 'hidden';
     }
-    .scrollbar-thin::-webkit-scrollbar-thumb {
-      background-color: #4b5563;
-      border-radius: 3px;
-    }
-    /* Logo styling with subtle underline */
-    .logo-container {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      user-select: none;
-      transition: color 0.3s ease;
-      position: relative;
-      z-index: 10;
-    }
-    .logo-text {
-      font-weight: 700;
-      font-size: 1.75rem;
-      letter-spacing: 0.25em;
-      color: #d1d5db;
-      text-transform: uppercase;
-      font-family: 'Merriweather', serif;
-      line-height: 1;
-      white-space: nowrap;
-      transition: color 0.3s ease;
-      position: relative;
-      left: -0.3rem;
-    }
-    .logo-container:hover .logo-text,
-    .logo-container:focus .logo-text {
-      color: #9ca3af;
-      outline: none;
-    }
-    .logo-underline {
-      margin-top: 6px;
-      width: 10ch;
-      border-bottom: 2px solid #6b7280;
-      border-radius: 1px;
-      transition: border-color 0.3s ease, width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-      will-change: width, border-color;
-      z-index: 10;
-      position: relative;
-      left: -0.3rem;
-    }
-    .logo-container:hover .logo-underline,
-    .logo-container:focus .logo-underline {
-      border-color: #9ca3af;
-      outline: none;
-    }
-    .logo-underline.expanded {
-      width: 22ch !important;
-      border-color: #6b7280 !important;
-      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1),
-        border-color 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    /* Hero smaller PROMETEUS */
-    .hero-logo-text {
-      font-weight: 700;
-      font-size: 3rem;
-      letter-spacing: 0.25em;
-      color: #d1d5db;
-      text-transform: uppercase;
-      font-family: 'Merriweather', serif;
-      line-height: 1;
-      white-space: nowrap;
-      margin-bottom: 2rem;
-      transition: color 0.3s ease;
-    }
-    .hero-logo-text:hover,
-    .hero-logo-text:focus {
-      color: #9ca3af;
-      outline: none;
-    }
-    /* Fix "Bem-vindo à Prometeus" on mobile: reduce letter spacing and font size */
-    @media (max-width: 640px) {
-      .welcome-title {
-        letter-spacing: 0.15em !important;
-        font-size: 2.75rem !important;
+  }
+
+  btnHamburger.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+
+  // Close sidebar on link click (mobile)
+  sidebar.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth < 768) {
+        toggleMenu();
       }
-      .hero-logo-text {
-        font-size: 2.25rem !important;
-        letter-spacing: 0.15em !important;
-      }
-    }
-    /* Justify text */
-    .text-justify {
-      text-align: justify;
-    }
-    /* Remove justify from specific cards text */
-    .no-justify {
-      text-align: left !important;
-    }
-    /* Adjust paragraphs spacing in cards */
-    .card-text {
-      margin-top: 0.5rem;
-      margin-bottom: 0;
-    }
-    /* Scroll hint container */
-    .scroll-hint-container {
-      position: relative;
-    }
-    /* Scroll hint arrow */
-    .scroll-hint-arrow {
-      position: absolute;
-      right: 8px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #9ca3af;
-      font-size: 1.75rem;
-      pointer-events: none;
-      user-select: none;
-      animation: bounce 1.5s infinite;
-      opacity: 0.7;
-      z-index: 10;
-    }
-    /* Animations */
-    @keyframes bounce {
-      0%,
-      100% {
-        transform: translateY(-50%) translateX(0);
-        opacity: 0.7;
-      }
-      50% {
-        transform: translateY(-50%) translateX(8px);
-        opacity: 1;
-      }
-    }
-    @keyframes fadeInDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    });
+  });
+
+  // Animate fadeInUp and fadeInLeft with Tailwind + CSS keyframes
+  const style = document.createElement('style');
+  style.textContent = `
     @keyframes fadeInUp {
       0% {
         opacity: 0;
@@ -321,895 +570,85 @@
         transform: translateY(0);
       }
     }
-    @keyframes slideInLeft {
+    @keyframes fadeInLeft {
       0% {
         opacity: 0;
-        transform: translateX(-30px);
+        transform: translateX(-20px);
       }
       100% {
         opacity: 1;
         transform: translateX(0);
       }
     }
-    @keyframes slideInRight {
-      0% {
-        opacity: 0;
-        transform: translateX(30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    /* Animate cards on scroll */
     .animate-fadeInUp {
       animation: fadeInUp 0.8s ease forwards;
-      opacity: 0;
     }
-    /* Focus visible for accessibility */
-    a:focus-visible,
-    button:focus-visible {
-      outline: 3px solid #9ca3af;
-      outline-offset: 3px;
+    .animate-fadeInLeft {
+      animation: fadeInLeft 0.8s ease forwards;
     }
-    /* Section container with more vertical spacing */
-    .info-section,
-    .who-we-are-section,
-    section {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
-    }
-    /* Info cards container with more gap */
-    .info-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 4rem;
-      margin-top: 3rem;
-    }
-    /* Info card */
-    .info-card {
-      background-color: rgba(107, 114, 128, 0.1);
-      border-radius: 1.25rem;
-      padding: 3rem 2.5rem 3.5rem 2.5rem;
-      text-align: left;
-      box-shadow: 0 0 20px rgba(107, 114, 128, 0.15);
-      transition: box-shadow 0.3s ease;
-      user-select: none;
-      min-height: 360px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .info-card:hover,
-    .info-card:focus-within {
-      box-shadow: 0 0 40px rgba(156, 163, 175, 0.4);
-      outline: none;
-      background-color: rgba(107, 114, 128, 0.15);
-    }
-    .info-icon {
-      font-size: 4.5rem;
-      color: #6b7280;
-      margin-bottom: 1.5rem;
-      flex-shrink: 0;
-      align-self: center;
-      transition: color 0.3s ease;
-    }
-    .info-card:hover .info-icon,
-    .info-card:focus-within .info-icon {
-      color: #9ca3af;
-    }
-    .info-title {
-      font-weight: 700;
-      font-size: 1.75rem;
-      margin-bottom: 1.25rem;
-      color: #6b7280;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      align-self: center;
-      transition: color 0.3s ease;
-    }
-    .info-card:hover .info-title,
-    .info-card:focus-within .info-title {
-      color: #9ca3af;
-    }
-    .info-text {
-      color: #d1d5db;
-      font-weight: 300;
-      font-size: 1.125rem;
-      line-height: 1.8;
-      text-align: center;
-      flex-grow: 1;
-      padding: 0 0.5rem;
-    }
-    /* Separate container for Quem Somos */
-    .who-we-are-section {
-      max-width: 7xl;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-      margin-bottom: 5rem;
-      background-color: #111827;
-      border-radius: 1.5rem;
-      box-shadow: 0 0 30px rgba(107, 114, 128, 0.3);
-      padding-top: 4rem;
-      padding-bottom: 4rem;
-    }
-    .who-we-are-card {
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 3.5rem;
-      user-select: none;
-    }
-    .who-we-are-icon {
-      font-size: 7rem;
-      color: #6b7280;
-      flex-shrink: 0;
-      user-select: none;
-    }
-    .who-we-are-content {
-      flex: 1;
-      color: #e0e0e0;
-    }
-    .who-we-are-title {
-      font-weight: 700;
-      font-size: 2.25rem;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-align: left;
-      border-bottom: 3px solid #6b7280;
-      padding-bottom: 0.75rem;
-      max-width: max-content;
-      box-shadow: none;
-      transition: border-color 0.3s ease;
-    }
-    .who-we-are-text {
-      font-weight: 300;
-      font-size: 1.25rem;
-      line-height: 1.8;
-      text-align: left;
-      margin-top: 1.25rem;
-      color: #cbd5e1;
-      padding-right: 1rem;
-    }
-    .who-we-are-image {
-      max-width: 320px;
-      border-radius: 1rem;
-      box-shadow: 0 0 30px rgba(107, 114, 128, 0.3);
-      user-select: none;
-      flex-shrink: 0;
-      object-fit: cover;
-      height: 320px;
-      transition: box-shadow 0.3s ease;
-    }
-    .who-we-are-image:hover,
-    .who-we-are-image:focus {
-      box-shadow: 0 0 45px rgba(156, 163, 175, 0.5);
-      outline: none;
-      cursor: pointer;
-    }
-    @media (max-width: 768px) {
-      .who-we-are-card {
-        flex-direction: column;
-        min-height: auto;
-        padding: 2rem 1.5rem;
-        gap: 2rem;
-      }
-      .who-we-are-icon {
-        display: none;
-      }
-      .who-we-are-title {
-        font-size: 1.75rem;
-        text-align: center;
-        border-bottom: none;
-        padding-bottom: 0;
-        margin-bottom: 1rem;
-      }
-      .who-we-are-text {
-        text-align: center;
-        margin-top: 0;
-        padding-right: 0;
-      }
-      .who-we-are-content {
-        width: 100%;
-      }
-      .who-we-are-image {
-        max-width: 100%;
-        height: auto;
-      }
-    }
-    /* Hero Section text adjustments */
-    .hero-text-large {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 400;
-      font-size: 2.25rem;
-      color: #cbd5e1;
-      max-width: 100%;
-      text-align: center;
-      margin-bottom: 1rem;
-      line-height: 1.6;
-    }
-    .hero-text-small {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      font-size: 1.25rem;
-      color: #9ca3af;
-      max-width: 100%;
-      text-align: center;
-      margin-bottom: 2rem;
-      line-height: 1.7;
-    }
-    /* Areas of Law cards */
-    .area-card {
-      background-color: #111827;
-      border-radius: 1.25rem;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      box-shadow: 0 0 25px rgba(107, 114, 128, 0.15);
-      transition: box-shadow 0.3s ease, background-color 0.3s ease;
-      user-select: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      min-height: 320px;
-    }
-    .area-card:hover,
-    .area-card:focus-within {
-      box-shadow: 0 0 40px rgba(156, 163, 175, 0.3);
-      background-color: #1f2937;
-      outline: none;
-      cursor: pointer;
-    }
-    .area-icon {
-      font-size: 5rem;
-      color: #6b7280;
-      transition: color 0.3s ease;
-    }
-    .area-card:hover .area-icon,
-    .area-card:focus-within .area-icon {
-      color: #9ca3af;
-    }
-    .area-title {
-      font-weight: 700;
-      font-size: 1.75rem;
-      color: #9ca3af;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: color 0.3s ease;
-    }
-    .area-card:hover .area-title,
-    .area-card:focus-within .area-title {
-      color: #d1d5db;
-    }
-    .area-text {
-      color: #cbd5e1;
-      font-weight: 300;
-      font-size: 1.125rem;
-      line-height: 1.7;
-      text-align: center;
-      padding: 0 0.5rem;
-    }
-    /* Differentials cards */
-    .diff-card {
-      flex-shrink: 0;
-      width: 18rem;
-      background-color: #111827;
-      border-radius: 1.25rem;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      box-shadow: 0 0 25px rgba(107, 114, 128, 0.15);
-      transition: box-shadow 0.3s ease, background-color 0.3s ease;
-      user-select: none;
-      cursor: default;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.25rem;
-      min-height: 280px;
-    }
-    .diff-card:hover,
-    .diff-card:focus-within {
-      box-shadow: 0 0 40px rgba(156, 163, 175, 0.3);
-      background-color: #1f2937;
-      outline: none;
-      cursor: pointer;
-    }
-    .diff-icon {
-      font-size: 4.75rem;
-      color: #6b7280;
-      transition: color 0.3s ease;
-    }
-    .diff-card:hover .diff-icon,
-    .diff-card:focus-within .diff-icon {
-      color: #9ca3af;
-    }
-    .diff-title {
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: #9ca3af;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: color 0.3s ease;
-    }
-    .diff-card:hover .diff-title,
-    .diff-card:focus-within .diff-title {
-      color: #d1d5db;
-    }
-    /* Call to Action Section */
-    .cta-section {
-      background-color: #111827;
-      border-radius: 1.5rem;
-      box-shadow: 0 0 30px rgba(107, 114, 128, 0.3);
-      padding: 4rem 3rem;
-      text-align: center;
-      position: relative;
-      overflow: visible;
-    }
-    .cta-section h2 {
-      font-family: 'Merriweather', serif;
-      font-weight: 700;
-      font-size: 3rem;
-      color: #d1d5db;
-      letter-spacing: 0.15em;
-      margin-bottom: 1.5rem;
-    }
-    .cta-section p {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      font-size: 1.25rem;
-      color: #9ca3af;
-      max-width: 40rem;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 2.5rem;
-      line-height: 1.8;
-      text-align: center;
-    }
-    .cta-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.25rem;
-      max-width: 48rem;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
- </head>
- <body class="relative bg-black text-white">
-  <!-- Fixed Header -->
-  <header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-12 py-4 bg-black" id="header" role="banner">
-   <a aria-label="Logo Prometeus" class="logo-container" href="/" tabindex="0">
-    <span aria-hidden="true" class="logo-text">
-     PROMETEUS
-    </span>
-    <span aria-hidden="true" class="logo-underline">
-    </span>
-   </a>
-   <!-- Desktop Nav -->
-   <nav aria-label="Menu principal" class="hidden md:block" role="navigation">
-    <ul class="flex space-x-12 text-gray-300 text-base font-semibold header-link tracking-widest lowercase">
-     <li>
-      <a class="hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="/" role="link" tabindex="0">
-       início
-      </a>
-     </li>
-     <li>
-      <a class="hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="solutions.html" role="link" tabindex="0">
-       soluções
-      </a>
-     </li>
-     <li>
-      <a class="hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="simula.html" role="link" tabindex="0">
-       simulador
-      </a>
-     </li>
-     <li>
-      <a class="hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="lobby.html" role="link" tabindex="0">
-       lobby
-      </a>
-     </li>
-     <li>
-      <a class="hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="#contact" role="link" tabindex="0">
-       contato
-      </a>
-     </li>
-    </ul>
-   </nav>
-   <!-- Mobile Hamburger -->
-   <button aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu" class="md:hidden focus:outline-none focus:ring-2 focus:ring-gray-400 rounded" id="hamburger-btn" type="button">
-    <div aria-hidden="true" class="hamburger" id="hamburger-icon">
-     <span>
-     </span>
-     <span>
-     </span>
-     <span>
-     </span>
-    </div>
-   </button>
-  </header>
-  <!-- Mobile Menu -->
-  <nav aria-label="Menu principal mobile" class="md:hidden bg-black fixed top-16 left-0 w-full z-40 border-t border-gray-900" id="mobile-menu" role="menu">
-   <ul class="flex flex-col space-y-5 py-8 px-6 text-gray-300 text-lg font-semibold lowercase tracking-widest" role="none">
-    <li role="none">
-     <a class="block w-full hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="/" role="menuitem" tabindex="-1">
-      início
-     </a>
-    </li>
-    <li role="none">
-     <a class="block w-full hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="/solutions.html" role="menuitem" tabindex="-1">
-      soluções
-     </a>
-    </li>
-    <li role="none">
-     <a class="block w-full hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="/simula.html" role="menuitem" tabindex="-1">
-      simulador
-     </a>
-    </li>
-    <li role="none">
-     <a class="block w-full hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="/lobby.html" role="menuitem" tabindex="-1">
-      lobby
-     </a>
-    </li>
-    <li role="none">
-     <a class="block w-full hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="#contact" role="menuitem" tabindex="-1">
-      contato
-     </a>
-    </li>
-   </ul>
-  </nav>
-  <main class="pt-28 md:pt-36 max-w-7xl mx-auto px-6 md:px-12 relative overflow-visible">
-   <!-- Welcome Section -->
-   <section aria-label="Seção de boas-vindas com uma chamada poderosa para o visitante" class="relative z-10 flex flex-col items-center text-center text-white mb-32 px-4 md:px-0 max-w-4xl mx-auto">
-    <h1 class="welcome-title text-6xl md:text-7xl font-bold uppercase animate-fadeInDown" style="
-          font-family: 'Merriweather', serif;
-          letter-spacing: 0.25em;
-          animation-delay: 0.2s;
-        ">
-     Bem-vindo à Prometeus
-    </h1>
-    <p class="text-2xl md:text-3xl font-light mb-14 max-w-3xl text-gray-400 animate-slideInLeft" style="animation-delay: 0.4s; text-align: center; line-height: 1.6;">
-     Inovação e excelência para transformar o Direito em uma experiência
-        digital inteligente, segura e acessível.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-8 w-full max-w-sm mx-auto animate-slideInRight" style="animation-delay: 0.6s;">
-     <a aria-label="Nossos Serviços" class="btn-primary w-full text-center rounded-lg shadow" href="/solutions.html" role="button" tabindex="0">
-      <i aria-hidden="true" class="fas fa-cogs">
-      </i>
-      <span>
-       Nossos Serviços
-      </span>
-     </a>
-     <a aria-label="Contato" class="btn-primary w-full text-center rounded-lg shadow" href="#contact" role="button" tabindex="0">
-      <i aria-hidden="true" class="fas fa-envelope">
-      </i>
-      <span>
-       Contato
-      </span>
-     </a>
-    </div>
-   </section>
-   <!-- Mission, Vision, Values Section -->
-   <section aria-labelledby="mv-section-title" class="info-section">
-    <h2 class="section-title" id="mv-section-title">
-     Missão, Visão e Valores
-    </h2>
-    <div class="info-cards">
-     <article aria-label="Missão da Prometeus" class="info-card" tabindex="0">
-      <i aria-hidden="true" class="fas fa-bullseye info-icon" title="Ícone de alvo representando missão">
-      </i>
-      <h3 class="info-title">
-       Missão
-      </h3>
-      <p class="info-text no-justify">
-       Oferecer soluções jurídicas digitais inovadoras, seguras e
-            acessíveis, integrando tecnologia e expertise para transformar a
-            advocacia.
-      </p>
-     </article>
-     <article aria-label="Visão da Prometeus" class="info-card" tabindex="0">
-      <i aria-hidden="true" class="fas fa-eye info-icon" title="Ícone de olho representando visão">
-      </i>
-      <h3 class="info-title">
-       Visão
-      </h3>
-      <p class="info-text no-justify">
-       Ser referência nacional em advocacia digital, promovendo a evolução
-            do Direito por meio da inovação tecnológica e excelência no
-            atendimento.
-      </p>
-     </article>
-     <article aria-label="Valores da Prometeus" class="info-card" tabindex="0">
-      <i aria-hidden="true" class="fas fa-handshake info-icon" title="Ícone de aperto de mãos representando valores">
-      </i>
-      <h3 class="info-title">
-       Valores
-      </h3>
-      <p class="info-text no-justify">
-       Transparência, ética, inovação, compromisso com o cliente e busca
-            constante pela excelência em soluções jurídicas digitais.
-      </p>
-     </article>
-    </div>
-   </section>
-   <!-- Quem Somos Section -->
-   <section aria-labelledby="who-we-are-title" class="who-we-are-section bg-black rounded-xl shadow-lg p-12">
-    <h2 class="section-title text-white" id="who-we-are-title">
-     Quem Somos
-    </h2>
-    <article aria-label="Quem Somos da Prometeus" class="who-we-are-card flex flex-col md:flex-row items-center md:items-start gap-10 max-w-6xl mx-auto">
-     <img alt="Mulher negra sorridente, de braços cruzados, com suéter branco e cabelos cacheados, em ambiente claro com outra mulher ao fundo ligeiramente desfocada" class="who-we-are-image rounded-lg shadow-lg object-cover w-full max-w-sm md:max-w-md" height="320" src="logo2.png" width="400"/>
-     <div class="who-we-are-content text-white">
-      <h3 class="who-we-are-title">
-       NEGÓCIO INOVADOR
-      </h3>
-      <h4 class="mb-6">
-       Sobre nós
-      </h4>
-      <p class="who-we-are-text">
-       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            sit amet eros blandit, dapibus nulla at, cursus elit. Integer nec
-            magna vitae urna efficitur convallis. Sed at lacus vitae urna
-            efficitur tincidunt. Praesent euismod, justo at facilisis cursus,
-            elit erat dapibus nulla, nec dignissim lorem urna nec metus.
-      </p>
-      <div style="padding-bottom: 50px;">
-       <button aria-label="Saiba mais sobre a Prometeus" class="btn-primary mt-8 w-full sm:w-auto rounded-lg shadow" type="button">
-        SAIBA MAIS
-       </button>
-      </div>
-     </div>
-    </article>
-   </section>
-   <!-- Hero Section -->
-   <section aria-label="Seção principal de destaque" class="flex flex-col items-center text-center text-white mb-24 px-4 md:px-0 max-w-4xl mx-auto">
-    <h2 class="hero-logo-text">
-     PROMETEUS
-    </h2>
-    <p class="hero-text-large animate-fadeInUp" style="animation-delay: 0.3s;">
-     A revolução da advocacia digital começa aqui.
-    </p>
-    <p class="hero-text-small animate-fadeInUp" style="animation-delay: 0.5s;">
-     Unimos Direito, tecnologia e inovação para oferecer soluções jurídicas
-        inteligentes, seguras e eficientes.
-     <br/>
-     Com inteligência artificial, blockchain e automação, protegemos o que é
-        seu com excelência e transparência.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-6 w-full max-w-3xl mx-auto animate-fadeInUp" style="animation-delay: 0.7s;">
-     <a aria-label="Conheça nossas soluções" class="btn-primary rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 shadow" href="/solutions.html" role="button" tabindex="0">
-      <i aria-hidden="true" class="fas fa-cogs">
-      </i>
-      <span>
-       Conheça nossas soluções
-      </span>
-     </a>
-     <a aria-label="Teste o simulador jurídico" class="btn-primary rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 shadow" href="/simula.html" role="button" tabindex="0">
-      <i aria-hidden="true" class="fas fa-calculator">
-      </i>
-      <span>
-       Teste o simulador jurídico
-      </span>
-     </a>
-     <a aria-label="Acesse o lobby" class="btn-primary rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 shadow" href="/lobby.html" role="button" tabindex="0">
-      <i aria-hidden="true" class="fas fa-door-open">
-      </i>
-      <span>
-       Acesse o lobby
-      </span>
-     </a>
-    </div>
-   </section>
-   <!-- Areas of Law Section -->
-   <section aria-labelledby="areas-title" class="mb-24 max-w-7xl mx-auto px-4 md:px-0">
-    <h2 class="text-gray-400 uppercase tracking-widest text-base mb-5 text-center" id="areas-title">
-     Áreas tradicionais com inovação real
-    </h2>
-    <p class="text-center text-gray-400 mb-16 max-w-3xl mx-auto text-justify leading-relaxed">
-     Atuamos com excelência e visão futurista em áreas jurídicas clássicas,
-        integrando tecnologia para soluções mais ágeis e seguras.
-    </p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 text-gray-300 max-w-6xl mx-auto">
-     <!-- Civil Law -->
-     <article aria-label="Direito Civil" class="area-card animate-fadeInUp" style="animation-delay: 0.2s;" tabindex="0">
-      <div class="area-icon">
-       <i aria-hidden="true" class="fas fa-balance-scale" title="Ícone de balança da justiça">
-       </i>
-      </div>
-      <h3 class="area-title">
-       Direito Civil
-      </h3>
-      <p class="area-text">
-       Contratos, responsabilidade civil, indenizações e relações privadas
-          com segurança e inovação.
-      </p>
-     </article>
-     <!-- Business Law -->
-     <article aria-label="Direito Empresarial" class="area-card animate-fadeInUp" style="animation-delay: 0.4s;" tabindex="0">
-      <div class="area-icon">
-       <i aria-hidden="true" class="fas fa-building" title="Ícone de prédio comercial">
-       </i>
-      </div>
-      <h3 class="area-title">
-       Direito Empresarial
-      </h3>
-      <p class="area-text">
-       Estruturação societária, compliance, proteção corporativa e gestão
-          de marcas com tecnologia de ponta.
-      </p>
-     </article>
-     <!-- Digital Law -->
-     <article aria-label="Direito Digital" class="area-card animate-fadeInUp" style="animation-delay: 0.6s;" tabindex="0">
-      <div class="area-icon">
-       <i aria-hidden="true" class="fas fa-laptop-code" title="Ícone de laptop representando direito digital">
-       </i>
-      </div>
-      <h3 class="area-title">
-       Direito Digital
-      </h3>
-      <p class="area-text">
-       Privacidade, proteção de dados, crimes cibernéticos e inteligência
-          artificial aplicada ao Direito.
-      </p>
-     </article>
-     <!-- Consumer Law -->
-     <article aria-label="Direito do Consumidor" class="area-card animate-fadeInUp" style="animation-delay: 0.8s;" tabindex="0">
-      <div class="area-icon">
-       <i aria-hidden="true" class="fas fa-shield-alt" title="Ícone de escudo representando direito do consumidor">
-       </i>
-      </div>
-      <h3 class="area-title">
-       Direito do Consumidor
-      </h3>
-      <p class="area-text">
-       Defesa em ações consumeristas, fraudes digitais e relações comerciais
-          com transparência e agilidade.
-      </p>
-     </article>
-    </div>
-   </section>
-   <!-- Prometeus Differentials Section -->
-   <section aria-labelledby="differentials-title" class="mb-24 max-w-7xl mx-auto px-4 md:px-0">
-    <h2 class="text-gray-400 uppercase tracking-widest text-base mb-8 text-center" id="differentials-title">
-     Diferenciais exclusivos Prometeus
-    </h2>
-    <div aria-describedby="scrollHintText" aria-label="Diferenciais do Prometeus" class="flex space-x-10 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-900 px-2 md:px-0 scroll-hint-container relative" role="list" tabindex="0">
-     <!-- Scroll hint arrow -->
-     <div aria-hidden="true" class="scroll-hint-arrow" title="Arraste para o lado para ver mais opções">
-      <i class="fas fa-chevron-right">
-      </i>
-     </div>
-     <!-- Card 1 -->
-     <article aria-label="IA Jurídica para análise de contratos" class="diff-card animate-fadeInUp" role="listitem" style="animation-delay: 0.2s;" tabindex="0">
-      <div class="diff-icon">
-       <i aria-hidden="true" class="fas fa-robot" title="Ícone de robô representando inteligência artificial">
-       </i>
-      </div>
-      <h3 class="diff-title">
-       IA Jurídica para análise avançada de contratos
-      </h3>
-     </article>
-     <!-- Card 2 -->
-     <article aria-label="Contratos inteligentes com blockchain" class="diff-card animate-fadeInUp" role="listitem" style="animation-delay: 0.4s;" tabindex="0">
-      <div class="diff-icon">
-       <i aria-hidden="true" class="fas fa-link" title="Ícone de elo de corrente representando blockchain">
-       </i>
-      </div>
-      <h3 class="diff-title">
-       Contratos inteligentes com tecnologia blockchain
-      </h3>
-     </article>
-     <!-- Card 3 -->
-     <article aria-label="Dashboard jurídico personalizável" class="diff-card animate-fadeInUp" role="listitem" style="animation-delay: 0.6s;" tabindex="0">
-      <div class="diff-icon">
-       <i aria-hidden="true" class="fas fa-tachometer-alt" title="Ícone de velocímetro representando dashboard">
-       </i>
-      </div>
-      <h3 class="diff-title">
-       Dashboard jurídico personalizável e intuitivo
-      </h3>
-     </article>
-     <!-- Card 4 -->
-     <article aria-label="Consultoria com token de acesso" class="diff-card animate-fadeInUp" role="listitem" style="animation-delay: 0.8s;" tabindex="0">
-      <div class="diff-icon">
-       <i aria-hidden="true" class="fas fa-user-shield" title="Ícone de escudo com usuário representando consultoria segura">
-       </i>
-      </div>
-      <h3 class="diff-title">
-       Consultoria exclusiva com token de acesso seguro
-      </h3>
-     </article>
-     <!-- Card 5 -->
-     <article aria-label="Comunidade com votação via NFT" class="diff-card animate-fadeInUp" role="listitem" style="animation-delay: 1s;" tabindex="0">
-      <div class="diff-icon">
-       <i aria-hidden="true" class="fas fa-vote-yea" title="Ícone de votação representando comunidade NFT">
-       </i>
-      </div>
-      <h3 class="diff-title">
-       Comunidade ativa com votação via NFT
-      </h3>
-     </article>
-    </div>
-    <p class="sr-only" id="scrollHintText">
-     Arraste para o lado para ver mais opções
-    </p>
-   </section>
-   <!-- Call to Action Section -->
-   <section aria-label="Chamada para ação" class="cta-section mb-24 max-w-5xl mx-auto rounded-xl py-20 px-8 md:px-16 shadow-lg overflow-visible">
-    <h2>
-     Experimente o futuro do Direito hoje
-    </h2>
-    <p>
-     Agende uma demonstração personalizada ou fale diretamente com a equipe
-        Prometeus. Transforme sua experiência jurídica com inovação e segurança.
-    </p>
-    <div class="cta-buttons">
-     <a aria-label="Contato" class="btn-primary rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 shadow" href="#contact" role="button" tabindex="0">
-      <i aria-hidden="true" class="fas fa-envelope">
-      </i>
-      <span>
-       Contato
-      </span>
-     </a>
-     <a aria-label="Ver soluções" class="btn-primary rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 shadow" href="/solutions.html" role="button" tabindex="0">
-      <i aria-hidden="true" class="fas fa-cogs">
-      </i>
-      <span>
-       Ver soluções
-      </span>
-     </a>
-     <a aria-label="Acessar simulador" class="btn-primary rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 shadow" href="/simula.html" role="button" tabindex="0">
-      <i aria-hidden="true" class="fas fa-calculator">
-      </i>
-      <span>
-       Acessar simulador
-      </span>
-     </a>
-     <a aria-label="Acessar lobby" class="btn-primary rounded-lg text-lg font-semibold inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 shadow" href="/lobby.html" role="button" tabindex="0">
-      <i aria-hidden="true" class="fas fa-door-open">
-      </i>
-      <span>
-       Acessar lobby
-      </span>
-     </a>
-    </div>
-   </section>
-  </main>
-  <!-- Footer -->
-  <footer aria-label="Rodapé do site" class="bg-black border-t border-gray-900 py-14 px-6 md:px-12 text-gray-400 text-sm select-none">
-   <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-    <div class="flex items-center space-x-5">
-     <div aria-label="Logo minimalista Prometeus" class="text-gray-400 text-4xl font-semibold">
-      <i aria-hidden="true" class="fas fa-gem" title="Ícone de gema minimalista">
-      </i>
-     </div>
-     <span class="font-semibold text-gray-400 text-2xl" style="letter-spacing: 0.25em; text-transform: uppercase;">
-      PROMETEUS
-     </span>
-    </div>
-    <nav aria-label="Links rápidos">
-     <ul class="flex space-x-10 lowercase tracking-widest font-semibold text-gray-400 text-base">
-      <li>
-       <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-300" href="/" role="link" tabindex="0">
-        início
-       </a>
-      </li>
-      <li>
-       <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-300" href="solutions.html" role="link" tabindex="0">
-        soluções
-       </a>
-      </li>
-      <li>
-       <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-300" href="simula.html" role="link" tabindex="0">
-        simulador
-       </a>
-      </li>
-      <li>
-       <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-300" href="lobby.html" role="link" tabindex="0">
-        lobby
-       </a>
-      </li>
-      <li>
-       <a class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-300" href="#contact" role="link" tabindex="0">
-        contato
-       </a>
-      </li>
-     </ul>
-    </nav>
-    <div aria-label="Redes sociais" class="flex space-x-10 text-gray-400 text-3xl">
-     <a aria-label="Facebook" class="hover:text-gray-300 focus:text-gray-300 focus:outline-none transition-colors duration-300" href="https://facebook.com/prometeus" rel="noopener noreferrer" tabindex="0" target="_blank">
-      <i class="fab fa-facebook-f">
-      </i>
-     </a>
-     <a aria-label="Twitter" class="hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="https://twitter.com/prometeus" rel="noopener noreferrer" tabindex="0" target="_blank">
-      <i class="fab fa-twitter">
-      </i>
-     </a>
-     <a aria-label="LinkedIn" class="hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="https://linkedin.com/company/prometeus" rel="noopener noreferrer" tabindex="0" target="_blank">
-      <i class="fab fa-linkedin-in">
-      </i>
-     </a>
-     <a aria-label="Instagram" class="hover:text-gray-400 focus:text-gray-400 focus:outline-none transition-colors duration-300" href="https://instagram.com/prometeus" rel="noopener noreferrer" tabindex="0" target="_blank">
-      <i class="fab fa-instagram">
-      </i>
-     </a>
-    </div>
-   </div>
-   <div class="mt-12 text-center text-gray-400 select-none text-sm leading-relaxed max-w-3xl mx-auto">
-    © 2024 Prometeus Association. Todos os direitos reservados.
-    <br/>
-    <em>
-     Prometeus é mais que advocacia. É a inovação e o futuro em suas mãos.
-    </em>
-   </div>
-  </footer>
-  <script>
-   // Header scroll effect and underline expansion
-    const header = document.getElementById('header');
-    const logoUnderline = document.querySelector('.logo-underline');
+  `;
+  document.head.appendChild(style);
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        header.classList.add('header-scrolled');
-        if (logoUnderline && !logoUnderline.classList.contains('expanded')) {
-          logoUnderline.classList.add('expanded');
+  // Intersection Observer for fade-in animations on scroll
+  function animateOnScroll() {
+    const title = document.getElementById('atuacao-title');
+    const subtitle = document.getElementById('atuacao-subtitle');
+    const options = {
+      threshold: 0.3
+    };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          title.style.animation = 'fadeIn 1s ease forwards';
+          subtitle.style.animation = 'fadeInLeft 1s ease forwards';
+          observer.unobserve(title);
+          observer.unobserve(subtitle);
         }
-      } else {
-        header.classList.remove('header-scrolled');
-        if (logoUnderline && logoUnderline.classList.contains('expanded')) {
-          logoUnderline.classList.remove('expanded');
-        }
-      }
-    });
-
-    // Hamburger toggle
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    hamburgerBtn.addEventListener('click', () => {
-      const expanded = hamburgerBtn.getAttribute('aria-expanded') === 'true' || false;
-      hamburgerBtn.setAttribute('aria-expanded', !expanded);
-      hamburgerIcon.classList.toggle('active');
-      mobileMenu.classList.toggle('open');
-    });
-
-    // Close mobile menu on link click for better UX
-    const mobileLinks = mobileMenu.querySelectorAll('a');
-    mobileLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        hamburgerBtn.setAttribute('aria-expanded', false);
-        hamburgerIcon.classList.remove('active');
-        mobileMenu.classList.remove('open');
       });
-    });
+    }, options);
+    observer.observe(title);
+    observer.observe(subtitle);
+  }
+  window.addEventListener('DOMContentLoaded', animateOnScroll);
 
-    // Animate cards on scroll
-    const animatedCards = document.querySelectorAll('.animate-fadeInUp');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = 1;
-            entry.target.style.animationPlayState = 'running';
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+  // Underline expansion on scroll
+  const underline = document.getElementById('logo-underline');
+  let expanded = false;
+  function handleScroll() {
+    if(window.scrollY > 10 && !expanded){
+      expanded = true;
+      underline.classList.add('expanded');
+    } else if(window.scrollY <= 10 && expanded){
+      expanded = false;
+      underline.classList.remove('expanded');
+    }
+  }
+  window.addEventListener('scroll', handleScroll);
 
-    animatedCards.forEach((card) => {
-      observer.observe(card);
-    });
+  // Contact form basic validation and submission simulation
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const nome = form.nome.value.trim();
+    const email = form.email.value.trim();
+    const assunto = form.assunto.value.trim();
+    const mensagem = form.mensagem.value.trim();
+
+    if (!nome || !email || !assunto || !mensagem) {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
+    // Simple email regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Por favor, insira um e-mail válido.');
+      return;
+    }
+
+    // Simulate form submission
+    alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+    form.reset();
+  });
   </script>
  </body>
 </html>
