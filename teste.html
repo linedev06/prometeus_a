@@ -1,21 +1,16 @@
 <html class="scroll-smooth" lang="pt-BR">
  <head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <title>
    PROMETEUS
   </title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    rel="stylesheet"
-  />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap"
-    rel="stylesheet"
-  />
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
   <style>
-    body {
+   body {
       font-family: "Open Sans", sans-serif;
     }
     .font-montserrat {
@@ -60,77 +55,522 @@
       outline: 2px solid #dc4125;
       outline-offset: 2px;
     }
+    /* New sections styles */
+    .section-areas {
+      max-width: 1200px;
+      margin: 3rem auto 4rem;
+      padding: 0 1.5rem;
+    }
+    .section-areas h2 {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.875rem; /* 30px */
+      color: #4b2e83;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .card-area {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      height: 100%;
+    }
+    .card-area:hover {
+      box-shadow: 0 10px 20px rgba(197, 130, 32, 0.3);
+      transform: translateY(-6px);
+      border-color: #f58220;
+    }
+    .card-area-icon {
+      font-size: 2.5rem;
+      color: #4b2e83;
+      align-self: flex-start;
+    }
+    .card-area-title {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #4b2e83;
+      margin: 0;
+    }
+    .card-area-desc {
+      font-size: 0.875rem;
+      color: #555;
+      flex-grow: 1;
+      line-height: 1.3rem;
+    }
+    .card-area-button {
+      align-self: flex-start;
+      background-color: #f58220;
+      color: white;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 0.4rem 1.25rem;
+      border-radius: 9999px;
+      transition: background-color 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .card-area-button:hover,
+    .card-area-button:focus {
+      background-color: #dc4125;
+      outline: none;
+    }
+    /* PROMETEUS ASSOCIATION */
+    .section-association {
+      background-color: #f5f5f5;
+      padding: 3rem 1.5rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+    }
+    .section-association h2 {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.875rem;
+      color: #4b2e83;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+    .card-platform {
+      background: white;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      height: 100%;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+    }
+    .card-platform:hover {
+      box-shadow: 0 10px 20px rgba(123, 58, 174, 0.3);
+      transform: translateY(-6px);
+    }
+    .card-platform-icon {
+      font-size: 2.75rem;
+      color: #7c3aed;
+      align-self: flex-start;
+    }
+    .card-platform-title {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #4b2e83;
+      margin: 0;
+    }
+    .card-platform-desc {
+      font-size: 0.875rem;
+      color: #555;
+      line-height: 1.3rem;
+      flex-grow: 1;
+    }
+    .card-platform-button {
+      align-self: flex-start;
+      background-color: #7c3aed;
+      color: white;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 0.4rem 1.25rem;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .card-platform-button:hover,
+    .card-platform-button:focus {
+      background-color: #5a22b7;
+      outline: none;
+    }
+    /* NOSSA EQUIPE */
+    .section-team {
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+      padding: 0 1.5rem 3rem;
+    }
+    .section-team h2 {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.875rem;
+      color: #4b2e83;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .card-team {
+      background: white;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: default;
+      transition: box-shadow 0.3s ease;
+    }
+    .card-team:hover {
+      box-shadow: 0 10px 20px rgba(197, 130, 32, 0.3);
+    }
+    .card-team-photo {
+      width: 96px;
+      height: 96px;
+      border-radius: 9999px;
+      object-fit: cover;
+      border: 3px solid #f58220;
+    }
+    .card-team-name {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: #4b2e83;
+      margin: 0;
+    }
+    .card-team-role {
+      font-size: 0.875rem;
+      color: #777;
+      margin: 0;
+    }
+    /* CONTEÚDO / PUBLICAÇÕES */
+    .section-content {
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+      padding: 0 1.5rem 3rem;
+    }
+    .section-content h2 {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.875rem;
+      color: #4b2e83;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .card-article {
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
+      display: flex;
+      gap: 1rem;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .card-article:hover {
+      box-shadow: 0 10px 20px rgba(123, 58, 174, 0.3);
+    }
+    .card-article img {
+      width: 140px;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .card-article-content {
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-grow: 1;
+    }
+    .card-article-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #f58220;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+      font-family: "Montserrat", sans-serif;
+    }
+    .card-article-title {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: #4b2e83;
+      margin: 0 0 0.75rem 0;
+      line-height: 1.3rem;
+    }
+    .card-article-button {
+      align-self: flex-start;
+      background-color: #7c3aed;
+      color: white;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 0.4rem 1.25rem;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .card-article-button:hover,
+    .card-article-button:focus {
+      background-color: #5a22b7;
+      outline: none;
+    }
+    /* RODAPÉ PROFISSIONAL */
+    footer {
+      background-color: #4b2e83;
+      color: white;
+      padding: 3rem 1.5rem 2rem;
+      font-size: 0.875rem;
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 2.5rem;
+    }
+    @media (min-width: 640px) {
+      .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .footer-container {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .footer-block h4 {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: 1rem;
+      color: #f58220;
+    }
+    .footer-block ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-block ul li {
+      margin-bottom: 0.5rem;
+    }
+    .footer-block ul li a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-block ul li a:hover,
+    .footer-block ul li a:focus {
+      color: #f58220;
+      outline: none;
+    }
+    .footer-contact p {
+      margin-bottom: 0.5rem;
+    }
+    .footer-social a {
+      display: inline-block;
+      margin-right: 1rem;
+      color: white;
+      font-size: 1.25rem;
+      transition: color 0.3s ease;
+    }
+    .footer-social a:hover,
+    .footer-social a:focus {
+      color: #f58220;
+      outline: none;
+    }
+    .footer-newsletter-button {
+      margin-top: 1rem;
+      background-color: #f58220;
+      color: white;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 0.5rem 1.5rem;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .footer-newsletter-button:hover,
+    .footer-newsletter-button:focus {
+      background-color: #dc4125;
+      outline: none;
+    }
+    /* Mobile menu */
+    #mobileMenu {
+      transition: transform 0.3s ease-in-out;
+      will-change: transform;
+    }
+    #mobileMenu.open {
+      transform: translateX(0) !important;
+    }
+    #mobileMenu.closed {
+      transform: translateX(-100%) !important;
+    }
+    #overlay {
+      transition: opacity 0.3s ease-in-out;
+      will-change: opacity;
+    }
+    #overlay.visible {
+      display: block !important;
+      opacity: 1 !important;
+    }
+    #overlay.hidden {
+      opacity: 0 !important;
+      display: none !important;
+    }
   </style>
  </head>
  <body class="bg-white text-gray-900">
   <!-- Header -->
-  <header
-    class="flex items-center justify-between px-4 sm:px-6 md:px-10 py-4 border-b border-gray-200"
-  >
-   <button
-     aria-label="Menu"
-     class="hamburger-button focus:outline-none"
-     type="button"
-     id="hamburgerBtn"
-     aria-expanded="false"
-     aria-controls="mobileMenu"
-   >
-    <span class="hamburger-line top"></span>
-    <span class="hamburger-line middle"></span>
-    <span class="hamburger-line bottom"></span>
+  <header class="flex items-center justify-between px-4 sm:px-6 md:px-10 py-4 border-b border-gray-200">
+   <button aria-controls="mobileMenu" aria-expanded="false" aria-label="Menu" class="hamburger-button focus:outline-none" id="hamburgerBtn" type="button">
+    <span class="hamburger-line top">
+    </span>
+    <span class="hamburger-line middle">
+    </span>
+    <span class="hamburger-line bottom">
+    </span>
    </button>
-   <div
-     class="flex items-center space-x-0 font-montserrat font-extrabold text-[28px] leading-none tracking-tight select-none"
-   >
-    <span class="text-[#dc4125]">P</span>
-    <span class="text-[#7c3aed]">R</span>
-    <span class="text-[#dc4125]">O</span>
-    <span class="text-[#dc4125]">M</span>
-    <span class="text-[#dc4125]">E</span>
-    <span class="text-[#dc4125]">T</span>
-    <span class="text-[#dc4125]">E</span>
-    <span class="text-[#dc4125]">U</span>
-    <span class="text-[#dc4125] ml-1">S</span>
+   <div class="flex items-center space-x-0 font-montserrat font-extrabold text-[28px] leading-none tracking-tight select-none">
+    <span class="text-[#dc4125]">
+     P
+    </span>
+    <span class="text-[#7c3aed]">
+     R
+    </span>
+    <span class="text-[#dc4125]">
+     O
+    </span>
+    <span class="text-[#dc4125]">
+     M
+    </span>
+    <span class="text-[#dc4125]">
+     E
+    </span>
+    <span class="text-[#dc4125]">
+     T
+    </span>
+    <span class="text-[#dc4125]">
+     E
+    </span>
+    <span class="text-[#dc4125]">
+     U
+    </span>
+    <span class="text-[#dc4125] ml-1">
+     S
+    </span>
    </div>
-   <div class="flex items-center space-x-1 text-xs font-semibold select-none">
-    <span>IDIOMA</span>
-    <i class="fas fa-globe-americas text-sm"></i>
-    <span>PORTUGUÊS</span>
-    <i class="fas fa-chevron-down text-xs"></i>
+   <div class="hidden sm:flex items-center space-x-1 text-xs font-semibold select-none">
+    <span>
+     IDIOMA
+    </span>
+    <i class="fas fa-globe-americas text-sm">
+    </i>
+    <span>
+     PORTUGUÊS
+    </span>
+    <i class="fas fa-chevron-down text-xs">
+    </i>
    </div>
   </header>
-
+  <!-- Mobile menu -->
+  <nav aria-label="Menu móvel" class="fixed top-0 left-0 w-full h-full bg-white z-40 transform -translate-x-full closed" id="mobileMenu">
+   <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+    <div class="flex items-center space-x-0 font-montserrat font-extrabold text-[28px] leading-none tracking-tight select-none">
+     <span class="text-[#dc4125]">
+      P
+     </span>
+     <span class="text-[#7c3aed]">
+      R
+     </span>
+     <span class="text-[#dc4125]">
+      O
+     </span>
+     <span class="text-[#dc4125]">
+      M
+     </span>
+     <span class="text-[#dc4125]">
+      E
+     </span>
+     <span class="text-[#dc4125]">
+      T
+     </span>
+     <span class="text-[#dc4125]">
+      E
+     </span>
+     <span class="text-[#dc4125]">
+      U
+     </span>
+     <span class="text-[#dc4125] ml-1">
+      S
+     </span>
+    </div>
+    <button aria-label="Fechar menu" class="text-gray-700 focus:outline-none" id="closeMobileMenu">
+     <i class="fas fa-times text-2xl">
+     </i>
+    </button>
+   </div>
+   <ul class="flex flex-col px-6 py-4 space-y-6 text-lg font-semibold text-gray-800">
+    <li>
+     <a class="block" href="#noticias" tabindex="0">
+      Notícias
+     </a>
+    </li>
+    <li>
+     <a class="block" href="#negocios" tabindex="0">
+      Negócios
+     </a>
+    </li>
+    <li>
+     <a class="block" href="#essencia" tabindex="0">
+      Nossa essência
+     </a>
+    </li>
+    <li>
+     <a class="block" href="#contato" tabindex="0">
+      Fale conosco
+     </a>
+    </li>
+    <li>
+     <a class="block" href="#responsabilidade" tabindex="0">
+      Responsabilidade social
+     </a>
+    </li>
+    <li>
+     <a class="block" href="#newsletter" tabindex="0">
+      Newsletter
+     </a>
+    </li>
+    <li>
+     <div class="flex items-center space-x-2 text-sm font-semibold select-none">
+      <span>
+       IDIOMA
+      </span>
+      <i class="fas fa-globe-americas text-base">
+      </i>
+      <span>
+       PORTUGUÊS
+      </span>
+      <i class="fas fa-chevron-down text-xs">
+      </i>
+     </div>
+    </li>
+   </ul>
+  </nav>
+  <!-- Overlay for mobile menu -->
+  <div class="fixed inset-0 bg-black bg-opacity-30 hidden z-30" id="overlay" tabindex="-1">
+  </div>
   <!-- Main content -->
   <main class="w-full" style="margin-top: -40px;">
-   <section class="flex flex-col md:flex-row mt-6 md:mt-10 w-full">
+   <section class="flex flex-col md:flex-row mt-6 md:mt-10 w-full" id="noticias">
     <!-- Left side with image and text -->
-    <div
-      class="relative md:w-1/2 flex items-center justify-center bg-black overflow-hidden"
-    >
-     <img
-       alt="Vista aérea noturna da cidade com luzes brilhantes formando linhas e padrões"
-       class="w-full h-[400px] object-cover"
-       height="400"
-       loading="lazy"
-       src="t.png"
-       width="600"
-     />
+    <div class="relative md:w-1/2 flex items-center justify-center bg-black overflow-hidden">
+     <img alt="Vista aérea noturna da cidade com luzes brilhantes formando linhas e padrões" class="w-full h-[400px] object-cover" height="400" loading="lazy" src="t.png" width="600"/>
     </div>
     <!-- Right side content -->
-    <div
-      class="md:w-1/2 bg-[#f3f3f3] relative flex flex-col justify-center px-6 sm:px-10 py-8 md:py-12"
-    >
-     
+    <div class="md:w-1/2 bg-[#f3f3f3] relative flex flex-col justify-center px-6 sm:px-10 py-8 md:py-12">
      <div class="max-w-[480px]">
-      <p
-        class="text-[#f58220] text-[11px] font-semibold uppercase mb-1 tracking-wide"
-      >
+      <p class="text-[#f58220] text-[11px] font-semibold uppercase mb-1 tracking-wide">
        NOTÍCIAS E NEGÓCIOS
       </p>
-      <h2
-        class="text-[#4b2e83] text-[20px] sm:text-[22px] font-normal leading-snug mb-2"
-      >
-       Banco Central divulga o Pix Automático em<br />
+      <h2 class="text-[#4b2e83] text-[20px] sm:text-[22px] font-normal leading-snug mb-2">
+       Banco Central divulga o Pix Automático em
+       <br/>
        evento de lançamento
       </h2>
       <p class="text-gray-500 text-[13px] mb-4 max-w-[400px]">
@@ -138,81 +578,506 @@
        pagamentos
       </p>
       <div class="flex items-center space-x-2 mb-6">
-       <span class="text-[13px] font-semibold">Assuntos:</span>
-       <span
-         class="bg-gray-200 text-gray-700 text-[12px] rounded-full px-3 py-1 whitespace-nowrap"
-       >
+       <span class="text-[13px] font-semibold">
+        Assuntos:
+       </span>
+       <span class="bg-gray-200 text-gray-700 text-[12px] rounded-full px-3 py-1 whitespace-nowrap">
         Bancos e Serviços financeiros
        </span>
       </div>
       <div class="flex items-center space-x-4 max-w-[400px]">
-       <div class="w-12 h-[2px] bg-gray-300 rounded"></div>
-       <div class="w-12 h-[2px] bg-gray-300 rounded"></div>
-       <div class="w-12 h-[2px] bg-[#f58220] rounded"></div>
-       <div class="w-12 h-[2px] bg-gray-300 rounded"></div>
-       <i
-         aria-label="Ícone do portal de notícias único do PROMETEUS em laranja e cinza"
-         class="fas fa-newspaper ml-auto text-[#f58220]"
-         style="font-size: 24px;"
-       ></i>
+       <div class="w-12 h-[2px] bg-gray-300 rounded">
+       </div>
+       <div class="w-12 h-[2px] bg-gray-300 rounded">
+       </div>
+       <div class="w-12 h-[2px] bg-[#f58220] rounded">
+       </div>
+       <div class="w-12 h-[2px] bg-gray-300 rounded">
+       </div>
+       <i aria-label="Ícone do portal de notícias único do PROMETEUS em laranja e cinza" class="fas fa-newspaper ml-auto text-[#f58220]" style="font-size: 24px;">
+       </i>
       </div>
      </div>
     </div>
    </section>
    <!-- Newsletter bar -->
-   <section
-     class="bg-[#4b2e83] text-white flex flex-col sm:flex-row items-center justify-between px-6 sm:px-10 py-4 border-t border-[#f58220]"
-   >
+   <section class="bg-[#4b2e83] text-white flex flex-col sm:flex-row items-center justify-between px-6 sm:px-10 py-4 border-t border-[#f58220]" id="newsletter">
     <div class="max-w-[600px] mb-3 sm:mb-0">
      <p class="font-semibold text-[14px] leading-tight">
       Newsletter
-      <span class="block font-normal text-[12px] leading-tight"
-        >Receba notícias e nossas análises jurídicas</span
-      >
+      <span class="block font-normal text-[12px] leading-tight">
+       Receba notícias e nossas análises jurídicas
+      </span>
      </p>
     </div>
-    <button
-      class="border border-white rounded-full px-6 py-2 text-[13px] font-normal hover:bg-white hover:text-[#4b2e83] transition-colors"
-      type="button"
-    >
+    <button class="border border-white rounded-full px-6 py-2 text-[13px] font-normal hover:bg-white hover:text-[#4b2e83] transition-colors" type="button">
      Cadastre-se
     </button>
    </section>
    <!-- Info columns -->
-   <section
-     class="bg-[#f9f9f9] py-10 px-6 sm:px-10 flex flex-col sm:flex-row max-w-[1200px] mx-auto gap-6 sm:gap-10"
-   >
-    <article class="sm:w-1/3 border-l-2 border-[#f58220] pl-4">
-     <h3 class="text-[18px] font-normal mb-2">Nossa essência</h3>
+   <section class="bg-[#f9f9f9] py-10 px-6 sm:px-10 flex flex-col sm:flex-row max-w-[1200px] mx-auto gap-6 sm:gap-10">
+    <article class="sm:w-1/3 border-l-2 border-[#f58220] pl-4" id="essencia">
+     <h3 class="text-[18px] font-normal mb-2">
+      Nossa essência
+     </h3>
      <p class="text-[13px] text-gray-600 leading-relaxed max-w-[320px]">
       Somos um escritório de alta performance jurídica que transforma desafios
       em oportunidades, o que nos torna o parceiro estratégico ideal para
       negócios.
      </p>
     </article>
-    <article class="sm:w-1/3 border-l-2 border-[#f58220] pl-4">
-     <h3 class="text-[18px] font-normal mb-2">Fale conosco</h3>
+    <article class="sm:w-1/3 border-l-2 border-[#f58220] pl-4" id="contato">
+     <h3 class="text-[18px] font-normal mb-2">
+      Fale conosco
+     </h3>
      <p class="text-[13px] text-gray-600 leading-relaxed max-w-[320px]">
       Antecipamos tendências e oferecemos soluções jurídicas inovadoras,
       prezando pela excelência e eficiência no atendimento.
      </p>
     </article>
-    <article class="sm:w-1/3 border-l-2 border-[#f58220] pl-4">
-     <h3 class="text-[18px] font-normal mb-2">Responsabilidade social</h3>
+    <article class="sm:w-1/3 border-l-2 border-[#f58220] pl-4" id="responsabilidade">
+     <h3 class="text-[18px] font-normal mb-2">
+      Responsabilidade social
+     </h3>
      <p class="text-[13px] text-gray-600 leading-relaxed max-w-[320px]">
       Buscamos contribuir para a construção de uma sociedade mais justa e
       igualitária. Conheça nossas iniciativas de impacto social.
      </p>
     </article>
    </section>
+   <!-- NOVAS SEÇÕES -->
+   <!-- 1. ÁREAS DE ATUAÇÃO JURÍDICA -->
+   <section aria-labelledby="areas-title" class="section-areas">
+    <h2 id="areas-title">
+     Áreas de Atuação Jurídica
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+     <article aria-pressed="false" class="card-area" role="button" tabindex="0">
+      <i aria-hidden="true" class="fas fa-gavel card-area-icon">
+      </i>
+      <h3 class="card-area-title">
+       Direito Civil
+      </h3>
+      <p class="card-area-desc">
+       Atuamos em questões contratuais, responsabilidade civil e direitos patrimoniais, garantindo segurança jurídica.
+      </p>
+      <button class="card-area-button" type="button">
+       Saiba mais
+      </button>
+     </article>
+     <article aria-pressed="false" class="card-area" role="button" tabindex="0">
+      <i aria-hidden="true" class="fas fa-balance-scale card-area-icon">
+      </i>
+      <h3 class="card-area-title">
+       Direito do Consumidor
+      </h3>
+      <p class="card-area-desc">
+       Defendemos os direitos dos consumidores e orientamos empresas para práticas comerciais justas e transparentes.
+      </p>
+      <button class="card-area-button" type="button">
+       Saiba mais
+      </button>
+     </article>
+     <article aria-pressed="false" class="card-area" role="button" tabindex="0">
+      <i aria-hidden="true" class="fas fa-briefcase card-area-icon">
+      </i>
+      <h3 class="card-area-title">
+       Direito Empresarial
+      </h3>
+      <p class="card-area-desc">
+       Oferecemos consultoria para sociedades, contratos empresariais e governança corporativa eficiente.
+      </p>
+      <button class="card-area-button" type="button">
+       Saiba mais
+      </button>
+     </article>
+     <article aria-pressed="false" class="card-area" role="button" tabindex="0">
+      <i aria-hidden="true" class="fas fa-users card-area-icon">
+      </i>
+      <h3 class="card-area-title">
+       Direito Trabalhista
+      </h3>
+      <p class="card-area-desc">
+       Atuamos em negociações, litígios e consultoria para relações trabalhistas e direitos dos colaboradores.
+      </p>
+      <button class="card-area-button" type="button">
+       Saiba mais
+      </button>
+     </article>
+     <article aria-pressed="false" class="card-area" role="button" tabindex="0">
+      <i aria-hidden="true" class="fas fa-home card-area-icon">
+      </i>
+      <h3 class="card-area-title">
+       Direito de Família e Sucessões
+      </h3>
+      <p class="card-area-desc">
+       Assistimos em questões de família, heranças e planejamento sucessório com sensibilidade e ética.
+      </p>
+      <button class="card-area-button" type="button">
+       Saiba mais
+      </button>
+     </article>
+     <article aria-pressed="false" class="card-area" role="button" tabindex="0">
+      <i aria-hidden="true" class="fas fa-laptop-code card-area-icon">
+      </i>
+      <h3 class="card-area-title">
+       Direito Digital
+      </h3>
+      <p class="card-area-desc">
+       Especialistas em proteção de dados, contratos digitais e regulamentação tecnológica para o mercado atual.
+      </p>
+      <button class="card-area-button" type="button">
+       Saiba mais
+      </button>
+     </article>
+    </div>
+   </section>
+   <!-- 2. PROMETEUS ASSOCIATION -->
+   <section aria-labelledby="association-title" class="section-association">
+    <h2 id="association-title">
+     PROMETEUS ASSOCIATION
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+     <article aria-pressed="false" class="card-platform" role="button" tabindex="0">
+      <i aria-hidden="true" class="fas fa-robot card-platform-icon">
+      </i>
+      <h3 class="card-platform-title">
+       ATHENA AI
+      </h3>
+      <p class="card-platform-desc">
+       Análise preditiva para decisões jurídicas mais assertivas e estratégicas.
+      </p>
+      <button class="card-platform-button" type="button">
+       Ver detalhes
+      </button>
+     </article>
+     <article aria-pressed="false" class="card-platform" role="button" tabindex="0">
+      <i aria-hidden="true" class="fas fa-cogs card-platform-icon">
+      </i>
+      <h3 class="card-platform-title">
+       KLEOS
+      </h3>
+      <p class="card-platform-desc">
+       Automação de contencioso para otimizar processos e reduzir prazos judiciais.
+      </p>
+      <button class="card-platform-button" type="button">
+       Ver detalhes
+      </button>
+     </article>
+     <article aria-pressed="false" class="card-platform" role="button" tabindex="0">
+      <i aria-hidden="true" class="fas fa-chart-bar card-platform-icon">
+      </i>
+      <h3 class="card-platform-title">
+       PARTHENON
+      </h3>
+      <p class="card-platform-desc">
+       Dashboard de contratos e NFTs para gestão eficiente e segura de ativos digitais.
+      </p>
+      <button class="card-platform-button" type="button">
+       Ver detalhes
+      </button>
+     </article>
+     <article aria-pressed="false" class="card-platform" role="button" tabindex="0">
+      <i aria-hidden="true" class="fas fa-pen-fancy card-platform-icon">
+      </i>
+      <h3 class="card-platform-title">
+       THÉMIS
+      </h3>
+      <p class="card-platform-desc">
+       Assinatura digital segura e ágil para documentos jurídicos e contratos.
+      </p>
+      <button class="card-platform-button" type="button">
+       Ver detalhes
+      </button>
+     </article>
+     <article aria-pressed="false" class="card-platform" role="button" tabindex="0">
+      <i aria-hidden="true" class="fas fa-shield-alt card-platform-icon">
+      </i>
+      <h3 class="card-platform-title">
+       PANDORA
+      </h3>
+      <p class="card-platform-desc">
+       Registro digital com blockchain para garantir autenticidade e integridade.
+      </p>
+      <button class="card-platform-button" type="button">
+       Ver detalhes
+      </button>
+     </article>
+     <article aria-pressed="false" class="card-platform" role="button" tabindex="0">
+      <i aria-hidden="true" class="fas fa-map-marker-alt card-platform-icon">
+      </i>
+      <h3 class="card-platform-title">
+       TEMIS
+      </h3>
+      <p class="card-platform-desc">
+       Mapa visual de etapas legais para acompanhamento claro e organizado dos processos.
+      </p>
+      <button class="card-platform-button" type="button">
+       Ver detalhes
+      </button>
+     </article>
+    </div>
+   </section>
+   <!-- 3. NOSSA EQUIPE -->
+   <section aria-labelledby="team-title" class="section-team">
+    <h2 id="team-title">
+     Quem faz a Prometeus acontecer
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+     <article class="card-team" tabindex="0">
+      <img alt="Foto circular de Vitor Alves Felismino, fundador da Prometeus, especialista em Direito Digital, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/392d5a4b-e05a-49cf-a5b0-d6d89f54094e.jpg" width="96"/>
+      <h3 class="card-team-name">
+       Vitor Alves Felismino
+      </h3>
+      <p class="card-team-role">
+       Fundador · Direito Digital
+      </p>
+     </article>
+     <article class="card-team" tabindex="0">
+      <img alt="Foto circular de Aline Moreira, coordenadora da Prometeus, especialista em Direito Civil, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/bbcd2aab-ae52-43ae-c9d2-704a6fbe1d6c.jpg" width="96"/>
+      <h3 class="card-team-name">
+       Aline Moreira
+      </h3>
+      <p class="card-team-role">
+       Coordenadora · Direito Civil
+      </p>
+     </article>
+     <article class="card-team" tabindex="0">
+      <img alt="Foto circular de Lucas Pereira, advogado especialista em Direito Empresarial, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/2e22dc92-e7dc-42c7-65b9-6c67913c24af.jpg" width="96"/>
+      <h3 class="card-team-name">
+       Lucas Pereira
+      </h3>
+      <p class="card-team-role">
+       Advogado · Direito Empresarial
+      </p>
+     </article>
+     <article class="card-team" tabindex="0">
+      <img alt="Foto circular de Mariana Silva, advogada especialista em Direito Trabalhista, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/d21b9913-95b4-45ce-50e1-8f20e111060c.jpg" width="96"/>
+      <h3 class="card-team-name">
+       Mariana Silva
+      </h3>
+      <p class="card-team-role">
+       Advogada · Direito Trabalhista
+      </p>
+     </article>
+    </div>
+   </section>
+   <!-- 4. CONTEÚDO / PUBLICAÇÕES -->
+   <section aria-labelledby="content-title" class="section-content">
+    <h2 id="content-title">
+     Conteúdo / Publicações
+    </h2>
+    <div class="flex flex-col lg:flex-row gap-6">
+     <article aria-pressed="false" class="card-article" role="button" tabindex="0">
+      <img alt="Imagem ilustrativa de artigo sobre proteção de dados com cadeado digital azul" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/d9a03fc9-fa3e-436d-520a-7a22abf1168b.jpg" width="140"/>
+      <div class="card-article-content">
+       <span class="card-article-tag">
+        Artigo
+       </span>
+       <h3 class="card-article-title">
+        Proteção de Dados: Guia Completo para Empresas
+       </h3>
+       <button class="card-article-button" type="button">
+        Ler mais
+       </button>
+      </div>
+     </article>
+     <article aria-pressed="false" class="card-article" role="button" tabindex="0">
+      <img alt="Imagem ilustrativa de e-book com capa digital roxa e ícone de livro aberto" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/76ec327c-cf15-474d-ec6a-6583cd76c605.jpg" width="140"/>
+      <div class="card-article-content">
+       <span class="card-article-tag">
+        E-book
+       </span>
+       <h3 class="card-article-title">
+        E-book: Contratos Digitais e Segurança Jurídica
+       </h3>
+       <button class="card-article-button" type="button">
+        Ler mais
+       </button>
+      </div>
+     </article>
+     <article aria-pressed="false" class="card-article" role="button" tabindex="0">
+      <img alt="Imagem ilustrativa de vídeo com ícone de play em fundo roxo" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/4659b50e-c2d2-41ca-6dfd-f48b841f5795.jpg" width="140"/>
+      <div class="card-article-content">
+       <span class="card-article-tag">
+        Vídeo
+       </span>
+       <h3 class="card-article-title">
+        Vídeo: Tendências em Direito Digital para 2024
+       </h3>
+       <button class="card-article-button" type="button">
+        Ler mais
+       </button>
+      </div>
+     </article>
+    </div>
+   </section>
   </main>
-
+  <!-- RODAPÉ PROFISSIONAL -->
+  <footer aria-label="Rodapé profissional PROMETEUS">
+   <div class="footer-container">
+    <section aria-labelledby="footer-contact-title" class="footer-block footer-contact">
+     <h4 id="footer-contact-title">
+      Contato
+     </h4>
+     <p>
+      Telefone:
+      <a class="hover:underline" href="tel:+5511999999999">
+       +55 (11) 99999-9999
+      </a>
+     </p>
+     <p>
+      E-mail:
+      <a class="hover:underline" href="mailto:contato@prometeus.com.br">
+       contato@prometeus.com.br
+      </a>
+     </p>
+     <p>
+      Endereço: Rua das Flores, 123 - São Paulo, SP
+     </p>
+    </section>
+    <nav aria-labelledby="footer-areas-title" class="footer-block">
+     <h4 id="footer-areas-title">
+      Áreas de Atuação
+     </h4>
+     <ul>
+      <li>
+       <a href="#areas-title">
+        Direito Civil
+       </a>
+      </li>
+      <li>
+       <a href="#areas-title">
+        Direito do Consumidor
+       </a>
+      </li>
+      <li>
+       <a href="#areas-title">
+        Direito Empresarial
+       </a>
+      </li>
+      <li>
+       <a href="#areas-title">
+        Direito Trabalhista
+       </a>
+      </li>
+      <li>
+       <a href="#areas-title">
+        Direito de Família e Sucessões
+       </a>
+      </li>
+      <li>
+       <a href="#areas-title">
+        Direito Digital
+       </a>
+      </li>
+     </ul>
+    </nav>
+    <nav aria-labelledby="footer-tech-title" class="footer-block">
+     <h4 id="footer-tech-title">
+      Tecnologias
+     </h4>
+     <ul>
+      <li>
+       <a href="#association-title">
+        ATHENA AI
+       </a>
+      </li>
+      <li>
+       <a href="#association-title">
+        KLEOS
+       </a>
+      </li>
+      <li>
+       <a href="#association-title">
+        PARTHENON
+       </a>
+      </li>
+      <li>
+       <a href="#association-title">
+        THÉMIS
+       </a>
+      </li>
+      <li>
+       <a href="#association-title">
+        PANDORA
+       </a>
+      </li>
+      <li>
+       <a href="#association-title">
+        TEMIS
+       </a>
+      </li>
+     </ul>
+    </nav>
+    <section aria-labelledby="footer-social-title" class="footer-block">
+     <h4 id="footer-social-title">
+      Social
+     </h4>
+     <div class="footer-social" role="list">
+      <a aria-label="LinkedIn PROMETEUS" href="https://www.linkedin.com/company/prometeus" rel="noopener" role="listitem" target="_blank">
+       <i class="fab fa-linkedin">
+       </i>
+      </a>
+      <a aria-label="Instagram PROMETEUS" href="https://www.instagram.com/prometeus" rel="noopener" role="listitem" target="_blank">
+       <i class="fab fa-instagram">
+       </i>
+      </a>
+     </div>
+     <button aria-label="Inscreva-se na newsletter PROMETEUS" class="footer-newsletter-button" type="button">
+      Newsletter
+     </button>
+    </section>
+   </div>
+  </footer>
   <script>
-    const hamburgerBtn = document.getElementById("hamburgerBtn");
+   const hamburgerBtn = document.getElementById("hamburgerBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const overlay = document.getElementById("overlay");
+    const closeMobileMenuBtn = document.getElementById("closeMobileMenu");
+
+    function openMenu() {
+      mobileMenu.classList.remove("closed");
+      mobileMenu.classList.add("open");
+      overlay.classList.remove("hidden");
+      overlay.classList.add("visible");
+      hamburgerBtn.setAttribute("aria-expanded", "true");
+      hamburgerBtn.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeMenu() {
+      mobileMenu.classList.remove("open");
+      mobileMenu.classList.add("closed");
+      overlay.classList.remove("visible");
+      overlay.classList.add("hidden");
+      hamburgerBtn.setAttribute("aria-expanded", "false");
+      hamburgerBtn.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
     hamburgerBtn.addEventListener("click", () => {
-      hamburgerBtn.classList.toggle("active");
       const expanded = hamburgerBtn.getAttribute("aria-expanded") === "true";
-      hamburgerBtn.setAttribute("aria-expanded", !expanded);
+      if (expanded) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    closeMobileMenuBtn.addEventListener("click", () => {
+      closeMenu();
+    });
+
+    overlay.addEventListener("click", () => {
+      closeMenu();
+    });
+
+    // Close menu on ESC key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeMenu();
+      }
     });
   </script>
  </body>
