@@ -25,12 +25,12 @@
       justify-content: space-between;
       cursor: pointer;
       position: relative;
-      z-index: 50;
+      z-index: 60; /* Above sidebar */
     }
     .hamburger-line {
       height: 3px;
       border-radius: 2px;
-      background-color: #dc4125;
+      background-color: #ff4c29; /* Changed from #dc4125 to #ff4c29 */
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       transform-origin: center;
     }
@@ -41,7 +41,7 @@
     /* Active state */
     .hamburger-button.active .hamburger-line.top {
       transform: translateY(9.5px) rotate(45deg);
-      background-color: #dc4125;
+      background-color: #ff4c29; /* Changed from #dc4125 to #ff4c29 */
     }
     .hamburger-button.active .hamburger-line.middle {
       opacity: 0;
@@ -49,10 +49,10 @@
     }
     .hamburger-button.active .hamburger-line.bottom {
       transform: translateY(-9.5px) rotate(-45deg);
-      background-color: #dc4125;
+      background-color: #ff4c29; /* Changed from #dc4125 to #ff4c29 */
     }
     .hamburger-button:focus {
-      outline: 2px solid #dc4125;
+      outline: 2px solid #ff4c29; /* Changed from #dc4125 to #ff4c29 */
       outline-offset: 2px;
     }
     /* New sections styles */
@@ -65,7 +65,7 @@
       font-family: "Montserrat", sans-serif;
       font-weight: 700;
       font-size: 1.875rem; /* 30px */
-      color: #4b2e83;
+      color: #0033A0; /* Blue */
       margin-bottom: 2rem;
       text-align: center;
     }
@@ -82,20 +82,20 @@
       height: 100%;
     }
     .card-area:hover {
-      box-shadow: 0 10px 20px rgba(197, 130, 32, 0.3);
+      box-shadow: 0 10px 20px rgba(255, 76, 41, 0.3); /* Changed shadow to #ff4c29 */
       transform: translateY(-6px);
-      border-color: #f58220;
+      border-color: #ff4c29; /* Changed from #f58220 to #ff4c29 */
     }
     .card-area-icon {
       font-size: 2.5rem;
-      color: #4b2e83;
+      color: #0033A0; /* Blue */
       align-self: flex-start;
     }
     .card-area-title {
       font-family: "Montserrat", sans-serif;
       font-weight: 700;
       font-size: 1.25rem;
-      color: #4b2e83;
+      color: #0033A0; /* Blue */
       margin: 0;
     }
     .card-area-desc {
@@ -106,7 +106,7 @@
     }
     .card-area-button {
       align-self: flex-start;
-      background-color: #f58220;
+      background-color: #ff4c29; /* Changed from #f58220 to #ff4c29 */
       color: white;
       font-weight: 600;
       font-size: 0.875rem;
@@ -118,7 +118,7 @@
     }
     .card-area-button:hover,
     .card-area-button:focus {
-      background-color: #dc4125;
+      background-color: #cc3e21; /* Darker shade of #ff4c29 */
       outline: none;
     }
     /* PROMETEUS ASSOCIATION */
@@ -132,7 +132,7 @@
       font-family: "Montserrat", sans-serif;
       font-weight: 700;
       font-size: 1.875rem;
-      color: #4b2e83;
+      color: #0033A0; /* Blue */
       margin-bottom: 2.5rem;
       text-align: center;
     }
@@ -149,19 +149,19 @@
       cursor: pointer;
     }
     .card-platform:hover {
-      box-shadow: 0 10px 20px rgba(123, 58, 174, 0.3);
+      box-shadow: 0 10px 20px rgba(0, 51, 160, 0.3);
       transform: translateY(-6px);
     }
     .card-platform-icon {
       font-size: 2.75rem;
-      color: #7c3aed;
+      color: #0033A0; /* Blue */
       align-self: flex-start;
     }
     .card-platform-title {
       font-family: "Montserrat", sans-serif;
       font-weight: 700;
       font-size: 1.25rem;
-      color: #4b2e83;
+      color: #0033A0; /* Blue */
       margin: 0;
     }
     .card-platform-desc {
@@ -172,7 +172,7 @@
     }
     .card-platform-button {
       align-self: flex-start;
-      background-color: #7c3aed;
+      background-color: #0033A0; /* Blue */
       color: white;
       font-weight: 600;
       font-size: 0.875rem;
@@ -184,7 +184,7 @@
     }
     .card-platform-button:hover,
     .card-platform-button:focus {
-      background-color: #5a22b7;
+      background-color: #001f66;
       outline: none;
     }
     /* NOSSA EQUIPE */
@@ -197,7 +197,7 @@
       font-family: "Montserrat", sans-serif;
       font-weight: 700;
       font-size: 1.875rem;
-      color: #4b2e83;
+      color: #0033A0; /* Blue */
       margin-bottom: 2rem;
       text-align: center;
     }
@@ -215,20 +215,20 @@
       transition: box-shadow 0.3s ease;
     }
     .card-team:hover {
-      box-shadow: 0 10px 20px rgba(197, 130, 32, 0.3);
+      box-shadow: 0 10px 20px rgba(255, 76, 41, 0.3);
     }
     .card-team-photo {
       width: 96px;
       height: 96px;
       border-radius: 9999px;
       object-fit: cover;
-      border: 3px solid #f58220;
+      border: 3px solid #ff4c29; /* Changed from #f58220 to #ff4c29 */
     }
     .card-team-name {
       font-family: "Montserrat", sans-serif;
       font-weight: 700;
       font-size: 1.125rem;
-      color: #4b2e83;
+      color: #0033A0; /* Blue */
       margin: 0;
     }
     .card-team-role {
@@ -246,7 +246,7 @@
       font-family: "Montserrat", sans-serif;
       font-weight: 700;
       font-size: 1.875rem;
-      color: #4b2e83;
+      color: #0033A0; /* Blue */
       margin-bottom: 2rem;
       text-align: center;
     }
@@ -261,7 +261,7 @@
       cursor: pointer;
     }
     .card-article:hover {
-      box-shadow: 0 10px 20px rgba(123, 58, 174, 0.3);
+      box-shadow: 0 10px 20px rgba(0, 51, 160, 0.3);
     }
     .card-article img {
       width: 140px;
@@ -279,7 +279,7 @@
     .card-article-tag {
       font-size: 0.75rem;
       font-weight: 600;
-      color: #f58220;
+      color: #ff4c29; /* Changed from #f58220 to #ff4c29 */
       text-transform: uppercase;
       margin-bottom: 0.25rem;
       font-family: "Montserrat", sans-serif;
@@ -288,13 +288,13 @@
       font-family: "Montserrat", sans-serif;
       font-weight: 700;
       font-size: 1.125rem;
-      color: #4b2e83;
+      color: #0033A0; /* Blue */
       margin: 0 0 0.75rem 0;
       line-height: 1.3rem;
     }
     .card-article-button {
       align-self: flex-start;
-      background-color: #7c3aed;
+      background-color: #0033A0; /* Blue */
       color: white;
       font-weight: 600;
       font-size: 0.875rem;
@@ -306,12 +306,12 @@
     }
     .card-article-button:hover,
     .card-article-button:focus {
-      background-color: #5a22b7;
+      background-color: #001f66;
       outline: none;
     }
     /* RODAPÉ PROFISSIONAL */
     footer {
-      background-color: #4b2e83;
+      background-color: #0033A0; /* Blue */
       color: white;
       padding: 3rem 1.5rem 2rem;
       font-size: 0.875rem;
@@ -338,7 +338,7 @@
       font-weight: 700;
       font-size: 1.125rem;
       margin-bottom: 1rem;
-      color: #f58220;
+      color: #ff4c29; /* Changed from #f58220 to #ff4c29 */
     }
     .footer-block ul {
       list-style: none;
@@ -355,7 +355,7 @@
     }
     .footer-block ul li a:hover,
     .footer-block ul li a:focus {
-      color: #f58220;
+      color: #ff4c29; /* Changed from #f58220 to #ff4c29 */
       outline: none;
     }
     .footer-contact p {
@@ -370,12 +370,12 @@
     }
     .footer-social a:hover,
     .footer-social a:focus {
-      color: #f58220;
+      color: #ff4c29; /* Changed from #f58220 to #ff4c29 */
       outline: none;
     }
     .footer-newsletter-button {
       margin-top: 1rem;
-      background-color: #f58220;
+      background-color: #ff4c29; /* Changed from #f58220 to #ff4c29 */
       color: white;
       font-weight: 600;
       font-size: 0.875rem;
@@ -387,13 +387,23 @@
     }
     .footer-newsletter-button:hover,
     .footer-newsletter-button:focus {
-      background-color: #dc4125;
+      background-color: #cc3e21; /* Darker shade */
       outline: none;
     }
     /* Mobile menu */
     #mobileMenu {
       transition: transform 0.3s ease-in-out;
       will-change: transform;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 280px; /* Fixed width for sidebar */
+      background-color: white;
+      z-index: 55; /* Below hamburger button z-index 60 */
+      transform: translateX(-100%);
+      box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+      overflow-y: auto;
     }
     #mobileMenu.open {
       transform: translateX(0) !important;
@@ -401,9 +411,31 @@
     #mobileMenu.closed {
       transform: translateX(-100%) !important;
     }
+    /* Adjust close button position */
+    #closeMobileMenu {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 70;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #333;
+      padding: 4px;
+      line-height: 1;
+    }
+    #closeMobileMenu i {
+      font-size: 28px;
+    }
     #overlay {
       transition: opacity 0.3s ease-in-out;
       will-change: opacity;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0,0,0,0.3);
+      z-index: 50; /* Below mobileMenu and hamburger */
+      display: none;
+      opacity: 0;
     }
     #overlay.visible {
       display: block !important;
@@ -427,31 +459,31 @@
     </span>
    </button>
    <div class="flex items-center space-x-0 font-montserrat font-extrabold text-[28px] leading-none tracking-tight select-none">
-    <span class="text-[#dc4125]">
+    <span class="text-[#ff4c29]">
      P
     </span>
-    <span class="text-[#7c3aed]">
+    <span class="text-[#0033A0]">
      R
     </span>
-    <span class="text-[#dc4125]">
+    <span class="text-[#ff4c29]">
      O
     </span>
-    <span class="text-[#dc4125]">
+    <span class="text-[#ff4c29]">
      M
     </span>
-    <span class="text-[#dc4125]">
+    <span class="text-[#ff4c29]">
      E
     </span>
-    <span class="text-[#dc4125]">
+    <span class="text-[#ff4c29]">
      T
     </span>
-    <span class="text-[#dc4125]">
+    <span class="text-[#ff4c29]">
      E
     </span>
-    <span class="text-[#dc4125]">
+    <span class="text-[#ff4c29]">
      U
     </span>
-    <span class="text-[#dc4125] ml-1">
+    <span class="text-[#ff4c29] ml-1">
      S
     </span>
    </div>
@@ -469,39 +501,39 @@
    </div>
   </header>
   <!-- Mobile menu -->
-  <nav aria-label="Menu móvel" class="fixed top-0 left-0 w-full h-full bg-white z-40 transform -translate-x-full closed" id="mobileMenu">
-   <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+  <nav aria-label="Menu móvel" class="fixed top-0 left-0 h-full bg-white z-40 transform closed" id="mobileMenu" style="width:280px;">
+   <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 relative">
     <div class="flex items-center space-x-0 font-montserrat font-extrabold text-[28px] leading-none tracking-tight select-none">
-     <span class="text-[#dc4125]">
+     <span class="text-[#ff4c29]">
       P
      </span>
-     <span class="text-[#7c3aed]">
+     <span class="text-[#0033A0]">
       R
      </span>
-     <span class="text-[#dc4125]">
+     <span class="text-[#ff4c29]">
       O
      </span>
-     <span class="text-[#dc4125]">
+     <span class="text-[#ff4c29]">
       M
      </span>
-     <span class="text-[#dc4125]">
+     <span class="text-[#ff4c29]">
       E
      </span>
-     <span class="text-[#dc4125]">
+     <span class="text-[#ff4c29]">
       T
      </span>
-     <span class="text-[#dc4125]">
+     <span class="text-[#ff4c29]">
       E
      </span>
-     <span class="text-[#dc4125]">
+     <span class="text-[#ff4c29]">
       U
      </span>
-     <span class="text-[#dc4125] ml-1">
+     <span class="text-[#ff4c29] ml-1">
       S
      </span>
     </div>
-    <button aria-label="Fechar menu" class="text-gray-700 focus:outline-none" id="closeMobileMenu">
-     <i class="fas fa-times text-2xl">
+    <button aria-label="Fechar menu" class="text-gray-700 focus:outline-none" id="closeMobileMenu" type="button">
+     <i class="fas fa-times">
      </i>
     </button>
    </div>
@@ -565,10 +597,10 @@
     <!-- Right side content -->
     <div class="md:w-1/2 bg-[#f3f3f3] relative flex flex-col justify-center px-6 sm:px-10 py-8 md:py-12">
      <div class="max-w-[480px]">
-      <p class="text-[#f58220] text-[11px] font-semibold uppercase mb-1 tracking-wide">
+      <p class="text-[#ff4c29] text-[11px] font-semibold uppercase mb-1 tracking-wide">
        NOTÍCIAS E NEGÓCIOS
       </p>
-      <h2 class="text-[#4b2e83] text-[20px] sm:text-[22px] font-normal leading-snug mb-2">
+      <h2 class="text-[#0033A0] text-[20px] sm:text-[22px] font-normal leading-snug mb-2">
        Banco Central divulga o Pix Automático em
        <br/>
        evento de lançamento
@@ -590,18 +622,18 @@
        </div>
        <div class="w-12 h-[2px] bg-gray-300 rounded">
        </div>
-       <div class="w-12 h-[2px] bg-[#f58220] rounded">
+       <div class="w-12 h-[2px] bg-[#ff4c29] rounded">
        </div>
        <div class="w-12 h-[2px] bg-gray-300 rounded">
        </div>
-       <i aria-label="Ícone do portal de notícias único do PROMETEUS em laranja e cinza" class="fas fa-newspaper ml-auto text-[#f58220]" style="font-size: 24px;">
+       <i aria-label="Ícone do portal de notícias único do PROMETEUS em laranja e cinza" class="fas fa-newspaper ml-auto text-[#ff4c29]" style="font-size: 24px;">
        </i>
       </div>
      </div>
     </div>
    </section>
    <!-- Newsletter bar -->
-   <section class="bg-[#4b2e83] text-white flex flex-col sm:flex-row items-center justify-between px-6 sm:px-10 py-4 border-t border-[#f58220]" id="newsletter">
+   <section class="bg-[#0033A0] text-white flex flex-col sm:flex-row items-center justify-between px-6 sm:px-10 py-4 border-t border-[#ff4c29]" id="newsletter">
     <div class="max-w-[600px] mb-3 sm:mb-0">
      <p class="font-semibold text-[14px] leading-tight">
       Newsletter
@@ -610,13 +642,13 @@
       </span>
      </p>
     </div>
-    <button class="border border-white rounded-full px-6 py-2 text-[13px] font-normal hover:bg-white hover:text-[#4b2e83] transition-colors" type="button">
+    <button class="border border-white rounded-full px-6 py-2 text-[13px] font-normal hover:bg-white hover:text-[#0033A0] transition-colors" type="button">
      Cadastre-se
     </button>
    </section>
    <!-- Info columns -->
    <section class="bg-[#f9f9f9] py-10 px-6 sm:px-10 flex flex-col sm:flex-row max-w-[1200px] mx-auto gap-6 sm:gap-10">
-    <article class="sm:w-1/3 border-l-2 border-[#f58220] pl-4" id="essencia">
+    <article class="sm:w-1/3 border-l-2 border-[#ff4c29] pl-4" id="essencia">
      <h3 class="text-[18px] font-normal mb-2">
       Nossa essência
      </h3>
@@ -626,7 +658,7 @@
       negócios.
      </p>
     </article>
-    <article class="sm:w-1/3 border-l-2 border-[#f58220] pl-4" id="contato">
+    <article class="sm:w-1/3 border-l-2 border-[#ff4c29] pl-4" id="contato">
      <h3 class="text-[18px] font-normal mb-2">
       Fale conosco
      </h3>
@@ -635,7 +667,7 @@
       prezando pela excelência e eficiência no atendimento.
      </p>
     </article>
-    <article class="sm:w-1/3 border-l-2 border-[#f58220] pl-4" id="responsabilidade">
+    <article class="sm:w-1/3 border-l-2 border-[#ff4c29] pl-4" id="responsabilidade">
      <h3 class="text-[18px] font-normal mb-2">
       Responsabilidade social
      </h3>
@@ -825,7 +857,7 @@
     </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
      <article class="card-team" tabindex="0">
-      <img alt="Foto circular de Vitor Alves Felismino, fundador da Prometeus, especialista em Direito Digital, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/392d5a4b-e05a-49cf-a5b0-d6d89f54094e.jpg" width="96"/>
+      <img alt="Foto circular de Vitor Alves Felismino, fundador da Prometeus, especialista em Direito Digital, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/03ed396d-bcd3-4aa1-5f56-e0340aab9ec1.jpg" width="96"/>
       <h3 class="card-team-name">
        Vitor Alves Felismino
       </h3>
@@ -834,7 +866,7 @@
       </p>
      </article>
      <article class="card-team" tabindex="0">
-      <img alt="Foto circular de Aline Moreira, coordenadora da Prometeus, especialista em Direito Civil, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/bbcd2aab-ae52-43ae-c9d2-704a6fbe1d6c.jpg" width="96"/>
+      <img alt="Foto circular de Aline Moreira, coordenadora da Prometeus, especialista em Direito Civil, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/a275fed8-1d78-4456-0bd7-fe62bc818dcf.jpg" width="96"/>
       <h3 class="card-team-name">
        Aline Moreira
       </h3>
@@ -843,7 +875,7 @@
       </p>
      </article>
      <article class="card-team" tabindex="0">
-      <img alt="Foto circular de Lucas Pereira, advogado especialista em Direito Empresarial, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/2e22dc92-e7dc-42c7-65b9-6c67913c24af.jpg" width="96"/>
+      <img alt="Foto circular de Lucas Pereira, advogado especialista em Direito Empresarial, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/c6e53cec-0093-4d9b-f23e-b1cd1368454a.jpg" width="96"/>
       <h3 class="card-team-name">
        Lucas Pereira
       </h3>
@@ -852,7 +884,7 @@
       </p>
      </article>
      <article class="card-team" tabindex="0">
-      <img alt="Foto circular de Mariana Silva, advogada especialista em Direito Trabalhista, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/d21b9913-95b4-45ce-50e1-8f20e111060c.jpg" width="96"/>
+      <img alt="Foto circular de Mariana Silva, advogada especialista em Direito Trabalhista, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/d30f39b9-a6ed-44f0-0708-c5caa9cc8772.jpg" width="96"/>
       <h3 class="card-team-name">
        Mariana Silva
       </h3>
@@ -869,7 +901,7 @@
     </h2>
     <div class="flex flex-col lg:flex-row gap-6">
      <article aria-pressed="false" class="card-article" role="button" tabindex="0">
-      <img alt="Imagem ilustrativa de artigo sobre proteção de dados com cadeado digital azul" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/d9a03fc9-fa3e-436d-520a-7a22abf1168b.jpg" width="140"/>
+      <img alt="Imagem ilustrativa de artigo sobre proteção de dados com cadeado digital azul" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/ba34ca71-b74f-4ba2-2977-a21637bbd55e.jpg" width="140"/>
       <div class="card-article-content">
        <span class="card-article-tag">
         Artigo
@@ -883,7 +915,7 @@
       </div>
      </article>
      <article aria-pressed="false" class="card-article" role="button" tabindex="0">
-      <img alt="Imagem ilustrativa de e-book com capa digital roxa e ícone de livro aberto" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/76ec327c-cf15-474d-ec6a-6583cd76c605.jpg" width="140"/>
+      <img alt="Imagem ilustrativa de e-book com capa digital roxa e ícone de livro aberto" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/89aafa2c-a4dd-4faf-c63b-265779cde088.jpg" width="140"/>
       <div class="card-article-content">
        <span class="card-article-tag">
         E-book
@@ -897,7 +929,7 @@
       </div>
      </article>
      <article aria-pressed="false" class="card-article" role="button" tabindex="0">
-      <img alt="Imagem ilustrativa de vídeo com ícone de play em fundo roxo" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/4659b50e-c2d2-41ca-6dfd-f48b841f5795.jpg" width="140"/>
+      <img alt="Imagem ilustrativa de vídeo com ícone de play em fundo roxo" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/8effd52d-4ae4-45ee-bddd-50fb6db265f1.jpg" width="140"/>
       <div class="card-article-content">
        <span class="card-article-tag">
         Vídeo
