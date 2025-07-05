@@ -1,0 +1,141 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   PROMETEUS - Cadastro
+  </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Open Sans", sans-serif;
+      background-color: #f9f9f9;
+    }
+    .font-montserrat {
+      font-family: "Montserrat", sans-serif;
+    }
+    /* Form container */
+    .form-container {
+      max-width: 480px;
+      margin: 3rem auto;
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+      padding: 2.5rem 2rem;
+    }
+    h1 {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.875rem; /* 30px */
+      color: #0033A0;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    label {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #0033A0;
+      display: block;
+      margin-bottom: 0.25rem;
+      font-family: "Montserrat", sans-serif;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-family: "Open Sans", sans-serif;
+      color: #333;
+      transition: border-color 0.3s ease;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #ff4c29;
+      box-shadow: 0 0 0 3px rgb(255 76 41 / 0.3);
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .submit-button {
+      background-color: #ff4c29;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+      font-family: "Montserrat", sans-serif;
+    }
+    .submit-button:hover,
+    .submit-button:focus {
+      background-color: #cc3e21;
+      outline: none;
+    }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      color: #0033A0;
+      font-weight: 600;
+      text-decoration: none;
+      font-family: "Montserrat", sans-serif;
+      transition: color 0.3s ease;
+    }
+    .back-link:hover,
+    .back-link:focus {
+      color: #ff4c29;
+      outline: none;
+    }
+  </style>
+ </head>
+ <body>
+  <main class="form-container" role="main" aria-labelledby="form-title">
+   <h1 id="form-title">Cadastro Profissional</h1>
+   <form action="avs.html" method="POST" novalidate>
+    <div class="form-group">
+     <label for="fullName">Nome completo</label>
+     <input aria-required="true" autocomplete="name" id="fullName" name="fullName" placeholder="Seu nome completo" required type="text"/>
+    </div>
+    <div class="form-group">
+     <label for="email">E-mail</label>
+     <input aria-required="true" autocomplete="email" id="email" name="email" placeholder="seu@email.com" required type="email"/>
+    </div>
+    <div class="form-group">
+     <label for="phone">Telefone</label>
+     <input aria-required="true" autocomplete="tel" id="phone" name="phone" placeholder="+55 (11) 99999-9999" required type="tel" pattern="^\+?\d{0,15}$"/>
+    </div>
+    <div class="form-group">
+     <label for="profession">Profissão</label>
+     <select aria-required="true" id="profession" name="profession" required>
+      <option value="" disabled selected>Selecione sua profissão</option>
+      <option value="advogado">Advogado</option>
+      <option value="consultor">Consultor Jurídico</option>
+      <option value="estagiario">Estagiário</option>
+      <option value="outro">Outro</option>
+     </select>
+    </div>
+    <div class="form-group">
+     <label for="company">Empresa (opcional)</label>
+     <input autocomplete="organization" id="company" name="company" placeholder="Nome da empresa" type="text"/>
+    </div>
+    <div class="form-group">
+     <label for="message">Mensagem (opcional)</label>
+     <textarea id="message" name="message" placeholder="Deixe uma mensagem" rows="4" class="resize-none p-2 border border-gray-300 rounded-md text-gray-700 font-sans text-sm focus:outline-none focus:ring-2 focus:ring-[#ff4c29]"></textarea>
+    </div>
+    <a href="avs.html"><button class="submit-button" type="submit">
+     Cadastrar
+    </button></a>
+   </form>
+   <a class="back-link" href="javascript:history.back()" tabindex="0" role="link" aria-label="Voltar para a página anterior">
+    &larr; Voltar
+   </a>
+  </main>
+ </body>
+</html>

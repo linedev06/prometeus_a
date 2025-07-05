@@ -25,7 +25,7 @@
       justify-content: space-between;
       cursor: pointer;
       position: relative;
-      z-index: 60; /* Above sidebar */
+      z-index: 60; /* Above dropdown */
     }
     .hamburger-line {
       height: 3px;
@@ -390,67 +390,21 @@
       background-color: #cc3e21; /* Darker shade */
       outline: none;
     }
-    /* Mobile menu */
-    #mobileMenu {
-      transition: transform 0.3s ease-in-out;
-      will-change: transform;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 280px; /* Fixed width for sidebar */
-      background-color: white;
-      z-index: 55; /* Below hamburger button z-index 60 */
-      transform: translateX(-100%);
-      box-shadow: 2px 0 8px rgba(0,0,0,0.15);
-      overflow-y: auto;
+    /* Mobile menu dropdown */
+    #mobileMenuDropdown {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
     }
-    #mobileMenu.open {
-      transform: translateX(0) !important;
-    }
-    #mobileMenu.closed {
-      transform: translateX(-100%) !important;
-    }
-    /* Adjust close button position */
-    #closeMobileMenu {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      z-index: 70;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: #333;
-      padding: 4px;
-      line-height: 1;
-    }
-    #closeMobileMenu i {
-      font-size: 28px;
-    }
-    #overlay {
-      transition: opacity 0.3s ease-in-out;
-      will-change: opacity;
-      position: fixed;
-      inset: 0;
-      background-color: rgba(0,0,0,0.3);
-      z-index: 50; /* Below mobileMenu and hamburger */
-      display: none;
-      opacity: 0;
-    }
-    #overlay.visible {
-      display: block !important;
-      opacity: 1 !important;
-    }
-    #overlay.hidden {
-      opacity: 0 !important;
-      display: none !important;
+    #mobileMenuDropdown.open {
+      max-height: 1000px; /* large enough to show all content */
     }
   </style>
  </head>
  <body class="bg-white text-gray-900">
   <!-- Header -->
-  <header class="flex items-center justify-between px-4 sm:px-6 md:px-10 py-4 border-b border-gray-200">
-   <button aria-controls="mobileMenu" aria-expanded="false" aria-label="Menu" class="hamburger-button focus:outline-none" id="hamburgerBtn" type="button">
+  <header class="flex items-center justify-between px-4 sm:px-6 md:px-10 py-4 border-b border-gray-200 sticky top-0 bg-white z-50">
+   <button aria-controls="mobileMenuDropdown" aria-expanded="false" aria-label="Menu" class="hamburger-button focus:outline-none sm:hidden" id="hamburgerBtn" type="button">
     <span class="hamburger-line top">
     </span>
     <span class="hamburger-line middle">
@@ -500,71 +454,36 @@
     </i>
    </div>
   </header>
-  <!-- Mobile menu -->
-  <nav aria-label="Menu móvel" class="fixed top-0 left-0 h-full bg-white z-40 transform closed" id="mobileMenu" style="width:280px;">
-   <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 relative">
-    <div class="flex items-center space-x-0 font-montserrat font-extrabold text-[28px] leading-none tracking-tight select-none">
-     <span class="text-[#ff4c29]">
-      P
-     </span>
-     <span class="text-[#0033A0]">
-      R
-     </span>
-     <span class="text-[#ff4c29]">
-      O
-     </span>
-     <span class="text-[#ff4c29]">
-      M
-     </span>
-     <span class="text-[#ff4c29]">
-      E
-     </span>
-     <span class="text-[#ff4c29]">
-      T
-     </span>
-     <span class="text-[#ff4c29]">
-      E
-     </span>
-     <span class="text-[#ff4c29]">
-      U
-     </span>
-     <span class="text-[#ff4c29] ml-1">
-      S
-     </span>
-    </div>
-    <button aria-label="Fechar menu" class="text-gray-700 focus:outline-none" id="closeMobileMenu" type="button">
-     <i class="fas fa-times">
-     </i>
-    </button>
-   </div>
+  <!-- Mobile menu dropdown below navbar -->
+  <nav aria-label="Menu móvel" class="sm:hidden border-b border-gray-200" id="mobileMenuDropdown" role="menu">
    <ul class="flex flex-col px-6 py-4 space-y-6 text-lg font-semibold text-gray-800">
     <li>
-     <a class="block" href="#noticias" tabindex="0">
+     <a class="block" href="#noticias" tabindex="0" role="menuitem">
       Notícias
      </a>
     </li>
     <li>
-     <a class="block" href="#negocios" tabindex="0">
+     <a class="block" href="#negocios" tabindex="0" role="menuitem">
       Negócios
      </a>
     </li>
     <li>
-     <a class="block" href="#essencia" tabindex="0">
+     <a class="block" href="#essencia" tabindex="0" role="menuitem">
       Nossa essência
      </a>
     </li>
     <li>
-     <a class="block" href="#contato" tabindex="0">
+     <a class="block" href="#contato" tabindex="0" role="menuitem">
       Fale conosco
      </a>
     </li>
     <li>
-     <a class="block" href="#responsabilidade" tabindex="0">
+     <a class="block" href="#responsabilidade" tabindex="0" role="menuitem">
       Responsabilidade social
      </a>
     </li>
     <li>
-     <a class="block" href="#newsletter" tabindex="0">
+     <a class="block" href="#newsletter" tabindex="0" role="menuitem">
       Newsletter
      </a>
     </li>
@@ -584,9 +503,6 @@
     </li>
    </ul>
   </nav>
-  <!-- Overlay for mobile menu -->
-  <div class="fixed inset-0 bg-black bg-opacity-30 hidden z-30" id="overlay" tabindex="-1">
-  </div>
   <!-- Main content -->
   <main class="w-full" style="margin-top: -40px;">
    <section class="flex flex-col md:flex-row mt-6 md:mt-10 w-full" id="noticias">
@@ -642,9 +558,9 @@
       </span>
      </p>
     </div>
-    <button class="border border-white rounded-full px-6 py-2 text-[13px] font-normal hover:bg-white hover:text-[#0033A0] transition-colors" type="button">
+    <a href="cad.html"><button class="border border-white rounded-full px-6 py-2 text-[13px] font-normal hover:bg-white hover:text-[#0033A0] transition-colors" type="button">
      Cadastre-se
-    </button>
+    </button></a>
    </section>
    <!-- Info columns -->
    <section class="bg-[#f9f9f9] py-10 px-6 sm:px-10 flex flex-col sm:flex-row max-w-[1200px] mx-auto gap-6 sm:gap-10">
@@ -857,7 +773,7 @@
     </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
      <article class="card-team" tabindex="0">
-      <img alt="Foto circular de Vitor Alves Felismino, fundador da Prometeus, especialista em Direito Digital, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/03ed396d-bcd3-4aa1-5f56-e0340aab9ec1.jpg" width="96"/>
+      <img alt="Foto circular de Vitor Alves Felismino, fundador da Prometeus, especialista em Direito Digital, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/e00f55ce-2921-441c-c83e-a3e92a36d02c.jpg" width="96"/>
       <h3 class="card-team-name">
        Vitor Alves Felismino
       </h3>
@@ -866,7 +782,7 @@
       </p>
      </article>
      <article class="card-team" tabindex="0">
-      <img alt="Foto circular de Aline Moreira, coordenadora da Prometeus, especialista em Direito Civil, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/a275fed8-1d78-4456-0bd7-fe62bc818dcf.jpg" width="96"/>
+      <img alt="Foto circular de Aline Moreira, coordenadora da Prometeus, especialista em Direito Civil, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/bc862737-ab5a-46da-3b09-e97d802d6bd4.jpg" width="96"/>
       <h3 class="card-team-name">
        Aline Moreira
       </h3>
@@ -875,7 +791,7 @@
       </p>
      </article>
      <article class="card-team" tabindex="0">
-      <img alt="Foto circular de Lucas Pereira, advogado especialista em Direito Empresarial, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/c6e53cec-0093-4d9b-f23e-b1cd1368454a.jpg" width="96"/>
+      <img alt="Foto circular de Lucas Pereira, advogado especialista em Direito Empresarial, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/9dba5562-1aa5-4622-e661-22262e1e8764.jpg" width="96"/>
       <h3 class="card-team-name">
        Lucas Pereira
       </h3>
@@ -884,7 +800,7 @@
       </p>
      </article>
      <article class="card-team" tabindex="0">
-      <img alt="Foto circular de Mariana Silva, advogada especialista em Direito Trabalhista, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/d30f39b9-a6ed-44f0-0708-c5caa9cc8772.jpg" width="96"/>
+      <img alt="Foto circular de Mariana Silva, advogada especialista em Direito Trabalhista, com fundo neutro" class="card-team-photo" height="96" loading="lazy" src="https://storage.googleapis.com/a1aa/image/571cfe71-7920-4ee7-f07d-3db00f4f585f.jpg" width="96"/>
       <h3 class="card-team-name">
        Mariana Silva
       </h3>
@@ -901,7 +817,7 @@
     </h2>
     <div class="flex flex-col lg:flex-row gap-6">
      <article aria-pressed="false" class="card-article" role="button" tabindex="0">
-      <img alt="Imagem ilustrativa de artigo sobre proteção de dados com cadeado digital azul" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/ba34ca71-b74f-4ba2-2977-a21637bbd55e.jpg" width="140"/>
+      <img alt="Imagem ilustrativa de artigo sobre proteção de dados com cadeado digital azul" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/052d6f2d-63d5-432c-d4af-7f7e1baa9045.jpg" width="140"/>
       <div class="card-article-content">
        <span class="card-article-tag">
         Artigo
@@ -915,7 +831,7 @@
       </div>
      </article>
      <article aria-pressed="false" class="card-article" role="button" tabindex="0">
-      <img alt="Imagem ilustrativa de e-book com capa digital roxa e ícone de livro aberto" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/89aafa2c-a4dd-4faf-c63b-265779cde088.jpg" width="140"/>
+      <img alt="Imagem ilustrativa de e-book com capa digital roxa e ícone de livro aberto" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/7855d922-3084-4b44-34c8-227283282853.jpg" width="140"/>
       <div class="card-article-content">
        <span class="card-article-tag">
         E-book
@@ -929,7 +845,7 @@
       </div>
      </article>
      <article aria-pressed="false" class="card-article" role="button" tabindex="0">
-      <img alt="Imagem ilustrativa de vídeo com ícone de play em fundo roxo" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/8effd52d-4ae4-45ee-bddd-50fb6db265f1.jpg" width="140"/>
+      <img alt="Imagem ilustrativa de vídeo com ícone de play em fundo roxo" height="140" loading="lazy" src="https://storage.googleapis.com/a1aa/image/7f38f33f-6933-4716-3739-d9562fbd878a.jpg" width="140"/>
       <div class="card-article-content">
        <span class="card-article-tag">
         Vídeo
@@ -1064,53 +980,40 @@
   </footer>
   <script>
    const hamburgerBtn = document.getElementById("hamburgerBtn");
-    const mobileMenu = document.getElementById("mobileMenu");
-    const overlay = document.getElementById("overlay");
-    const closeMobileMenuBtn = document.getElementById("closeMobileMenu");
+   const mobileMenuDropdown = document.getElementById("mobileMenuDropdown");
 
-    function openMenu() {
-      mobileMenu.classList.remove("closed");
-      mobileMenu.classList.add("open");
-      overlay.classList.remove("hidden");
-      overlay.classList.add("visible");
-      hamburgerBtn.setAttribute("aria-expanded", "true");
-      hamburgerBtn.classList.add("active");
-      document.body.style.overflow = "hidden";
-    }
+   function toggleMenu() {
+     const isOpen = hamburgerBtn.classList.contains("active");
+     if (isOpen) {
+       hamburgerBtn.classList.remove("active");
+       hamburgerBtn.setAttribute("aria-expanded", "false");
+       mobileMenuDropdown.classList.remove("open");
+     } else {
+       hamburgerBtn.classList.add("active");
+       hamburgerBtn.setAttribute("aria-expanded", "true");
+       mobileMenuDropdown.classList.add("open");
+     }
+   }
 
-    function closeMenu() {
-      mobileMenu.classList.remove("open");
-      mobileMenu.classList.add("closed");
-      overlay.classList.remove("visible");
-      overlay.classList.add("hidden");
-      hamburgerBtn.setAttribute("aria-expanded", "false");
-      hamburgerBtn.classList.remove("active");
-      document.body.style.overflow = "";
-    }
+   hamburgerBtn.addEventListener("click", toggleMenu);
 
-    hamburgerBtn.addEventListener("click", () => {
-      const expanded = hamburgerBtn.getAttribute("aria-expanded") === "true";
-      if (expanded) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
+   // Close menu on ESC key
+   document.addEventListener("keydown", (e) => {
+     if (e.key === "Escape") {
+       if (hamburgerBtn.classList.contains("active")) {
+         toggleMenu();
+       }
+     }
+   });
 
-    closeMobileMenuBtn.addEventListener("click", () => {
-      closeMenu();
-    });
-
-    overlay.addEventListener("click", () => {
-      closeMenu();
-    });
-
-    // Close menu on ESC key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        closeMenu();
-      }
-    });
+   // Optional: close menu when clicking a link inside mobile menu
+   mobileMenuDropdown.querySelectorAll("a").forEach(link => {
+     link.addEventListener("click", () => {
+       if (hamburgerBtn.classList.contains("active")) {
+         toggleMenu();
+       }
+     });
+   });
   </script>
  </body>
 </html>
