@@ -1,674 +1,342 @@
-<html class="scroll-smooth" lang="pt-BR">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
   <title>
-   PROMETEUS - Escritório de Advocacia e Tecnologia
+    Landing Page
   </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet" />
   <style>
-   html, body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #000000;
-    color: #ffffff;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    text-transform: uppercase;
-    font-weight: 400;
-  }
-  /* Hamburger to X animation */
-  .hamburger > div {
-    transition: all 0.4s ease;
-  }
-  .hamburger.open > div:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  .hamburger.open > div:nth-child(2) {
-    opacity: 0;
-  }
-  .hamburger.open > div:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
-  /* Scrollbar for sidebar */
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: #555;
-    border-radius: 3px;
-  }
-  /* Animations */
-  @keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
-  }
-  @keyframes fadeInLeft {
-    0% {
-      opacity: 0;
-      transform: translateX(-30px);
+    body {
+      font-family: "Montserrat", sans-serif;
     }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
+
+    h1,
+    h3,
+    h4 {
+      font-weight: 400;
+      text-transform: uppercase;
+      font-family: "Montserrat", sans-serif;
     }
-  }
-  .fade-in {
-    animation: fadeIn 1s ease forwards;
-    opacity: 0;
-  }
-  .fade-in-left {
-    animation: fadeInLeft 1s ease forwards;
-    opacity: 0;
-  }
-  /* Card hover effects */
-  .card {
-    background-color: transparent;
-    border: 1px solid white;
-    transition: background-color 0.4s ease, box-shadow 0.4s ease;
-    cursor: default;
-  }
-  .card:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
-  }
-  .card svg {
-    stroke: white;
-    stroke-width: 1.5;
-    fill: none;
-    transition: filter 0.4s ease;
-  }
-  .card:hover svg {
-    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
-  }
-  .card-text {
-    transition: transform 0.4s ease, text-shadow 0.4s ease;
-  }
-  .card:hover .card-text {
-    transform: translateY(-6px);
-    text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
-  }
-  /* Button with border animation */
-  .btn-outline {
-    border: 1px solid white;
-    background: transparent;
-    color: white;
-    text-transform: uppercase;
-    font-weight: 400;
-    font-family: 'Montserrat', sans-serif;
-    padding: 0.75rem 2rem;
-    letter-spacing: 0.15em;
-    transition: color 0.4s ease, border-color 0.4s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  .btn-outline::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border: 1px solid white;
-    pointer-events: none;
-    transition: transform 0.4s ease;
-    transform-origin: left;
-    transform: scaleX(0);
-  }
-  .btn-outline:hover {
-    color: black;
-    background-color: white;
-    border-color: white;
-  }
-  .btn-outline:hover::before {
-    transform: scaleX(1);
-  }
-  /* Responsive adjustments */
-  @media (min-width: 768px) {
-    .grid-cols-1-md-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-  /* Underline below logo */
-  #logo-underline {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 1.5px;
-    background-color: white;
-    width: 60px;
-    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: width;
-    pointer-events: none;
-  }
-  #logo-container {
-    position: relative;
-    display: inline-block;
-  }
-  /* Expanded underline */
-  #logo-underline.expanded {
-    width: 120vw;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  </style>
- </head>
- <body class="relative">
-  <!-- Navbar -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-90 backdrop-blur-sm">
-   <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative">
-    <a class="text-white text-2xl tracking-widest font-normal select-none relative" href="#inicio" id="logo-container" aria-label="Logo PROMETEUS">
-     PROMETEUS
-     <span id="logo-underline"></span>
-    </a>
-    <ul class="hidden md:flex space-x-10 text-white text-sm font-normal tracking-widest">
-     <li>
-      <a class="hover:text-gray-300 transition-colors duration-300" href="#inicio">
-       INÍCIO
-      </a>
-     </li>
-     <li>
-      <a class="hover:text-gray-300 transition-colors duration-300" href="#sobre">
-       SOBRE NÓS
-      </a>
-     </li>
-     <li>
-      <a class="hover:text-gray-300 transition-colors duration-300" href="#atuacao">
-       ATUAÇÃO JURÍDICA
-      </a>
-     </li>
-     <li>
-      <a class="hover:text-gray-300 transition-colors duration-300" href="#association">
-       PROMETEUS ASSOCIATION
-      </a>
-     </li>
-     <li>
-      <a class="hover:text-gray-300 transition-colors duration-300" href="#tecnologias">
-       TECNOLOGIAS
-      </a>
-     </li>
-     <li>
-      <a class="hover:text-gray-300 transition-colors duration-300" href="#contato">
-       CONTATO
-      </a>
-     </li>
-    </ul>
-    <button aria-expanded="false" aria-label="Abrir menu" class="md:hidden hamburger flex flex-col justify-between w-6 h-5 focus:outline-none" id="btnHamburger">
-     <div class="bg-white h-0.5 rounded">
-     </div>
-     <div class="bg-white h-0.5 rounded">
-     </div>
-     <div class="bg-white h-0.5 rounded">
-     </div>
-    </button>
-   </nav>
-  </header>
-  <!-- Sidebar mobile -->
-  <aside class="fixed top-0 left-0 h-full w-64 bg-black bg-opacity-95 backdrop-blur-md text-white transform -translate-x-full transition-transform duration-500 ease-in-out z-40 overflow-y-auto" id="sidebar">
-   <nav class="flex flex-col mt-20 space-y-8 px-8 text-lg tracking-widest font-normal select-none">
-    <a class="hover:text-gray-300 transition-colors duration-300" href="#inicio" tabindex="0">
-     INÍCIO
-    </a>
-    <a class="hover:text-gray-300 transition-colors duration-300" href="#sobre" tabindex="0">
-     SOBRE NÓS
-    </a>
-    <a class="hover:text-gray-300 transition-colors duration-300" href="#atuacao" tabindex="0">
-     ATUAÇÃO JURÍDICA
-    </a>
-    <a class="hover:text-gray-300 transition-colors duration-300" href="#association" tabindex="0">
-     PROMETEUS ASSOCIATION
-    </a>
-    <a class="hover:text-gray-300 transition-colors duration-300" href="#tecnologias" tabindex="0">
-     TECNOLOGIAS
-    </a>
-    <a class="hover:text-gray-300 transition-colors duration-300" href="#contato" tabindex="0">
-     CONTATO
-    </a>
-   </nav>
-  </aside>
-  <!-- Overlay for sidebar -->
-  <div class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-500 z-30" id="overlay">
-  </div>
-  <main class="pt-20 max-w-7xl mx-auto px-6">
-   <!-- INÍCIO -->
-   <section class="min-h-screen flex flex-col justify-center items-center text-center px-4" id="inicio">
-    <h1 class="text-white text-4xl sm:text-5xl md:text-6xl max-w-4xl leading-tight mb-6 animate-fadeInUp" style="animation-delay: 0.2s;">
-     UMA NOVA ERA DO DIREITO COMEÇA AQUI.
-    </h1>
-    <p class="text-white text-lg sm:text-xl max-w-3xl mb-10 animate-fadeInUp" style="animation-delay: 0.5s;">
-     Entre tradição jurídica e tecnologia imutável, surge a PROMETEUS.
-    </p>
-    <a class="inline-block px-8 py-3 border border-white rounded-md text-white text-sm sm:text-base tracking-widest transition-colors duration-500 hover:bg-white hover:text-black animate-fadeInUp" href="#sobre" style="animation-delay: 0.8s;">
-     CONHEÇA A PROMETEUS
-    </a>
-   </section>
-   <!-- SOBRE NÓS -->
-   <section class="py-20 max-w-4xl mx-auto text-center px-4" id="sobre">
-    <h2 class="text-white text-3xl sm:text-4xl mb-8 tracking-widest">
-     SOBRE NÓS
-    </h2>
-    <p class="text-white text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
-     A Prometeus é um escritório de advocacia moderno, liderado por Vitor Alves Felismino, com visão futurista e compromisso com ética, inovação e resultados. Unimos a tradição jurídica à tecnologia de ponta para oferecer soluções completas e confiáveis aos nossos clientes.
-    </p>
-   </section>
-   <!-- ATUAÇÃO JURÍDICA -->
-   <section class="py-20 px-4 bg-black" id="atuacao">
-    <h2 class="text-white text-4xl text-center mb-2 opacity-0" id="atuacao-title" style="font-weight:400; animation-fill-mode: forwards;">
-     ATUAÇÃO JURÍDICA
-    </h2>
-    <p class="text-white text-sm text-center mb-12 opacity-0 tracking-widest" id="atuacao-subtitle" style="font-weight:400; animation-fill-mode: forwards;">
-     Estratégia, ética e excelência em cada causa
-    </p>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-     <!-- Direito Civil -->
-     <article class="card p-6 rounded-md flex flex-col items-center text-center transition-all duration-400 ease-in-out" tabindex="0" aria-label="Direito Civil">
-      <svg aria-hidden="true" class="w-12 h-12 mb-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-       <path d="M3 12h18"></path>
-       <path d="M12 3v18"></path>
-      </svg>
-      <h3 class="text-white text-lg tracking-widest mb-2" style="font-weight:400;">
-       DIREITO CIVIL
-      </h3>
-      <p class="card-text text-gray-300 text-sm leading-relaxed">
-       Ações de indenização, contratos, responsabilidade civil e questões patrimoniais.
-      </p>
-     </article>
-     <!-- Direito Empresarial -->
-     <article class="card p-6 rounded-md flex flex-col items-center text-center transition-all duration-400 ease-in-out" tabindex="0" aria-label="Direito Empresarial">
-      <svg aria-hidden="true" class="w-12 h-12 mb-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-       <rect height="14" rx="2" ry="2" width="18" x="3" y="5"></rect>
-       <path d="M3 10h18"></path>
-      </svg>
-      <h3 class="text-white text-lg tracking-widest mb-2" style="font-weight:400;">
-       DIREITO EMPRESARIAL
-      </h3>
-      <p class="card-text text-gray-300 text-sm leading-relaxed">
-       Estruturação societária, contratos empresariais, recuperação de crédito e blindagem patrimonial.
-      </p>
-     </article>
-     <!-- Direito do Consumidor -->
-     <article class="card p-6 rounded-md flex flex-col items-center text-center transition-all duration-400 ease-in-out" tabindex="0" aria-label="Direito do Consumidor">
-      <svg aria-hidden="true" class="w-12 h-12 mb-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-       <circle cx="12" cy="12" r="10"></circle>
-       <path d="M12 8v4l3 3"></path>
-      </svg>
-      <h3 class="text-white text-lg tracking-widest mb-2" style="font-weight:400;">
-       DIREITO DO CONSUMIDOR
-      </h3>
-      <p class="card-text text-gray-300 text-sm leading-relaxed">
-       Defesa de empresas e clientes em conflitos de consumo, ações indenizatórias e compliance.
-      </p>
-     </article>
-     <!-- Direito Trabalhista -->
-     <article class="card p-6 rounded-md flex flex-col items-center text-center transition-all duration-400 ease-in-out" tabindex="0" aria-label="Direito Trabalhista">
-      <svg aria-hidden="true" class="w-12 h-12 mb-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-       <path d="M4 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"></path>
-       <circle cx="12" cy="7" r="4"></circle>
-      </svg>
-      <h3 class="text-white text-lg tracking-widest mb-2" style="font-weight:400;">
-       DIREITO TRABALHISTA
-      </h3>
-      <p class="card-text text-gray-300 text-sm leading-relaxed">
-       Consultoria preventiva, defesa em reclamações trabalhistas, acordos e reestruturações.
-      </p>
-     </article>
-     <!-- Direito Digital e Contratos -->
-     <article class="card p-6 rounded-md flex flex-col items-center text-center transition-all duration-400 ease-in-out" tabindex="0" aria-label="Direito Digital e Contratos">
-      <svg aria-hidden="true" class="w-12 h-12 mb-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-       <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-       <path d="M12 12v9"></path>
-       <path d="M8 21v-9"></path>
-       <path d="M3 8h18"></path>
-      </svg>
-      <h3 class="text-white text-lg tracking-widest mb-2" style="font-weight:400;">
-       DIREITO DIGITAL E CONTRATOS
-      </h3>
-      <p class="card-text text-gray-300 text-sm leading-relaxed">
-       Termos de uso, políticas de privacidade, contratos de software e proteção de dados (LGPD).
-      </p>
-     </article>
-     <!-- Direito de Família e Sucessões -->
-     <article class="card p-6 rounded-md flex flex-col items-center text-center transition-all duration-400 ease-in-out" tabindex="0" aria-label="Direito de Família e Sucessões">
-      <svg aria-hidden="true" class="w-12 h-12 mb-4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-       <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4z"></path>
-       <path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path>
-      </svg>
-      <h3 class="text-white text-lg tracking-widest mb-2" style="font-weight:400;">
-       DIREITO DE FAMÍLIA E SUCESSÕES
-      </h3>
-      <p class="card-text text-gray-300 text-sm leading-relaxed">
-       Divórcios, inventários, guarda, pensão alimentícia e planejamento sucessório.
-      </p>
-     </article>
-    </div>
-    <blockquote class="max-w-3xl mx-auto mt-16 text-center italic text-white font-montserrat" style="font-weight:400; font-style: italic; font-size: 1.125rem; line-height: 1.6;">
-     “Na Prometeus, sua causa não é apenas um processo — é um compromisso com a justiça, conduzido com estratégia e humanidade.”
-    </blockquote>
-    <div class="flex justify-center mt-8">
-     <a class="btn-outline" href="#contato" role="button" tabindex="0" aria-label="Fale com um advogado">
-      FALE COM UM ADVOGADO
-     </a>
-    </div>
-   </section>
-   <!-- PROMETEUS ASSOCIATION -->
-   <section class="py-20 bg-gray-900 bg-opacity-90 px-4" id="association">
-    <div class="max-w-6xl mx-auto text-center mb-12">
-     <h2 class="text-white text-3xl sm:text-4xl mb-6 tracking-widest animate-fadeInUp" style="animation-delay: 0.2s;">
-      PROMETEUS ASSOCIATION
-     </h2>
-     <p class="text-gray-300 text-base sm:text-lg max-w-3xl mx-auto animate-fadeInUp" style="animation-delay: 0.5s;">
-      A Prometeus Association é a força tecnológica da Prometeus.
-      <br/>
-      Criamos soluções de proteção jurídica com IA, blockchain, contratos automatizados e NFTs.
-     </p>
-    </div>
-    <div class="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-     <div class="flex space-x-6 max-w-7xl mx-auto px-2 sm:px-6">
-      <!-- ATHENA AI -->
-      <article class="min-w-[280px] bg-black bg-opacity-70 rounded-lg p-6 flex-shrink-0 animate-fadeInLeft" style="animation-delay: 0.7s;">
-       <img alt="Logotipo minimalista da ATHENA AI, com ícone futurista em branco sobre fundo preto" class="mx-auto mb-4" height="80" src="https://storage.googleapis.com/a1aa/image/1b16b75e-b3e8-4806-ad76-e399834d73bd.jpg" width="80"/>
-       <h3 class="text-white text-xl mb-2 tracking-widest">
-        ATHENA AI
-       </h3>
-       <p class="text-gray-300 text-sm leading-relaxed">
-        Proteção jurídica preventiva com análise de riscos e inteligência preditiva.
-       </p>
-      </article>
-      <!-- KLEOS -->
-      <article class="min-w-[280px] bg-black bg-opacity-70 rounded-lg p-6 flex-shrink-0 animate-fadeInLeft" style="animation-delay: 0.9s;">
-       <img alt="Logotipo minimalista da KLEOS, com ícone tecnológico branco sobre fundo preto" class="mx-auto mb-4" height="80" src="https://storage.googleapis.com/a1aa/image/afb12755-2a9f-4d9c-5ca9-547a18b1f390.jpg" width="80"/>
-       <h3 class="text-white text-xl mb-2 tracking-widest">
-        KLEOS
-       </h3>
-       <p class="text-gray-300 text-sm leading-relaxed">
-        Automação do contencioso, petições inteligentes, integração com tribunais.
-       </p>
-      </article>
-      <!-- PARTHENON -->
-      <article class="min-w-[280px] bg-black bg-opacity-70 rounded-lg p-6 flex-shrink-0 animate-fadeInLeft" style="animation-delay: 1.1s;">
-       <img alt="Logotipo minimalista da PARTHENON, com ícone de dashboard branco sobre fundo preto" class="mx-auto mb-4" height="80" src="https://storage.googleapis.com/a1aa/image/1dbb6325-2129-48c8-6903-69e640f1e1ba.jpg" width="80"/>
-       <h3 class="text-white text-xl mb-2 tracking-widest">
-        PARTHENON
-       </h3>
-       <p class="text-gray-300 text-sm leading-relaxed">
-        Plataforma visual com dashboard de contratos, tokens, provas digitais e comunidade NFT.
-       </p>
-      </article>
-      <!-- THÉMIS -->
-      <article class="min-w-[280px] bg-black bg-opacity-70 rounded-lg p-6 flex-shrink-0 animate-fadeInLeft" style="animation-delay: 1.3s;">
-       <img alt="Logotipo minimalista da THÉMIS, com ícone de assinatura digital branco sobre fundo preto" class="mx-auto mb-4" height="80" src="https://storage.googleapis.com/a1aa/image/b24ad44a-6d87-49be-dfd0-04b2d2c332b2.jpg" width="80"/>
-       <h3 class="text-white text-xl mb-2 tracking-widest">
-        THÉMIS
-       </h3>
-       <p class="text-gray-300 text-sm leading-relaxed">
-        Assinatura jurídica acessível para pessoas físicas e microempresas.
-       </p>
-      </article>
-      <!-- PANDORA -->
-      <article class="min-w-[280px] bg-black bg-opacity-70 rounded-lg p-6 flex-shrink-0 animate-fadeInLeft" style="animation-delay: 1.5s;">
-       <img alt="Logotipo minimalista da plataforma Pandora - Registro Digital Jurídico, ícone branco linear sobre fundo preto" class="mx-auto mb-4" height="80" src="https://storage.googleapis.com/a1aa/image/7a61cdec-379d-4074-5bd1-963259cd62de.jpg" width="80"/>
-       <h3 class="text-white text-xl mb-2 tracking-widest">
-        PANDORA
-       </h3>
-       <p class="text-gray-300 text-sm leading-relaxed">
-        Plataforma para registro digital de provas com upload de arquivos, blockchain e carimbo temporal. Gera assinatura digital, QR code e comprovante para garantir a validade jurídica.
-       </p>
-      </article>
-      <!-- TEMIS -->
-      <article class="min-w-[280px] bg-black bg-opacity-70 rounded-lg p-6 flex-shrink-0 animate-fadeInLeft" style="animation-delay: 1.7s;">
-       <img alt="Logotipo minimalista da plataforma Temis - Descubra seu caminho legal, ícone branco linear sobre fundo preto" class="mx-auto mb-4" height="80" src="https://storage.googleapis.com/a1aa/image/134bcd85-e610-4eb5-8c48-2928a0554f1e.jpg" width="80"/>
-       <h3 class="text-white text-xl mb-2 tracking-widest">
-        TEMIS
-       </h3>
-       <p class="text-gray-300 text-sm leading-relaxed">
-        Plataforma que ajuda a entender problemas jurídicos e oferece mapa visual das etapas, custos e prazos para facilitar decisões legais.
-       </p>
-      </article>
-     </div>
-    </div>
-   </section>
-   <!-- TECNOLOGIAS -->
-   <section class="py-20 max-w-5xl mx-auto px-4 text-center" id="tecnologias">
-    <h2 class="text-white text-3xl sm:text-4xl mb-12 tracking-widest">
-     TECNOLOGIAS
-    </h2>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-12">
-     <div class="flex flex-col items-center space-y-3 animate-fadeInUp" style="animation-delay: 0.2s;">
-      <i class="fas fa-lock fa-3x text-white">
-      </i>
-      <p class="text-white text-sm tracking-widest">
-       CONTRATOS INTELIGENTES
-      </p>
-     </div>
-     <div class="flex flex-col items-center space-y-3 animate-fadeInUp" style="animation-delay: 0.4s;">
-      <i class="fas fa-coins fa-3x text-white">
-      </i>
-      <p class="text-white text-sm tracking-widest">
-       TOKEN PROMETEUS
-      </p>
-     </div>
-     <div class="flex flex-col items-center space-y-3 animate-fadeInUp" style="animation-delay: 0.6s;">
-      <i class="fas fa-id-card fa-3x text-white">
-      </i>
-      <p class="text-white text-sm tracking-widest">
-       CARTÕES NFT DE SERVIÇOS
-      </p>
-     </div>
-     <div class="flex flex-col items-center space-y-3 animate-fadeInUp" style="animation-delay: 0.8s;">
-      <i class="fas fa-broadcast-tower fa-3x text-white">
-      </i>
-      <p class="text-white text-sm tracking-widest">
-       CHATBOT JURÍDICO
-      </p>
-     </div>
-     <div class="flex flex-col items-center space-y-3 animate-fadeInUp" style="animation-delay: 1s;">
-      <i class="fas fa-file-invoice fa-3x text-white">
-      </i>
-      <p class="text-white text-sm tracking-widest">
-       ARMAZENAMENTO DE PROVAS VIA BLOCKCHAIN
-      </p>
-     </div>
-    </div>
-   </section>
-   <!-- CONTATO -->
-   <section class="py-20 max-w-3xl mx-auto px-4" id="contato">
-    <h2 class="text-white text-3xl sm:text-4xl mb-10 text-center tracking-widest">
-     CONTATO
-    </h2>
-    <form class="space-y-8" id="contactForm" novalidate="">
-     <div>
-      <label class="block text-white text-sm mb-2 tracking-widest" for="nome">
-       NOME
-      </label>
-      <input class="w-full bg-black bg-opacity-70 border border-white rounded-md px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white transition" id="nome" name="nome" placeholder="Seu nome" required="" type="text"/>
-     </div>
-     <div>
-      <label class="block text-white text-sm mb-2 tracking-widest" for="email">
-       E-MAIL
-      </label>
-      <input class="w-full bg-black bg-opacity-70 border border-white rounded-md px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white transition" id="email" name="email" placeholder="seu@email.com" required="" type="email"/>
-     </div>
-     <div>
-      <label class="block text-white text-sm mb-2 tracking-widest" for="assunto">
-       ASSUNTO
-      </label>
-      <input class="w-full bg-black bg-opacity-70 border border-white rounded-md px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white transition" id="assunto" name="assunto" placeholder="Assunto da mensagem" required="" type="text"/>
-     </div>
-     <div>
-      <label class="block text-white text-sm mb-2 tracking-widest" for="mensagem">
-       MENSAGEM
-      </label>
-      <textarea class="w-full bg-black bg-opacity-70 border border-white rounded-md px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white transition" id="mensagem" name="mensagem" placeholder="Escreva sua mensagem" required="" rows="5"></textarea>
-     </div>
-     <div class="text-center">
-      <button class="px-10 py-3 border border-white rounded-md text-white tracking-widest transition-colors duration-500 hover:bg-white hover:text-black" type="submit">
-       ENVIAR
-      </button>
-     </div>
-    </form>
-   </section>
-  </main>
-  <!-- Footer -->
-  <footer class="bg-black bg-opacity-90 text-white py-8 mt-20">
-   <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
-    <div class="flex space-x-6 text-xl">
-     <a aria-label="Facebook" class="hover:text-gray-400 transition-colors duration-300" href="https://www.facebook.com" rel="noopener" target="_blank">
-      <i class="fab fa-facebook-f">
-      </i>
-     </a>
-     <a aria-label="Twitter" class="hover:text-gray-400 transition-colors duration-300" href="https://www.twitter.com" rel="noopener" target="_blank">
-      <i class="fab fa-twitter">
-      </i>
-     </a>
-     <a aria-label="LinkedIn" class="hover:text-gray-400 transition-colors duration-300" href="https://www.linkedin.com" rel="noopener" target="_blank">
-      <i class="fab fa-linkedin-in">
-      </i>
-     </a>
-     <a aria-label="Instagram" class="hover:text-gray-400 transition-colors duration-300" href="https://www.instagram.com" rel="noopener" target="_blank">
-      <i class="fab fa-instagram">
-      </i>
-     </a>
-    </div>
-    <address class="not-italic text-center md:text-left text-sm tracking-widest max-w-md">
-     Rua da Justiça, 1234, Centro, São Paulo - SP, Brasil
-    </address>
-    <div class="text-sm tracking-widest select-none">
-     © 2024 PROMETEUS. Todos os direitos reservados.
-    </div>
-   </div>
-  </footer>
-  <script>
-   // Hamburger menu toggle
-  const btnHamburger = document.getElementById('btnHamburger');
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('overlay');
 
-  function toggleMenu() {
-    const expanded = btnHamburger.getAttribute('aria-expanded') === 'true';
-    if (expanded) {
-      btnHamburger.setAttribute('aria-expanded', 'false');
-      btnHamburger.classList.remove('open');
-      sidebar.classList.add('-translate-x-full');
-      overlay.classList.remove('opacity-100', 'pointer-events-auto');
-      overlay.classList.add('opacity-0', 'pointer-events-none');
-      document.body.style.overflow = '';
-    } else {
-      btnHamburger.setAttribute('aria-expanded', 'true');
-      btnHamburger.classList.add('open');
-      sidebar.classList.remove('-translate-x-full');
-      overlay.classList.remove('opacity-0', 'pointer-events-none');
-      overlay.classList.add('opacity-100', 'pointer-events-auto');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-
-  btnHamburger.addEventListener('click', toggleMenu);
-  overlay.addEventListener('click', toggleMenu);
-
-  // Close sidebar on link click (mobile)
-  sidebar.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth < 768) {
-        toggleMenu();
-      }
-    });
-  });
-
-  // Animate fadeInUp and fadeInLeft with Tailwind + CSS keyframes
-  const style = document.createElement('style');
-  style.textContent = `
+    /* Animations */
     @keyframes fadeInUp {
       0% {
         opacity: 0;
         transform: translateY(20px);
       }
+
       100% {
         opacity: 1;
         transform: translateY(0);
       }
     }
-    @keyframes fadeInLeft {
-      0% {
-        opacity: 0;
-        transform: translateX(-20px);
-      }
+
+    .fadeInUp {
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes pulseScale {
+
+      0%,
       100% {
+        transform: scale(1);
         opacity: 1;
-        transform: translateX(0);
+      }
+
+      50% {
+        transform: scale(1.05);
+        opacity: 0.8;
       }
     }
-    .animate-fadeInUp {
-      animation: fadeInUp 0.8s ease forwards;
-    }
-    .animate-fadeInLeft {
-      animation: fadeInLeft 0.8s ease forwards;
-    }
-  `;
-  document.head.appendChild(style);
 
-  // Intersection Observer for fade-in animations on scroll
-  function animateOnScroll() {
-    const title = document.getElementById('atuacao-title');
-    const subtitle = document.getElementById('atuacao-subtitle');
-    const options = {
-      threshold: 0.3
-    };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          title.style.animation = 'fadeIn 1s ease forwards';
-          subtitle.style.animation = 'fadeInLeft 1s ease forwards';
-          observer.unobserve(title);
-          observer.unobserve(subtitle);
-        }
-      });
-    }, options);
-    observer.observe(title);
-    observer.observe(subtitle);
-  }
-  window.addEventListener('DOMContentLoaded', animateOnScroll);
-
-  // Underline expansion on scroll
-  const underline = document.getElementById('logo-underline');
-  let expanded = false;
-  function handleScroll() {
-    if(window.scrollY > 10 && !expanded){
-      expanded = true;
-      underline.classList.add('expanded');
-    } else if(window.scrollY <= 10 && expanded){
-      expanded = false;
-      underline.classList.remove('expanded');
+    .pulseScale {
+      animation: pulseScale 2.5s ease-in-out infinite;
     }
-  }
-  window.addEventListener('scroll', handleScroll);
+  </style>
+</head>
 
-  // Contact form basic validation and submission simulation
-  const form = document.getElementById('contactForm');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const nome = form.nome.value.trim();
-    const email = form.email.value.trim();
-    const assunto = form.assunto.value.trim();
-    const mensagem = form.mensagem.value.trim();
+<body>
+  <div class="relative min-h-screen bg-gradient-to-tr from-purple-700 via-purple-900 to-indigo-900 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 py-8 relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex items-center space-x-2">
+        <img alt="White abstract logo icon with geometric shapes and smooth curves" class="w-20 h-20" height="80"
+          src="IMG_8732-removebg-preview.png" width="80" />
+        <span class="text-white text-base tracking-wide font-normal select-none capitalize">
 
-    if (!nome || !email || !assunto || !mensagem) {
-      alert('Por favor, preencha todos os campos.');
-      return;
-    }
-    // Simple email regex
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert('Por favor, insira um e-mail válido.');
-      return;
-    }
+        <span class="text-white text-base tracking-wide font-normal select-none capitalize">
 
-    // Simulate form submission
-    alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-    form.reset();
-  });
-  </script>
- </body>
+        </span>
+      </div>
+      <nav class="hidden sm:flex items-center space-x-6 text-white text-sm font-normal tracking-wide select-none">
+        <a class="hover:underline" href="#">
+          Home
+        </a>
+        <span>
+          |
+        </span>
+        <a class="hover:underline" href="#">
+          Page
+        </a>
+        <span>
+          |
+        </span>
+        <a class="hover:underline" href="#">
+          About
+        </a>
+      </nav>
+      <form class="hidden sm:flex items-center bg-white rounded-full overflow-hidden w-48 h-8">
+        <input class="flex-grow px-3 text-xs text-gray-700 focus:outline-none" placeholder="Search" type="text" />
+        <button aria-label="Search" class="w-8 h-8 flex items-center justify-center text-gray-700" type="submit">
+          <i class="fas fa-search text-xs"></i>
+        </button>
+      </form>
+    </div>
+    <main class="max-w-4xl mx-auto px-6 py-20 relative z-10 text-center sm:text-left">
+      <h1 class="text-white uppercase font-normal text-4xl sm:text-5xl leading-tight select-none fadeInUp"
+        style="animation-delay: 0.2s;">
+        PROMETEUS ASSOCIATION
+      </h1>
+      <h2 class="text-white text-xl font-normal tracking-wide mt-2 select-none fadeInUp" style="animation-delay: 0.4s;">
+        FUNDO ABSTRATO
+      </h2>
+      <p class="text-white text-xs font-normal mt-4 max-w-md leading-relaxed select-none mx-auto sm:mx-0 fadeInUp"
+        style="animation-delay: 0.6s;">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+        nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
+        volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci .
+      </p>
+      <div class="mt-8 flex justify-center sm:justify-start space-x-4 fadeInUp" style="animation-delay: 0.8s;">
+        <button
+          class="text-white text-sm font-normal tracking-wide border border-white rounded-md px-4 py-1 hover:bg-white hover:text-purple-900 transition select-none"
+          type="button">
+          Try Now
+        </button>
+        <button
+          class="bg-white text-gray-900 text-sm font-normal tracking-wide rounded-md px-4 py-1 hover:bg-gray-200 transition select-none"
+          type="button">
+          Get Now
+        </button>
+      </div>
+    </main>
+    <div aria-hidden="true" class="absolute inset-0 -z-10 flex flex-wrap justify-center items-center opacity-20">
+      <img alt="Abstract purple and indigo geometric shapes floating in background" class="w-32 h-32 m-4" height="128"
+        src="https://storage.googleapis.com/a1aa/image/aa0eeb9d-73a5-4c23-5ad9-496465bd5977.jpg" width="128" />
+      <img alt="Abstract purple and indigo geometric shapes floating in background" class="w-24 h-24 m-4" height="96"
+        src="https://storage.googleapis.com/a1aa/image/aa0eeb9d-73a5-4c23-5ad9-496465bd5977.jpg" width="96" />
+      <img alt="Abstract purple and indigo geometric shapes floating in background" class="w-28 h-28 m-4" height="112"
+        src="https://storage.googleapis.com/a1aa/image/aa0eeb9d-73a5-4c23-5ad9-496465bd5977.jpg" width="112" />
+      <img alt="Abstract purple and indigo geometric shapes floating in background" class="w-20 h-20 m-4" height="80"
+        src="https://storage.googleapis.com/a1aa/image/aa0eeb9d-73a5-4c23-5ad9-496465bd5977.jpg" width="80" />
+      <img alt="Abstract purple and indigo geometric shapes floating in background" class="w-32 h-32 m-4" height="128"
+        src="https://storage.googleapis.com/a1aa/image/aa0eeb9d-73a5-4c23-5ad9-496465bd5977.jpg" width="128" />
+      <img alt="Abstract purple and indigo geometric shapes floating in background" class="w-24 h-24 m-4" height="96"
+        src="https://storage.googleapis.com/a1aa/image/aa0eeb9d-73a5-4c23-5ad9-496465bd5977.jpg" width="96" />
+      <img alt="Abstract purple and indigo geometric shapes floating in background" class="w-28 h-28 m-4" height="112"
+        src="https://storage.googleapis.com/a1aa/image/aa0eeb9d-73a5-4c23-5ad9-496465bd5977.jpg" width="112" />
+      <img alt="Abstract purple and indigo geometric shapes floating in background" class="w-20 h-20 m-4" height="80"
+        src="https://storage.googleapis.com/a1aa/image/aa0eeb9d-73a5-4c23-5ad9-496465bd5977.jpg" width="80" />
+    </div>
+  </div>
+
+  <section class="bg-white py-16 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h3 class="text-gray-900 text-3xl mb-10 text-center sm:text-left fadeInUp" style="animation-delay: 1s;">
+        ATHENA AI SOLUTIONS
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+        <div class="flex space-x-4 fadeInUp" style="animation-delay: 1.1s;">
+          <div
+            class="flex-shrink-0 text-purple-700 text-4xl flex items-center justify-center w-14 h-14 rounded-full bg-purple-100 pulseScale">
+            <i class="fas fa-shield-alt" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-900 text-lg mb-1">
+              ATHENA AI
+            </h4>
+            <p class="text-gray-700 text-sm leading-relaxed">
+              Proteção jurídica preventiva com análise de riscos e inteligência preditiva.
+            </p>
+          </div>
+        </div>
+        <div class="flex space-x-4 fadeInUp" style="animation-delay: 1.3s;">
+          <div
+            class="flex-shrink-0 text-purple-700 text-4xl flex items-center justify-center w-14 h-14 rounded-full bg-purple-100 pulseScale">
+            <i class="fas fa-gavel" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-900 text-lg mb-1">
+              KLEOS
+            </h4>
+            <p class="text-gray-700 text-sm leading-relaxed">
+              Automação do contencioso, petições inteligentes, integração com tribunais.
+            </p>
+          </div>
+        </div>
+        <div class="flex space-x-4 fadeInUp" style="animation-delay: 1.5s;">
+          <div
+            class="flex-shrink-0 text-purple-700 text-4xl flex items-center justify-center w-14 h-14 rounded-full bg-purple-100 pulseScale">
+            <i class="fas fa-chart-bar" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-900 text-lg mb-1">
+              PARTHENON
+            </h4>
+            <p class="text-gray-700 text-sm leading-relaxed">
+              Plataforma visual com dashboard de contratos, tokens, provas digitais e comunidade NFT.
+            </p>
+          </div>
+        </div>
+        <div class="flex space-x-4 fadeInUp" style="animation-delay: 1.7s;">
+          <div
+            class="flex-shrink-0 text-purple-700 text-4xl flex items-center justify-center w-14 h-14 rounded-full bg-purple-100 pulseScale">
+            <i class="fas fa-pen-fancy" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-900 text-lg mb-1">
+              THÉMIS
+            </h4>
+            <p class="text-gray-700 text-sm leading-relaxed">
+              Assinatura jurídica acessível para pessoas físicas e microempresas.
+            </p>
+          </div>
+        </div>
+        <div class="flex space-x-4 fadeInUp" style="animation-delay: 1.9s;">
+          <div
+            class="flex-shrink-0 text-purple-700 text-4xl flex items-center justify-center w-14 h-14 rounded-full bg-purple-100 pulseScale">
+            <i class="fas fa-file-upload" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-900 text-lg mb-1">
+              PANDORA
+            </h4>
+            <p class="text-gray-700 text-sm leading-relaxed">
+              Plataforma para registro digital de provas com upload de arquivos, blockchain e carimbo temporal. Gera
+              assinatura digital, QR code e comprovante para garantir a validade jurídica.
+            </p>
+          </div>
+        </div>
+        <div class="flex space-x-4 fadeInUp" style="animation-delay: 2.1s;">
+          <div
+            class="flex-shrink-0 text-purple-700 text-4xl flex items-center justify-center w-14 h-14 rounded-full bg-purple-100 pulseScale">
+            <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-900 text-lg mb-1">
+              KHARTĒS
+            </h4>
+            <p class="text-gray-700 text-sm leading-relaxed">
+              Plataforma que ajuda a entender problemas jurídicos e oferece mapa visual das etapas, custos e prazos para
+              facilitar decisões legais.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-6 py-16 text-gray-900 bg-gray-50 rounded-lg shadow-lg fadeInUp"
+    style="animation-delay: 2.3s;">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div>
+        <h3 class="text-3xl mb-4">
+          POR QUE ESCOLHER ATHENA AI?
+        </h3>
+        <p class="text-sm leading-relaxed mb-6">
+          Athena AI combina tecnologia de ponta com profundo conhecimento jurídico para fornecer soluções inovadoras que
+          capacitam profissionais jurídicos e empresas. Nossas ferramentas são projetadas para simplificar processos
+          jurídicos complexos, reduzir riscos e aumentar a eficiência.
+        </p>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start space-x-3">
+            <i class="fas fa-check-circle text-purple-700 mt-1"></i>
+            <span>Análise e previsão de riscos jurídicos avançada com IA.</span>
+          </li>
+          <li class="flex items-start space-x-3">
+            <i class="fas fa-check-circle text-purple-700 mt-1"></i>
+            <span>Integração perfeita com sistemas judiciais e fluxos de trabalho legais.</span>
+          </li>
+          <li class="flex items-start space-x-3">
+            <i class="fas fa-check-circle text-purple-700 mt-1"></i>
+            <span>Dashboards visuais para contratos, provas e comunidades NFT.</span>
+          </li>
+          <li class="flex items-start space-x-3">
+            <i class="fas fa-check-circle text-purple-700 mt-1"></i>
+            <span>Assinaturas digitais acessíveis e gestão segura de documentos.</span>
+          </li>
+          <li class="flex items-start space-x-3">
+            <i class="fas fa-check-circle text-purple-700 mt-1"></i>
+            <span>Mapeamento completo de problemas jurídicos com visualização de custos e prazos.</span>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-3xl mb-4">
+          NOSSO COMPROMISSO
+        </h3>
+        <p class="text-sm leading-relaxed mb-6">
+          Estamos comprometidos em oferecer soluções tecnológicas jurídicas confiáveis, seguras e fáceis de usar que
+          ajudam nossos clientes a se manterem à frente em um cenário jurídico em rápida evolução. Athena AI é seu
+          parceiro confiável para inovação jurídica.
+        </p>
+        <div class="space-y-6">
+          <div class="flex items-center space-x-4">
+            <i class="fas fa-robot text-purple-700 text-4xl"></i>
+            <div>
+              <h4 class="text-lg">TECNOLOGIA INOVADORA DE IA</h4>
+              <p class="text-xs max-w-sm">
+                Aproveitando a inteligência artificial para automatizar e aprimorar processos jurídicos.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <i class="fas fa-users-cog text-purple-700 text-4xl"></i>
+            <div>
+              <h4 class="text-lg">EQUIPE JURÍDICA ESPECIALIZADA</h4>
+              <p class="text-xs max-w-sm">
+                Profissionais experientes garantindo conformidade e qualidade em todas as soluções.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <i class="fas fa-lock text-purple-700 text-4xl"></i>
+            <div>
+              <h4 class="text-lg">SEGURANÇA E PRIVACIDADE</h4>
+              <p class="text-xs max-w-sm">
+                Protegendo seus dados com protocolos de segurança de ponta e tecnologia blockchain.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-purple-900 py-20 px-6 mt-16 rounded-t-3xl overflow-hidden relative">
+    <div class="max-w-7xl mx-auto text-center text-white">
+      <h3 class="text-4xl sm:text-5xl font-normal uppercase mb-8 fadeInUp" style="animation-delay: 2.5s;">
+        Junte-se à Prometeus Association
+      </h3>
+      <p class="max-w-3xl mx-auto text-sm leading-relaxed mb-12 fadeInUp" style="animation-delay: 2.7s;">
+        Seja parte da revolução na tecnologia jurídica. Nossa associação oferece recursos exclusivos, networking com
+        especialistas do setor e acesso antecipado às inovações da Athena AI.
+      </p>
+      <button
+        class="bg-white text-purple-900 font-normal uppercase rounded-full px-8 py-3 hover:bg-gray-200 transition select-none fadeInUp inline-flex items-center justify-center mx-auto"
+        style="animation-delay: 2.9s;">
+        <i class="fas fa-rocket mr-3 animate-pulse"></i> PARTICIPE AGORA
+      </button>
+    </div>
+    <div aria-hidden="true"
+      class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20 w-64 h-64 rounded-full bg-purple-700 animate-pulse">
+    </div>
+    <div aria-hidden="true"
+      class="absolute bottom-0 right-10 opacity-10 w-48 h-48 rounded-full bg-purple-800 animate-pulse"></div>
+  </section>
+</body>
+
 </html>
